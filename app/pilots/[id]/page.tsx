@@ -189,7 +189,7 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
             <div className="mt-4 space-y-2">
               <Link href="/picker" className="block">
                 <Button variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-all duration-200">
-                  Find Similar Pilots →
+                  Ask AI for Recommendations →
                 </Button>
               </Link>
               <Link href="/pilots" className="block">

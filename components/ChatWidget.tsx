@@ -286,7 +286,7 @@ export function ChatWidget() {
                           </div>
 
                           {/* CTA */}
-                          <Link href={`/pilots/${scored.pilot.id}`}>
+                          <Link href={`/pilots/${scored.pilot.id}`} onClick={() => setOpen(false)}>
                             <Button variant="outline" size="sm" className="w-full mt-2 hover:bg-primary hover:text-primary-foreground transition-all duration-200">
                               View Full Details →
                             </Button>

@@ -7,16 +7,20 @@ A UI-only Next.js application showcasing 15 pilot project ideas across various s
 - 🏠 **Landing Page**: Overview with top 3 featured pilots and "Our 3 Asks"
 - 📋 **Pilots List**: Browse all 15 pilots with advanced filtering (sector, feasibility, risk, tags, search)
 - 📄 **Pilot Detail**: Comprehensive view of each pilot with problem, approach, KPIs, risks, and buy-vs-build analysis
-- 🤖 **Pilot Picker**: Mock chatbot interface for personalized pilot recommendations
+- 🤖 **AI Chat Widget**: RAG-powered chatbot with semantic search and GPT-4o-mini recommendations
+- 🔍 **Smart Search**: Cosine similarity + intelligent boosts (sector, tags, feasibility, risk)
 - 🌙 **Dark Mode**: Toggle between light and dark themes
 - 📱 **Responsive**: Mobile-friendly with collapsible sidebar and filter sheets
+- 💰 **$0 Infrastructure**: No vector DB - embeddings loaded in-memory on serverless functions
 
 ## Tech Stack
 
 - **Next.js 14** (App Router, TypeScript)
+- **OpenAI API** (text-embedding-3-small, gpt-4o-mini)
 - **Tailwind CSS** (with CSS variables for theming)
 - **Zod** (schema validation)
 - **shadcn/ui patterns** (locally implemented UI components)
+- **RAG (Retrieval-Augmented Generation)**: Minimal, serverless implementation
 
 ## Getting Started
 
@@ -29,6 +33,29 @@ A UI-only Next.js application showcasing 15 pilot project ideas across various s
 ```bash
 npm install
 ```
+
+### RAG Setup (Optional but Recommended)
+
+To enable AI-powered semantic search:
+
+1. **Add API Key**:
+   ```bash
+   echo "OPENAI_API_KEY=sk-your-key" > .env.local
+   ```
+
+2. **Generate Embeddings** (~$0.02 one-time cost):
+   ```bash
+   npm run generate-embeddings
+   ```
+
+3. **Start Dev Server**:
+   ```bash
+   npm run dev
+   ```
+
+**See**: `QUICK_START_RAG.md` for detailed instructions.
+
+Without RAG setup, the app automatically falls back to keyword search.
 
 ### Development
 
@@ -48,25 +75,36 @@ npm start
 ## Project Structure
 
 ```
-├── app/                    # Next.js app router pages
-│   ├── layout.tsx         # Root layout with sidebar + topbar
-│   ├── page.tsx           # Landing page
+├── app/
+│   ├── api/
+│   │   ├── search/route.ts    # RAG search endpoint (cosine similarity + boosts)
+│   │   └── answer/route.ts    # RAG answer endpoint (GPT-4o-mini)
+│   ├── layout.tsx             # Root layout with sidebar + topbar + chat widget
+│   ├── page.tsx               # Landing page
 │   ├── pilots/
-│   │   ├── page.tsx       # Pilots list with filters
-│   │   └── [id]/page.tsx  # Pilot detail page
+│   │   ├── page.tsx           # Pilots list with filters
+│   │   └── [id]/page.tsx      # Pilot detail page
 │   └── picker/
-│       └── page.tsx       # Pilot Picker chatbot UI
+│       └── page.tsx           # Pilot Picker chatbot UI
 ├── components/
-│   ├── ui/                # Reusable UI primitives (Button, Card, Input, etc.)
-│   ├── layout/            # Sidebar, Topbar
-│   ├── pilots/            # PilotCard, Filters, Metadata
-│   └── picker/            # ChatPanel, RecommendationList
+│   ├── ui/                    # Reusable UI primitives (Button, Card, Input, etc.)
+│   ├── layout/                # Sidebar, Topbar
+│   ├── pilots/                # PilotCard, Filters, Metadata
+│   ├── picker/                # ChatPanel, RecommendationList
+│   ├── chat/
+│   │   └── ChatProvider.tsx   # Chat state with RAG integration
+│   └── ChatWidget.tsx         # Floating chat bubble (bottom-right)
 ├── lib/
-│   ├── pilots.ts          # Types, filtering, scoring logic
-│   └── utils.ts           # Utility functions (cn)
+│   ├── pilots.ts              # Types, filtering, scoring logic
+│   ├── chat-logger.ts         # Chat query logging
+│   └── utils.ts               # Utility functions (cn)
 ├── data/
-│   └── pilots.json        # 15 pilot ideas with metadata
-└── public/                # Static assets
+│   ├── pilots.json            # 15 pilot ideas with metadata
+│   └── pilots-embeddings.json # Precomputed embeddings (commit to repo)
+├── scripts/
+│   └── generate-embeddings.ts # One-time script to create embeddings
+└── tests/
+    └── rag-queries.test.md    # Test queries for RAG validation
 ```
 
 ## Data Model
@@ -120,14 +158,32 @@ score = 0.6 * tagMatch + 0.2 * (feasibility === 'solo-90-day') + 0.2 * ((10 - wh
 ```
 Plus a small semantic bonus from mock embeddings.
 
+## RAG System
+
+### ✅ Implemented Features
+- ✅ Semantic search with OpenAI embeddings
+- ✅ Cosine similarity ranking
+- ✅ Intelligent boosts (sector, tags, feasibility, risk)
+- ✅ GPT-4o-mini powered recommendations
+- ✅ Server-side API routes (`/api/search`, `/api/answer`)
+- ✅ Graceful fallback to keyword search
+- ✅ No vector DB needed (embeddings in JSON)
+- ✅ Vercel-ready deployment
+
+**Cost**: ~$0.0011 per query (~$3.30/month for 100 queries/day)
+
+**Docs**:
+- Quick Start: `QUICK_START_RAG.md`
+- Full Guide: `RAG_SETUP.md`
+- Summary: `RAG_IMPLEMENTATION_SUMMARY.md`
+
 ## TODOs for Production
 
-### Real LLM/RAG Integration
-- [ ] Set up OpenAI/Anthropic API keys
-- [ ] Create `/api/picker/chat` route for server-side LLM calls
-- [ ] Implement embedding generation and vector DB (Pinecone, Weaviate)
+### RAG Enhancements
 - [ ] Add streaming responses for better UX
-- [ ] Error handling, rate limiting, token usage tracking
+- [ ] Implement rate limiting (per user/IP)
+- [ ] Token usage tracking and alerts
+- [ ] Fine-tune ranking boosts based on user feedback
 
 ### PDF Export
 - [ ] Integrate jsPDF or Puppeteer for pilot brief export
