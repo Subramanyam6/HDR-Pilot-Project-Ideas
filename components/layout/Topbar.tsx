@@ -10,7 +10,29 @@ import { ThemeSwitcher } from '@/components/theme-switcher';
 
 export function Topbar() {
   const pathname = usePathname();
+  const [mounted, setMounted] = React.useState(false);
   const showSearch = !pathname.startsWith('/pilots') && pathname !== '/';
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    // Return static version during SSR
+    return (
+      <header className="flex h-16 items-center justify-between border-b border-primary/20 px-6">
+        <div className="flex items-center gap-4">
+          <h1 className="md:hidden text-lg font-bold text-foreground">
+            HDR Pilot Ideas
+          </h1>
+        </div>
+        <div className="flex-1" />
+        <div className="flex items-center gap-2">
+          <div className="h-10 w-10" /> {/* Placeholder for theme switcher */}
+        </div>
+      </header>
+    );
+  }
 
   return (
     <header className="flex h-16 items-center justify-between border-b border-primary/20 px-6">

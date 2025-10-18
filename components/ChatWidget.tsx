@@ -55,9 +55,14 @@ export function ChatWidget() {
   const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const [input, setInput] = React.useState('');
+  const [mounted, setMounted] = React.useState(false);
   const { messages, recommendations, isProcessing, sendMessage } = useChat();
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
   const recommendationsTopRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -83,6 +88,11 @@ export function ChatWidget() {
   
   // Hide chat widget on /picker page
   if (pathname === '/picker') {
+    return null;
+  }
+
+  // Prevent hydration mismatch by not rendering until mounted
+  if (!mounted) {
     return null;
   }
 
