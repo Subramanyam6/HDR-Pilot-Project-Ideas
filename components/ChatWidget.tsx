@@ -15,17 +15,11 @@ import {
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { scorePilots, type ScoredPilot } from '@/lib/pilots';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
-
-export interface Message {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-}
+import { useChat } from '@/components/chat/ChatProvider';
+import type { ChatMessage } from '@/lib/chat-types';
 
 const ChatDialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -36,7 +30,7 @@ const ChatDialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed bottom-[5.5rem] right-4 z-50 flex h-[70vh] max-h-[85vh] w-[min(90vw,24rem)] sm:w-[min(90vw,28rem)] md:w-[min(90vw,36rem)] lg:w-[min(90vw,64rem)] xl:w-[min(80vw,72rem)] flex-col overflow-hidden rounded-2xl border border-primary/10 bg-background p-0 shadow-2xl',
+        'fixed bottom-[5.5rem] right-2 sm:right-4 z-50 flex h-[75vh] sm:h-[70vh] max-h-[85vh] w-[calc(100vw-1rem)] sm:w-[min(90vw,28rem)] md:w-[min(85vw,36rem)] lg:w-[min(85vw,64rem)] xl:w-[min(80vw,72rem)] flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-primary/10 bg-background p-0 shadow-2xl',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:slide-in-from-bottom-2 data-[state=closed]:slide-out-to-bottom-2',
         className
       )}
@@ -49,17 +43,10 @@ const ChatDialogContent = React.forwardRef<
 ChatDialogContent.displayName = 'ChatDialogContent';
 
 export function ChatWidget() {
-  const [mounted, setMounted] = React.useState(false);
   const [open, setOpen] = React.useState(false);
-  const [messages, setMessages] = React.useState<Message[]>([]);
-  const [recommendations, setRecommendations] = React.useState<ScoredPilot[]>([]);
-  const [isProcessing, setIsProcessing] = React.useState(false);
   const [input, setInput] = React.useState('');
+  const { messages, recommendations, isProcessing, sendMessage } = useChat();
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -69,92 +56,35 @@ export function ChatWidget() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSendMessage = async (content: string) => {
-    try {
-      // Add user message
-      const userMessage: Message = {
-        id: Date.now().toString(),
-        role: 'user',
-        content,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, userMessage]);
-      setIsProcessing(true);
+  const handleSendMessage = React.useCallback(
+    async (content: string) => {
+      await sendMessage(content, 'chat-widget');
+    },
+    [sendMessage]
+  );
 
-      // Simulate processing delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Mock assistant response
-      const scored = scorePilots(content);
-      const topN = scored.slice(0, 3);
-
-      let assistantContent = `Based on your request, here are my top recommendations:\n\n`;
-      topN.forEach((sp, idx) => {
-        assistantContent += `${idx + 1}. **${sp.pilot.title}**\n`;
-        assistantContent += `   Match: ${Math.round(sp.score * 100)}%\n`;
-        if (sp.reasons.length > 0) {
-          assistantContent += `   Why: ${sp.reasons[0]}\n`;
-        }
-        assistantContent += `\n`;
-      });
-
-      assistantContent += `See the recommended pilots in the right panel for full details.`;
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: assistantContent,
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-      setRecommendations(topN);
-    } catch (error) {
-      console.error('Error processing message:', error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: 'Sorry, I encountered an error processing your request. Please try again.',
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (input.trim() && !isProcessing) {
-      handleSendMessage(input.trim());
+      const trimmed = input.trim();
       setInput('');
+      await handleSendMessage(trimmed);
     }
   };
 
   return (
-    <>
-      {!mounted ? (
+    <Dialog open={open} onOpenChange={setOpen} modal={false}>
+      <DialogTrigger asChild>
         <Button
           variant="outline"
           size="icon"
+          data-chat-trigger
           className="fixed bottom-4 right-4 rounded-full shadow-lg hover:shadow-xl transition-shadow z-50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
           aria-label="Open chat"
         >
           <MessageCircle className="h-5 w-5" />
         </Button>
-      ) : (
-        <Dialog open={open} onOpenChange={setOpen} modal={false}>
-          <DialogTrigger asChild>
-            <Button
-              variant="outline"
-              size="icon"
-              data-chat-trigger
-              className="fixed bottom-4 right-4 rounded-full shadow-lg hover:shadow-xl transition-shadow z-50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              aria-label="Open chat"
-            >
-              <MessageCircle className="h-5 w-5" />
-            </Button>
-          </DialogTrigger>
+      </DialogTrigger>
       <ChatDialogContent
         onPointerDownOutside={(event) => {
           const target = event.target as HTMLElement | null;
@@ -183,100 +113,99 @@ export function ChatWidget() {
           </div>
         </DialogHeader>
 
-        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden">
-          {/* Chat panel - Left side */}
-          <div className="flex-1 border-r flex flex-col">
-            <div className="border-b p-6 bg-gradient-to-r from-primary/5 to-accent/5">
+        <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
+          {/* Chat panel - Full width on small, left side on large */}
+          <div className="flex-1 lg:border-r flex flex-col min-h-0">
+            <div className="border-b p-3 sm:p-4 md:p-6 bg-gradient-to-r from-primary/5 to-accent/5 flex-shrink-0">
               <div className="text-center">
-                <h2 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-1 sm:mb-2">
                   Ask Me Anything
                 </h2>
-                <p className="text-muted-foreground text-sm">
+                <p className="text-muted-foreground text-xs sm:text-sm hidden sm:block">
                   I&apos;m your AI assistant for pilot recommendations. Ask me anything about pilot projects!
                 </p>
               </div>
             </div>
             
-            <div className="flex-1 overflow-hidden">
-              <div className="flex flex-col h-full">
-                <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                  {messages.length === 0 ? (
-                    <div className="flex items-center justify-center h-full text-center text-muted-foreground p-8">
-                      <div className="max-w-md">
-                        <div className="space-y-2">
-                          <p className="text-xs font-medium text-muted-foreground mb-3">Try asking:</p>
-                          <div className="text-xs space-y-1">
-                            <p className="bg-accent/20 px-3 py-2 rounded-lg">&quot;What&apos;s a low-risk pilot I can build solo?&quot;</p>
-                            <p className="bg-accent/20 px-3 py-2 rounded-lg">&quot;Show me energy sector pilots&quot;</p>
-                            <p className="bg-accent/20 px-3 py-2 rounded-lg">&quot;I need something for carbon tracking&quot;</p>
-                          </div>
+            <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
+              <div className="flex-1 min-h-0 overflow-y-auto p-2 sm:p-3 md:p-4 space-y-2 sm:space-y-3 md:space-y-4">
+                {messages.length === 0 ? (
+                  <div className="flex items-center justify-center h-full text-center text-muted-foreground p-4 sm:p-6 md:p-8">
+                    <div className="max-w-md w-full">
+                      <div className="space-y-2">
+                        <p className="text-xs font-medium text-muted-foreground mb-2 sm:mb-3">Try asking:</p>
+                        <div className="text-xs space-y-1">
+                          <p className="bg-accent/20 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg">&quot;What&apos;s a low-risk pilot I can build solo?&quot;</p>
+                          <p className="bg-accent/20 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg">&quot;Show me energy sector pilots&quot;</p>
+                          <p className="bg-accent/20 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg">&quot;I need something for carbon tracking&quot;</p>
                         </div>
                       </div>
                     </div>
-                  ) : (
-                    <>
-                      {messages.map((message) => (
-                        <div
-                          key={message.id}
-                          className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                        >
-                          <Card
-                            className={`max-w-[80%] p-4 shadow-md ${
-                              message.role === 'user'
-                                ? 'bg-gradient-to-br from-primary to-accent text-primary-foreground'
-                                : 'bg-card border-primary/20'
-                            }`}
-                          >
-                            <div className="text-sm whitespace-pre-wrap">{message.content}</div>
-                            <div className="text-xs mt-2 opacity-70">
-                              {message.timestamp.toLocaleTimeString()}
-                            </div>
-                          </Card>
-                        </div>
-                      ))}
-                      {isProcessing && (
-                        <div className="flex justify-start">
-                          <Card className="max-w-[80%] p-4 bg-card">
-                            <div className="flex items-center gap-2">
-                              <div className="animate-pulse">Thinking...</div>
-                            </div>
-                          </Card>
-                        </div>
-                      )}
-                      <div ref={messagesEndRef} />
-                    </>
-                  )}
-                </div>
-
-                <form onSubmit={handleSubmit} className="border-t p-4 bg-background">
-                  <div className="flex gap-2">
-                    <Textarea
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      className="flex-1 min-h-[60px] resize-none"
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' && !e.shiftKey) {
-                          e.preventDefault();
-                          handleSubmit(e);
-                        }
-                      }}
-                      disabled={isProcessing}
-                      aria-label="Chat input"
-                    />
-                    <Button type="submit" disabled={!input.trim() || isProcessing}>
-                      Send
-                    </Button>
                   </div>
-                  <p className="text-xs text-muted-foreground mt-2">
-                    Press Enter to send, Shift+Enter for new line
-                  </p>
-                </form>
+                ) : (
+                  <>
+                      {messages.map((message: ChatMessage) => (
+                      <div
+                        key={message.id}
+                        className={`flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                      >
+                        <Card
+                          className={`max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 md:p-4 shadow-md ${
+                            message.role === 'user'
+                              ? 'bg-gradient-to-br from-primary to-accent text-primary-foreground'
+                              : 'bg-card border-primary/20'
+                          }`}
+                        >
+                          <div className="text-xs sm:text-sm whitespace-pre-wrap break-words">{message.content}</div>
+                          <div className="text-[10px] sm:text-xs mt-1 sm:mt-2 opacity-70">
+                            {message.timestamp.toLocaleTimeString()}
+                          </div>
+                        </Card>
+                      </div>
+                    ))}
+                    {isProcessing && (
+                      <div className="flex justify-start">
+                        <Card className="max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 md:p-4 bg-card">
+                          <div className="flex items-center gap-2">
+                            <div className="animate-pulse text-xs sm:text-sm">Thinking...</div>
+                          </div>
+                        </Card>
+                      </div>
+                    )}
+                    <div ref={messagesEndRef} />
+                  </>
+                )}
               </div>
+
+              <form onSubmit={handleSubmit} className="border-t p-2 sm:p-3 md:p-4 bg-background flex-shrink-0">
+                <div className="flex gap-1.5 sm:gap-2">
+                  <Textarea
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    placeholder="Ask me anything..."
+                    className="flex-1 min-h-[50px] sm:min-h-[60px] resize-none text-xs sm:text-sm"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSubmit(e);
+                      }
+                    }}
+                    disabled={isProcessing}
+                    aria-label="Chat input"
+                  />
+                  <Button type="submit" disabled={!input.trim() || isProcessing} size="sm" className="sm:size-default">
+                    Send
+                  </Button>
+                </div>
+                <p className="text-[10px] sm:text-xs text-muted-foreground mt-1 sm:mt-2 hidden sm:block">
+                  Press Enter to send, Shift+Enter for new line
+                </p>
+              </form>
             </div>
           </div>
 
-          {/* Recommendations panel - Right side */}
-          <div className="lg:w-96 xl:w-[28rem] bg-card border-l flex-shrink-0 overflow-y-auto flex flex-col">
+          {/* Recommendations panel - Hidden on small screens, right side on large */}
+          <div className="hidden lg:flex lg:w-96 xl:w-[28rem] bg-card border-l flex-shrink-0 overflow-y-auto flex-col min-h-0">
             {recommendations.length === 0 ? (
               <div className="flex flex-1 items-center justify-center text-center text-muted-foreground p-8">
                 <div className="space-y-2 max-w-sm mx-auto">
@@ -369,11 +298,9 @@ export function ChatWidget() {
                 </div>
               </div>
             )}
-            </div>
           </div>
-        </ChatDialogContent>
-        </Dialog>
-      )}
-    </>
+        </div>
+      </ChatDialogContent>
+    </Dialog>
   );
 }

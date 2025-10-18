@@ -1,273 +1,724 @@
 [
   {
+    "id": "greenlight-traffic-optimizer",
+    "title": "GreenLight Traffic Signal Optimizer",
+    "sector": "Transportation",
+    "tags": [
+      "adaptive-signals",
+      "traffic",
+      "signal-timing",
+      "corridor-optimization",
+      "emissions",
+      "V2I",
+      "arterial"
+    ],
+    "oneLiner": "Use AI to dynamically optimize traffic light timings across intersections to reduce congestion and emissions",
+    "stack": [
+      "Python",
+      "FastAPI",
+      "PyTorch",
+      "SUMO",
+      "PostgreSQL",
+      "Kafka"
+    ],
+    "kpis": [
+      "25% reduction in intersection delays",
+      "Lower vehicle idle time",
+      "Improved travel time reliability"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 5,
+    "problem": "City traffic signals often operate on fixed schedules that fail to adapt to real-time conditions. This leads to unnecessary congestion, longer travel times, and higher emissions as vehicles idle at red lights.",
+    "approach": "Deploy an AI-driven system that ingests live traffic data (cameras, sensors) and optimizes signal timing in real-time. Use machine learning to adapt to patterns throughout the day. Start with one corridor of connected intersections as a pilot and measure improvements in flow and emissions.",
+    "oneWeek": "Scope Sprint: Collect baseline traffic data for a busy intersection corridor. Simulate traffic with existing timings vs. optimized timing in software (e.g., SUMO simulator). Develop a simple ML model that adjusts one intersection’s timing based on flow.",
+    "ninetyDay": "Deploy a prototype on a small network of intersections. Integrate with traffic controller hardware or simulator. Implement a dashboard to monitor live traffic conditions and signal states. Demonstrate reduced average wait times and coordinate with city traffic engineers for feedback.",
+    "risks": [
+      "Integration with legacy signal hardware",
+      "Unexpected traffic patterns causing suboptimal AI decisions",
+      "Safety and compliance with traffic regulations"
+    ],
+    "buyVsBuild": "Consider: Surtrac (CMU spinoff) or Miovision for adaptive signals. These are proven but costly. Build if needing a tailored solution for specific city conditions or to integrate with custom traffic management systems.",
+    "emb": [
+      0.6,
+      0.4,
+      0.5,
+      0.2,
+      0.7,
+      0.4,
+      0.2,
+      0.2
+    ]
+  },
+  {
+    "id": "voltspot-ev-planner",
+    "title": "VoltSpot EV Charging Planner",
+    "sector": "Transportation",
+    "tags": [
+      "EV",
+      "GIS",
+      "planning",
+      "grid-capacity",
+      "equity",
+      "utilization"
+    ],
+    "oneLiner": "Map-based tool to identify optimal locations for new EV charging stations using traffic, grid capacity and demographic data",
+    "stack": [
+      "Next.js",
+      "PostgreSQL/PostGIS",
+      "Mapbox GL",
+      "Python",
+      "Turf.js"
+    ],
+    "kpis": [
+      "50% faster site planning",
+      "Higher charger utilization rates",
+      "Coverage gaps identified and reduced"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 4,
+    "problem": "Transportation agencies and utilities need to rapidly expand EV charging networks but struggle to decide where stations will be most effective. Planners must manually combine traffic patterns, electric grid data, and community needs, which is time-consuming and prone to oversight.",
+    "approach": "Build a web application that layers relevant datasets on an interactive map. Include traffic volumes, current EV ownership, power grid capacity, and points of interest. Implement an algorithm to score potential sites based on criteria like demand and infrastructure readiness. The tool will output top recommended locations and allow planners to adjust assumptions.",
+    "oneWeek": "Scope Sprint: Gather open data for one city (traffic counts, existing chargers, population). Create a basic map UI with Mapbox showing current charger locations and overlay traffic density. Outline scoring criteria for site selection.",
+    "ninetyDay": "Develop data ingests for multiple datasets (grid substation locations, demographics, etc.). Implement the scoring algorithm and visualization of high-potential areas. Add CSV import for custom data. Pilot the tool with a city planning team to refine recommendations and interface usability.",
+    "risks": [
+      "Data availability and accuracy (especially grid data)",
+      "Weighting criteria appropriately in the algorithm",
+      "Stakeholder buy-in on suggested sites"
+    ],
+    "buyVsBuild": "Consider: using existing GIS planning tools or consulting reports for EV infrastructure. However, those can be static or generic. Build for a customizable, interactive tool tailored to specific regional data and to update as conditions change.",
+    "emb": [
+      0.8,
+      0.9,
+      0.6,
+      0.2,
+      0.9,
+      0.6,
+      0.4,
+      0.5
+    ]
+  },
+  {
+    "id": "pavewatch-road-monitor",
+    "title": "PaveWatch Road Condition Monitor",
+    "sector": "Transportation",
+    "tags": [
+      "pavement",
+      "telemetry",
+      "asset-management",
+      "roads",
+      "anomaly-detection"
+    ],
+    "oneLiner": "Collect and analyze road condition data via sensors and vehicles to predict maintenance needs and improve safety",
+    "stack": [
+      "Python",
+      "AWS IoT Core",
+      "AWS Lambda",
+      "Amazon S3",
+      "DynamoDB"
+    ],
+    "kpis": [
+      "20% reduction in inspection costs",
+      "Earlier pothole detection (by 1 month)",
+      "Lower vehicle damage claims"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 5,
+    "problem": "Roadway maintenance is often reactive, relying on periodic inspections or public complaints to find potholes and cracks. This reactive approach can lead to worsening damage and higher repair costs. A proactive system is needed to continuously monitor pavement health and flag issues early.",
+    "approach": "Deploy accelerometer and vibration sensors on fleet vehicles or dedicated IoT devices on road segments to capture real-time condition data. Transmit data to a cloud platform for analysis of roughness and anomalies. Use machine learning to identify patterns that indicate developing potholes or structural issues, allowing maintenance crews to intervene sooner.",
+    "oneWeek": "Scope Sprint: Instrument one vehicle with a smartphone or sensor to collect road vibration data on a known route. Develop a simple script to identify spikes in vibration (potential potholes) and map those locations. Validate findings against actual road conditions.",
+    "ninetyDay": "Scale up to a small fleet or multiple road sections. Build a cloud data pipeline with AWS IoT for real-time data ingestion. Implement a dashboard (Power BI or web) highlighting road condition indices and hot spots. Integrate a scheduling feature to notify maintenance teams when certain thresholds are exceeded, demonstrating a closed-loop system.",
+    "risks": [
+      "Data noise from vehicle types and driving behavior",
+      "Sensor maintenance and durability on vehicles/road",
+      "Integration with existing asset management systems"
+    ],
+    "buyVsBuild": "Consider: commercial offerings like RoadBotics (AI-based road assessment via smartphone video) or StreetScan. These provide turn-key road surveys. Build if an ongoing, in-house monitoring network is preferred for continuous data and integration with local operations.",
+    "emb": [
+      0.3,
+      1.0,
+      0.9,
+      0.8,
+      0.0,
+      0.8,
+      0.6,
+      0.6
+    ]
+  },
+  {
+    "id": "aquawatch-quality-network",
+    "title": "AquaWatch Water Quality Network",
+    "sector": "Water",
+    "tags": [
+      "water-quality",
+      "real-time",
+      "SCADA",
+      "alerts",
+      "compliance"
+    ],
+    "oneLiner": "Real-time water quality monitoring system using IoT sensors for early contamination detection and alerts",
+    "stack": [
+      "Python",
+      "Azure IoT Hub",
+      "InfluxDB",
+      "Grafana"
+    ],
+    "kpis": [
+      "Continuous monitoring (vs weekly manual tests)",
+      "Alerts triggered within minutes of threshold breach",
+      "Improved compliance reporting efficiency"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 4,
+    "problem": "Utilities and environmental agencies rely on periodic manual water sampling, which can miss sudden contamination events. Delayed detection of water quality issues can pose health risks and incur regulatory penalties. A faster, automated monitoring approach is needed to ensure water safety.",
+    "approach": "Deploy a network of IoT sensor stations at critical points (e.g., treatment plant output, distribution nodes, watershed inflows). Each station measures parameters like pH, turbidity, and chemical contaminants, sending data to a central cloud platform in real-time. The platform visualizes trends and triggers alerts when readings exceed safe thresholds, allowing immediate response.",
+    "oneWeek": "Scope Sprint: Set up a prototype sensor (Raspberry Pi + basic water quality sensor) in the lab. Stream data to an Azure IoT instance. Create a simple Grafana dashboard showing live pH and turbidity readings. Simulate an anomaly to test alert generation.",
+    "ninetyDay": "Roll out 3-5 pilot sensor units in the field (e.g., at a water utility). Develop a full dashboard with location maps and historical trend charts for each sensor. Implement alert notifications via email/SMS for threshold breaches. Work with water quality engineers to calibrate sensor accuracy and validate the system against manual lab results.",
+    "risks": [
+      "Sensor calibration drift over time",
+      "Power and connectivity issues at remote sites",
+      "Handling large data volumes and false-positive alerts"
+    ],
+    "buyVsBuild": "Consider: off-the-shelf solutions like Libelium's Smart Water IoT kit or Hach's remote monitoring systems, which provide hardware and software but may be expensive or inflexible. Build to customize sensor types and integrate with existing SCADA or reporting tools at lower cost.",
+    "emb": [
+      0.7,
+      0.9,
+      0.3,
+      0.4,
+      0.1,
+      0.7,
+      0.4,
+      0.5
+    ]
+  },
+  {
+    "id": "hydrocast-flood-predictor",
+    "title": "HydroCast Flood Predictor",
+    "sector": "Water",
+    "tags": [
+      "flood-forecasting",
+      "hydrology",
+      "inundation",
+      "early-warning",
+      "climate-risk",
+      "DEM"
+    ],
+    "oneLiner": "Predicts flood extents and risk levels using weather forecasts and hydrological modeling to improve emergency preparedness",
+    "stack": [
+      "Python",
+      "TensorFlow",
+      "xarray",
+      "PostGIS",
+      "Leaflet",
+      "NOAA/NWS APIs"
+    ],
+    "kpis": [
+      "Improved flood warning lead time (e.g. +48 hours)",
+      "High-risk zones identified with >90% accuracy",
+      "Emergency response planning time reduced"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 6,
+    "problem": "Communities face increasing flood risks due to climate change, but existing flood maps are static and forecasts often lack localized detail. Emergency managers need better predictive tools to anticipate where flooding will occur and how severe it will be, so they can allocate resources and issue warnings effectively.",
+    "approach": "Combine real-time rainfall forecasts with terrain and river data to simulate potential flood events. Develop an AI model trained on historical flood data to refine predictions of flood extent. Present results on an interactive map showing predicted inundation areas, depths, and timelines. The tool will allow scenario planning (e.g., what-if analysis for different rainfall intensities) for emergency preparedness.",
+    "oneWeek": "Scope Sprint: Choose a pilot area (e.g., one river basin or city). Gather elevation data (DEM) and past flood records for that area. Set up a basic hydrologic model or use a simple runoff calculation to estimate flood extent for a known storm. Display this on a Leaflet map as a proof of concept.",
+    "ninetyDay": "Integrate live weather forecast APIs. Train a TensorFlow model on historical storm-to-flood outcomes to improve prediction accuracy for the pilot area. Develop the web interface with Leaflet to dynamically display flood risk zones and depth color-coding. Work with local emergency management to test the predictions against minor events and refine the alert thresholds and visualization for clarity.",
+    "risks": [
+      "Accuracy of models for extreme events",
+      "Uncertainty in weather forecasts propagating to predictions",
+      "Liability concerns if predictions are used for public warnings"
+    ],
+    "buyVsBuild": "Consider: established flood modeling software (HEC-RAS, FEMA tools) for rigorous analysis. These require expertise and time for each scenario. Build if aiming for a quicker, automated predictor that can update with real-time data, at the expense of some precision but offering speed and customization (especially useful for localized applications).",
+    "emb": [
+      0.5,
+      1.0,
+      0.8,
+      0.3,
+      0.8,
+      1.0,
+      0.5,
+      0.4
+    ]
+  },
+  {
+    "id": "pipepulse-maintenance",
+    "title": "PipePulse Predictive Maintenance",
+    "sector": "Water",
+    "tags": [
+      "SCADA",
+      "predictive-maintenance",
+      "failure-risk",
+      "condition-based",
+      "water-utilities",
+      "asset-health"
+    ],
+    "oneLiner": "Predictive maintenance platform for water infrastructure using sensor data and analytics to prevent pipeline and equipment failures",
+    "stack": [
+      "Python",
+      "scikit-learn",
+      "Apache Airflow",
+      "MQTT",
+      "MySQL",
+      "Dash"
+    ],
+    "kpis": [
+      "30% reduction in unplanned outages",
+      "Increased asset life by 15%",
+      "Maintenance labor efficiency improved"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 5,
+    "problem": "Water utilities manage extensive networks of pipes, pumps, and valves with limited resources. Unexpected failures (main breaks, pump outages) cause service disruptions and costly emergency repairs. Currently, maintenance is often schedule-based rather than condition-based, leading to inefficient use of resources.",
+    "approach": "Implement a predictive maintenance system that collects data from existing SCADA sensors (pressure, flow, vibration) and maintenance logs. Use machine learning to identify patterns that precede failures (e.g., pressure drops, vibration spikes) and assign a health score or remaining life estimate to each asset. Provide a dashboard for maintenance planners highlighting high-risk assets and optimal maintenance timing to fix issues before they fail.",
+    "oneWeek": "Scope Sprint: Focus on one critical pump or pipeline section. Compile historical sensor readings and failure records for that asset. Develop a simple model to correlate sensor anomalies with past failures. Create a basic visualization of this asset’s condition over time and any warning signs before failure.",
+    "ninetyDay": "Extend to multiple assets. Build a data pipeline to continuously ingest sensor data into a MySQL database. Train and validate ML models (scikit-learn) for different asset types (pumps, pipes). Develop a Dash web app for utility staff showing asset health dashboards, a map of infrastructure with color-coded risk levels, and recommended maintenance schedules. Pilot with a maintenance team to refine the alert thresholds and integrate feedback.",
+    "risks": [
+      "Data quality and availability (many older assets lack sensors)",
+      "False positives/negatives in predictions affecting trust",
+      "Integration with existing maintenance management systems (CMMS)"
+    ],
+    "buyVsBuild": "Consider: large EAM (Enterprise Asset Management) systems like IBM Maximo or specialized water asset platforms which offer predictive modules. These can be expensive and complex. Build if targeting a lightweight, focused solution that can integrate with the utility’s specific data and be iteratively improved with domain expertise.",
+    "emb": [
+      0.3,
+      0.8,
+      0.3,
+      0.4,
+      0.5,
+      0.3,
+      0.1,
+      0.8
+    ]
+  },
+  {
+    "id": "gridsense-microgrid-optimizer",
+    "title": "GridSense Microgrid Optimizer",
+    "sector": "Energy",
+    "tags": [
+      "microgrid",
+      "optimization",
+      "DERMS",
+      "battery",
+      "peak-shaving",
+      "tariff-modeling",
+      "reliability"
+    ],
+    "oneLiner": "AI-driven control platform for microgrids to balance solar, battery, and grid power, optimizing cost and reliability",
+    "stack": [
+      "Python",
+      "Pyomo",
+      "TensorFlow",
+      "TimescaleDB",
+      "Node.js"
+    ],
+    "kpis": [
+      "15% energy cost savings achieved",
+      "Higher renewable utilization (up to 80% solar use)",
+      "Reduced peak grid demand by 25%"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 6,
+    "problem": "Facilities with solar panels and battery storage struggle to manually decide when to use stored energy versus grid power, especially with variable rates and intermittent generation. Suboptimal decisions can lead to higher costs or reliability issues. A smarter system is needed to automate energy management in real-time.",
+    "approach": "Develop an AI controller that continuously monitors solar output, battery levels, load demand, and electricity prices. Using predictive algorithms (e.g., forecasting next hour’s solar generation and usage), it decides optimal charge/discharge schedules and grid usage. The system can send control signals to the battery inverter and other controllable loads. A web dashboard will show performance, savings, and allow overrides or mode changes by facility managers.",
+    "oneWeek": "Scope Sprint: Model a simple scenario in code (e.g., one day of solar production vs load) and implement a rule-based optimizer. Show potential savings on historical data for a small commercial facility with a given solar/battery setup. Outline the AI approach (reinforcement learning or predictive control) to improve upon the rule-based strategy.",
+    "ninetyDay": "Implement the AI optimization module using TensorFlow (or another ML framework) to learn from data and adjust control policies. Connect to a simulated or actual microgrid controller via Node.js backend and AWS Lambda for event-driven control actions. Test in a lab environment or simulation, demonstrating automatic cost-saving decisions (like peak shaving, shifting to battery during high tariff periods). Develop the UI for monitoring real-time status and override controls.",
+    "risks": [
+      "Unforeseen edge cases leading to power outages or equipment stress",
+      "Model accuracy for predictions (weather, load) affects performance",
+      "Cybersecurity of automated control signals"
+    ],
+    "buyVsBuild": "Consider: existing microgrid controllers from companies like Schneider or Siemens that offer optimization. Those are reliable but may not leverage cutting-edge AI or specific site customization. Build if the project requires a tailored approach or to integrate with unique site conditions and to avoid vendor lock-in.",
+    "emb": [
+      0.5,
+      0.1,
+      1.0,
+      0.1,
+      0.5,
+      0.1,
+      1.0,
+      0.6
+    ]
+  },
+  {
+    "id": "ecoaudit-ai-advisor",
+    "title": "EcoAudit AI Advisor",
+    "sector": "Energy",
+    "tags": [
+      "energy-audit",
+      "benchmarking",
+      "retrofit",
+      "anomaly-detection",
+      "savings-estimator"
+    ],
+    "oneLiner": "AI-powered system that analyzes building energy usage patterns and recommends efficiency improvements and retrofits",
+    "stack": [
+      "Python",
+      "Pandas",
+      "scikit-learn",
+      "React",
+      "Plotly"
+    ],
+    "kpis": [
+      "Identified 20% average energy savings per audit",
+      "Auditing process time reduced by 40%",
+      "Customized retrofit recommendations generated"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 4,
+    "problem": "Manual energy audits require substantial time from experts to comb through utility data, building information, and identify inefficiencies. This limits how many buildings can be audited and may miss subtle patterns. An automated assistant could rapidly analyze data and suggest improvements, augmenting the experts’ capabilities.",
+    "approach": "Develop an AI assistant that takes in building data: smart meter readings, HVAC schedules, insulation levels, etc. Use machine learning to detect anomalies (like unusually high nighttime consumption) and compare performance against benchmarks or simulation models. The system then outputs a report of recommended actions (for example, \"upgrade lighting to LED\" or \"adjust thermostat settings after hours\") with estimated savings. The interface allows an energy engineer to input building specifics and get preliminary recommendations, accelerating the audit process.",
+    "oneWeek": "Scope Sprint: Collect sample data from one building (e.g., a small office) including hourly energy usage and basic building info. Implement a simple rule-based analysis (if usage after 10pm is above X, flag HVAC schedule issue). Generate a mock report to illustrate recommendations. Identify data points needed for more advanced analysis.",
+    "ninetyDay": "Integrate multiple data sources (e.g., weather, occupancy) for context. Train ML models to classify usage patterns and predict potential savings from various interventions. Build the React frontend for users to upload data (CSV or via API integration with smart meters) and view the generated audit report. Validate recommendations against a professional auditor’s assessment on a pilot building, refining accuracy and usefulness. Prepare case study results showing time saved and recommendations quality.",
+    "risks": [
+      "Limited data availability or quality for older buildings",
+      "Recommendations might not account for all real-world constraints, leading to skepticism",
+      "Need to regularly update models as building usage patterns change"
+    ],
+    "buyVsBuild": "Consider: existing energy management software (e.g., EnergyStar Portfolio Manager or commercial tools like SkySpark, BuildingIQ) for tracking usage. Those provide data views but often lack automated recommendation engines. Build if aiming for a proprietary AI that differentiates HDR’s audit services or integrates deeply with our project data and provides a unique selling point to clients.",
+    "emb": [
+      0.1,
+      0.7,
+      0.7,
+      0.9,
+      0.4,
+      0.6,
+      0.1,
+      0.7
+    ]
+  },
+  {
+    "id": "renewsite-planner",
+    "title": "RenewSite Planner",
+    "sector": "Energy",
+    "tags": [
+      "siting",
+      "solar",
+      "wind",
+      "interconnection",
+      "suitability",
+      "financial-model"
+    ],
+    "oneLiner": "Interactive GIS tool to evaluate potential solar/wind farm sites, calculating energy output and financial return for each location",
+    "stack": [
+      "Next.js",
+      "Mapbox GL",
+      "PostgreSQL/PostGIS",
+      "Python",
+      "NREL APIs"
+    ],
+    "kpis": [
+      "Site analysis time cut by 50%",
+      "Increased proposal success rate with data-backed site selection",
+      "Accurate energy yield estimates (±5%)"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 4,
+    "problem": "Developers and engineers must assess numerous factors when choosing sites for renewable energy projects: resource availability (sun, wind), land suitability, grid access, and financial incentives. Doing this analysis manually for each potential site is slow and may result in suboptimal choices or missed opportunities, especially under tight proposal deadlines.",
+    "approach": "Build a web-based mapping application where users can draw or select a site and immediately get an analysis. Integrate data layers such as solar irradiance maps, wind speed data, land use/parcel info, distance to nearest grid interconnection, and available incentives by region. The backend uses these inputs to estimate potential energy output (using models like NREL’s PVWatts for solar) and calculates an expected financial model (CAPEX, OPEX, payback period). The result is a ranked list of sites or a detailed report for a chosen site to support decision-making and client proposals.",
+    "oneWeek": "Scope Sprint: Assemble key datasets for one region (e.g., solar irradiance and land use for a specific state). Create a simple map with Mapbox allowing selection of a test site polygon. Manually run a PVWatts calculation for that site to demonstrate energy yield output. Sketch out the financial model assumptions (cost per MW, etc.).",
+    "ninetyDay": "Implement automated data retrieval for any user-selected location (e.g., query a solar API for irradiance and a wind database for speeds). Complete the financial calculations within the app, allowing the user to adjust parameters like system size or cost assumptions. Ensure the PostGIS/PostgreSQL database efficiently stores spatial data and query results for reuse. Add an export function to generate a summary report. Beta test with a renewable energy team on a few prospective sites and refine accuracy of predictions and usability of the interface.",
+    "risks": [
+      "Data resolution or errors could mislead site selection",
+      "Rapid changes in incentives or energy prices require frequent updates",
+      "Users may need training to interpret results correctly"
+    ],
+    "buyVsBuild": "Consider: NREL’s tools (e.g., REopt and PVWatts) which provide underlying calculations but not a full decision platform; also GIS systems like ArcGIS have some analysis capabilities. If those prove insufficient or not integrated, building a unified tool allows HDR to quickly iterate features and own the IP for a competitive edge in renewable consulting.",
+    "emb": [
+      0.7,
+      0.8,
+      0.1,
+      0.0,
+      0.9,
+      0.5,
+      0.8,
+      0.4
+    ]
+  },
+  {
+    "id": "spacesense-occupancy",
+    "title": "SpaceSense Occupancy Analytics",
+    "sector": "Buildings",
+    "tags": [
+      "occupancy",
+      "HVAC-optimization",
+      "BMS",
+      "privacy",
+      "utilization-analytics"
+    ],
+    "oneLiner": "Platform that tracks and analyzes building occupancy in real-time to optimize space utilization and HVAC energy use",
+    "stack": [
+      "Node.js",
+      "MQTT",
+      "InfluxDB",
+      "Grafana",
+      "BACnet"
+    ],
+    "kpis": [
+      "Real-time occupancy tracking implemented",
+      "Office space utilization improved by 20%",
+      "HVAC runtime reduced by 15% during off-hours"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 4,
+    "problem": "Many offices and facilities waste energy conditioning or lighting unoccupied spaces, and organizations often lease more space than needed because they lack data on actual usage. Without real-time occupancy insights, it's hard to make informed decisions about space planning and energy management.",
+    "approach": "Set up motion sensors, badge readers, or Wi-Fi analytics to collect occupancy data for different zones in a building. Stream this data via MQTT to a central database. The platform visualizes current occupancy on floor maps and analyzes historical trends. It can trigger HVAC or lighting adjustments (e.g., turn off AC in empty areas) through integration with building management systems. The data also helps facility managers identify underutilized spaces and consolidate or reassign areas, leading to cost savings.",
+    "oneWeek": "Scope Sprint: Instrument one conference room with a simple occupancy sensor. Connect the sensor data to a PostgreSQL database through an MQTT broker. Build a Grafana dashboard that shows when the room is occupied in real-time and logs daily utilization hours. Use this as a demo to gather requirements from facility stakeholders.",
+    "ninetyDay": "Expand the deployment to a whole floor or small building. Implement a user-friendly web interface for live floorplan views of occupancy. Integrate with HVAC controls (perhaps via an API or BACnet gateway) to automatically adjust settings based on occupancy rules. Conduct a pilot test over a month to measure energy savings and get feedback from facility managers on the space usage insights. Iterate on sensor calibration and data accuracy as needed.",
+    "risks": [
+      "Privacy concerns with monitoring occupancy",
+      "Sensor inaccuracies or failures leading to wrong automation triggers",
+      "Integration challenges with existing Building Management Systems"
+    ],
+    "buyVsBuild": "Consider: commercial occupancy analytics solutions like VergeSense or Density, which offer hardware and analytics but could be costly at scale. Build if leveraging existing sensors (badge data, Wi-Fi) and for a tailored analytics approach that integrates with HDR’s specific building systems or client facilities on a budget.",
+    "emb": [
+      0.7,
+      1.0,
+      0.7,
+      0.7,
+      0.3,
+      0.8,
+      0.7,
+      0.9
+    ]
+  },
+  {
+    "id": "twinview-facility-manager",
+    "title": "TwinView Facility Manager",
+    "sector": "Buildings",
+    "tags": [
+      "digital-twin",
+      "BIM",
+      "IoT",
+      "CMMS",
+      "alerts"
+    ],
+    "oneLiner": "3D digital twin of a building integrating live sensor data for proactive maintenance and streamlined facility operations",
+    "stack": [
+      "Autodesk Forge Viewer",
+      "Azure IoT Hub",
+      "Azure Digital Twins",
+      "Node.js",
+      "MongoDB"
+    ],
+    "kpis": [
+      "Issue diagnosis time reduced by 30%",
+      "Improved maintenance scheduling efficiency",
+      "Single source of truth for building data established"
+    ],
+    "feasibility": "configure",
+    "wheelRisk": 6,
+    "problem": "Facility managers often juggle BIM models, sensor dashboards, and maintenance logs separately. Vital information about building systems is siloed, making it hard to visualize and understand the real-time state of the facility in context. This can delay troubleshooting and lead to suboptimal operational decisions.",
+    "approach": "Create an interactive digital twin by linking the building’s 3D BIM model with real-time data feeds (HVAC performance, temperatures, equipment status). Using Autodesk Forge or similar, the BIM model is accessible in a web interface. Overlay sensor readings and alerts directly on the 3D model (e.g., a chiller flashing if a fault is detected). Maintenance personnel can click on any building component to see its specs, maintenance history, and live data. This integrated view helps quickly pinpoint issues and assess impacts. The pilot would use an existing HDR office or client building as a test case.",
+    "oneWeek": "Scope Sprint: Obtain a BIM model (or floor plan) of the pilot building. Hook up one data source (e.g., a thermostat temperature) into a simple web page that shows the value when a room is clicked. Demonstrate the concept of linking model geometry to sensor data to facility stakeholders and IT for feedback on security/integration.",
+    "ninetyDay": "Stand up the full digital twin environment using Autodesk Forge for model viewing and Azure IoT for data ingestion. Map several critical data streams into the model (e.g., HVAC readings, energy meters). Implement a basic alert system highlighting anomalies on the model. Train the facility management team on using the interface. Collect feedback on usability and identify additional features like AR mode or mobile access for future improvements. Document any efficiency gains observed during the pilot (e.g., faster identification of a failing component).",
+    "risks": [
+      "Data integration complexity with proprietary building systems",
+      "Ensuring the digital model stays updated with physical changes",
+      "User adoption – facilities staff may resist new tools without clear benefits"
+    ],
+    "buyVsBuild": "Consider: comprehensive facility management suites (IBM Maximo, etc.) and newer digital twin platforms like Azure Digital Twins or Siemens Navigator. These offer frameworks but may not mesh with existing BIM data out-of-the-box. Configure using platforms like Forge for a custom-fit solution that leverages our in-house BIM expertise and targets the client’s specific needs.",
+    "emb": [
+      0.3,
+      0.2,
+      1.0,
+      0.8,
+      0.5,
+      0.9,
+      0.1,
+      0.7
+    ]
+  },
+  {
+    "id": "sitevision-progress",
+    "title": "SiteVision Progress Monitor",
+    "sector": "Buildings",
+    "tags": [
+      "construction",
+      "progress-tracking",
+      "BIM-compare",
+      "drone",
+      "schedule-variance",
+      "QA/QC"
+    ],
+    "oneLiner": "Uses drone imagery and AI to compare construction site progress against BIM models and schedules, flagging delays and quality issues early",
+    "stack": [
+      "Python",
+      "OpenCV",
+      "PyTorch",
+      "AWS S3",
+      "Three.js"
+    ],
+    "kpis": [
+      "Detection of schedule deviations within 24 hours",
+      "Reduced site inspection hours by 30%",
+      "Improved issue resolution time"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 7,
+    "problem": "Construction managers rely on manual site walks and reports to assess progress, which can be subjective and infrequent. This means schedule slips or errors in construction might go unnoticed for weeks. There’s a need for an objective, frequent, and automated way to verify progress and catch issues early by comparing what’s built on-site to the plan.",
+    "approach": "Utilize drone or 360° camera imagery captured regularly on-site and process it with computer vision. The system will align the images to the 3D BIM model or previous images and use AI to identify completed vs pending work (e.g., walls constructed, equipment installed). It can also highlight anomalies, like an installed element that doesn’t match the model or safety hazards visible in imagery. A web dashboard will show a visual diff of planned vs actual and list potential issues or delays, so project managers can act quickly.",
+    "oneWeek": "Scope Sprint: Use a set of sample construction site photos and the corresponding portion of a BIM model. Develop a basic OpenCV script to compare two images taken a week apart, highlighting differences (new vs missing objects). Manually correlate these differences to construction activities to show feasibility. Prepare a concept demo for the project team to get their input.",
+    "ninetyDay": "Train a PyTorch model on recognizing certain construction elements (e.g., detect presence of structural framing or drywall). Set up a pipeline where new drone images are uploaded to AWS S3 and automatically processed. Build a simple UI to visualize detected progress (e.g., color-coding areas of the model that are completed). Pilot this on an active project by running the system in parallel with traditional progress tracking, and compare findings. Adjust the AI model for site-specific conditions and document any caught issues that would have been missed by standard practice.",
+    "risks": [
+      "Accuracy of computer vision in messy, changing environments",
+      "Dependence on regular image capture (drones or cameras need scheduling)",
+      "Potential resistance from site teams wary of AI judgments"
+    ],
+    "buyVsBuild": "Consider: startups like Doxel or OpenSpace that offer automated progress tracking with proprietary hardware and software. These solutions are effective but can be expensive and might not integrate with our BIM workflows. Build if we want to develop internal capability, especially to integrate with our existing project management systems and tailor the detection to focus on our priorities (e.g., specific quality checks).",
+    "emb": [
+      0.6,
+      0.4,
+      0.7,
+      0.8,
+      0.2,
+      0.8,
+      0.1,
+      0.7
+    ]
+  },
+  {
     "id": "forma-carbon-tracker",
     "title": "Forma Carbon Footprint Tracker",
     "sector": "Environmental",
-    "tags": ["carbon", "sustainability", "dashboard", "compliance"],
+    "tags": [
+      "GHG-Protocol",
+      "Scope-1",
+      "Scope-2",
+      "Scope-3",
+      "reporting",
+      "decarbonization"
+    ],
     "oneLiner": "Track and visualize corporate carbon emissions with automated reporting and reduction recommendations",
-    "stack": ["Next.js", "Python", "PostgreSQL", "Chart.js"],
-    "kpis": ["30% reduction in reporting time", "Real-time emission tracking", "Compliance dashboard"],
+    "stack": [
+      "Next.js",
+      "Python",
+      "Pandas",
+      "DuckDB",
+      "PostgreSQL",
+      "Chart.js"
+    ],
+    "kpis": [
+      "30% reduction in reporting time",
+      "Real-time emission tracking",
+      "Compliance dashboard"
+    ],
     "feasibility": "solo-90-day",
     "wheelRisk": 3,
     "problem": "Organizations struggle to track carbon emissions across multiple facilities and supply chains. Manual data collection is error-prone and time-consuming. Compliance reporting requires significant manual effort.",
     "approach": "Build a dashboard that ingests utility bills and operational data, applies emission factors, and generates visualizations. Use pre-built carbon calculation libraries and focus on UX for data input and report generation.",
     "oneWeek": "Scope Sprint: Define data sources (utility bills, transportation logs). Prototype a single-facility dashboard mockup. Identify 3 key emission categories to track. Map out data flow from input to visualization.",
     "ninetyDay": "Deliver MVP with multi-facility tracking, CSV import, automated monthly reports, and basic reduction recommendations. Include compliance export templates for common frameworks (GHG Protocol, CDP).",
-    "risks": ["Data quality depends on manual input", "Emission factor databases may require licensing", "Scope creep into supply chain tracking"],
+    "risks": [
+      "Data quality depends on manual input",
+      "Emission factor databases may require licensing",
+      "Scope creep into supply chain tracking"
+    ],
     "buyVsBuild": "Consider: Watershed, Persefoni (enterprise focus, $$$). Build if you need customization for specific industry or internal integration with existing systems.",
-    "emb": [0.2, 0.8, 0.3, 0.6, 0.9, 0.1, 0.4, 0.7]
+    "emb": [
+      0.0,
+      0.1,
+      0.2,
+      0.3,
+      0.2,
+      0.8,
+      0.6,
+      0.2
+    ]
   },
   {
-    "id": "qorus-proposal-assistant",
-    "title": "QorusDocs Proposal Assistant",
-    "sector": "Internal",
-    "tags": ["proposals", "automation", "AI", "content-generation"],
-    "oneLiner": "AI-powered proposal generator that assembles RFP responses from past wins and company knowledge base",
-    "stack": ["Next.js", "OpenAI API", "Vector DB", "PostgreSQL"],
-    "kpis": ["50% faster proposal drafting", "90% content reuse from past wins", "Consistent brand voice"],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 4,
-    "problem": "Sales teams spend 40+ hours on each RFP response, duplicating work from previous proposals. Content is scattered across drives. No easy way to find the 'best answer' to common questions. Proposals lack consistency in tone and formatting.",
-    "approach": "Build a RAG system that indexes past proposals, case studies, and company collateral. LLM generates first drafts based on RFP requirements. Include human-in-the-loop editing and approval workflow.",
-    "oneWeek": "Scope Sprint: Audit 10 recent proposals to identify repeating sections (exec summary, team bios, case studies). Define content taxonomy. Prototype a simple Q&A interface over 2-3 sample documents using OpenAI embeddings.",
-    "ninetyDay": "Launch with knowledge base of 50+ past proposals indexed, section-by-section generation, smart search for past answers, Word export, and basic approval routing. Training session for sales team.",
-    "risks": ["Hallucination in generated content requires review", "Embedding cost for large doc corpus", "Integration with CRM/Salesforce may be complex"],
-    "buyVsBuild": "Consider: Qvidian, RFPIO, Loopio ($10k-50k/year). Build if you have unique compliance needs or want tighter integration with internal knowledge systems.",
-    "emb": [0.9, 0.2, 0.7, 0.4, 0.3, 0.8, 0.6, 0.5]
-  },
-  {
-    "id": "rag-knowledge-chat",
-    "title": "RAG Knowledge Chat for Support",
-    "sector": "Internal",
-    "tags": ["support", "chatbot", "RAG", "documentation"],
-    "oneLiner": "Internal support chatbot that answers employee questions using company docs, policies, and wikis",
-    "stack": ["Next.js", "LangChain", "Pinecone", "OpenAI API"],
-    "kpis": ["70% deflection of Tier-1 tickets", "Sub-5s response time", "85%+ answer accuracy"],
+    "id": "ecopermitting-ai-assistant",
+    "title": "EcoPermitting AI Assistant",
+    "sector": "Environmental",
+    "tags": [
+      "NEPA",
+      "permitting",
+      "NLP",
+      "wetlands",
+      "checklists",
+      "jurisdiction"
+    ],
+    "oneLiner": "AI assistant that streamlines environmental permitting by identifying required permits and compliance steps for projects across jurisdictions",
+    "stack": [
+      "Python",
+      "spaCy",
+      "Elasticsearch",
+      "PostgreSQL",
+      "OpenAI API",
+      "Next.js"
+    ],
+    "kpis": [
+      "50% faster permit identification process",
+      "Reduced errors in permit applications",
+      "Comprehensive regulatory coverage (local, state, federal)"
+    ],
     "feasibility": "solo-90-day",
     "wheelRisk": 5,
-    "problem": "HR and IT support teams field repetitive questions (password resets, PTO policy, expense reports). Knowledge scattered across Confluence, SharePoint, Notion. Employees can't find answers quickly, leading to ticket backlog.",
-    "approach": "Index company documentation into a vector database. Build a chat interface with RAG pipeline. Include citation links to source documents. Track unanswered questions to improve knowledge base over time.",
-    "oneWeek": "Scope Sprint: Identify top 20 FAQ topics from support ticket history. Map documentation sources (Confluence, Google Drive, etc.). Build proof-of-concept with 10 sample docs and basic chat UI. Test retrieval quality.",
-    "ninetyDay": "Deploy chatbot with 200+ documents indexed, Slack integration, analytics dashboard showing deflection rate, feedback loop for bad answers, and admin panel to add/update content sources.",
-    "risks": ["Answer quality depends on doc quality and freshness", "User adoption requires change management", "API costs scale with usage"],
-    "buyVsBuild": "Consider: Glean, Guru, Capacity ($15-30/user/month). Build if you need on-prem deployment or deep customization for specialized internal processes.",
-    "emb": [0.7, 0.5, 0.9, 0.2, 0.4, 0.6, 0.8, 0.3]
+    "problem": "Environmental permitting for projects is complex and varies by location and project type. Project teams must manually research which environmental permits and reviews (NEPA, wetlands, air quality, etc.) apply, which is time-consuming and prone to missing less obvious requirements, risking compliance issues or delays.",
+    "approach": "Develop an AI-driven tool where a user inputs key project details (location, project type, size, environmental impact factors). The system uses an NLP engine trained on regulations to suggest a list of likely required permits and studies. It provides references to the specific regulation text for each permit and a checklist of steps to comply. The tool could also track status of each permit through completion. Start with a specific region or subset of regulations to train the model and demonstrate value, then expand.",
+    "oneWeek": "Scope Sprint: Focus on one permit domain (e.g., wetland permitting). Gather a dataset of related regulations and permit guidelines. Build a simple rule-based prototype: if project involves wetlands and >acre threshold, then Clean Water Act Section 404 permit needed. Show how input parameters map to a basic permit list to illustrate the concept.",
+    "ninetyDay": "Expand to a broader set of regulations. Implement an NLP model (using spaCy or similar) to extract rules from text or match project descriptions to requirements. Create an Angular frontend for users to enter project info and get results. Integrate ElasticSearch to efficiently query a database of regulations and past project permit data. Test with a few sample projects and compare the AI’s recommended permit list with what experts would identify, refining accuracy. Prepare a case for how this tool could reduce research time and ensure compliance completeness on complex projects.",
+    "risks": [
+      "Keeping regulatory data up-to-date",
+      "False confidence in AI suggestions if regulations interpreted incorrectly",
+      "Customization needed for different regions or sectors"
+    ],
+    "buyVsBuild": "Consider: legal database services or environmental compliance management software that include permit tracking, but they often lack intelligent suggestion features. Build if aiming to encapsulate HDR’s deep regulatory knowledge into a tool, giving us an internal advantage and potential client-facing product. This could also reduce reliance on individual heroics for complex permitting processes.",
+    "emb": [
+      0.7,
+      0.0,
+      0.1,
+      0.3,
+      0.9,
+      0.7,
+      0.1,
+      0.1
+    ]
   },
   {
-    "id": "smart-meter-analytics",
-    "title": "Smart Meter Analytics Platform",
-    "sector": "Energy",
-    "tags": ["IoT", "energy", "analytics", "real-time"],
-    "oneLiner": "Real-time energy consumption analytics for commercial buildings with anomaly detection",
-    "stack": ["React", "TimescaleDB", "Python", "MQTT"],
-    "kpis": ["15% energy cost reduction", "Real-time alerts", "Predictive maintenance"],
-    "feasibility": "configure",
-    "wheelRisk": 6,
-    "problem": "Building managers lack visibility into real-time energy consumption patterns. Anomalies (equipment failures, inefficiencies) go undetected for weeks. Manual meter reading is inefficient.",
-    "approach": "Integrate with existing smart meters via MQTT/API, store time-series data, build anomaly detection models, and create dashboards for facility managers.",
-    "oneWeek": "Scope Sprint: Identify meter hardware/protocols in use. Define key metrics (kWh, demand peaks, power factor). Mockup dashboard with sample data. Map data pipeline from meter to DB.",
-    "ninetyDay": "Connect 10-50 meters, real-time dashboards, email/SMS alerts for anomalies, historical trend analysis, and basic predictive models for maintenance scheduling.",
-    "risks": ["Hardware integration complexity", "Data security for critical infrastructure", "Requires domain expertise in energy systems"],
-    "buyVsBuild": "Consider: EnergyCAP, Schneider Electric EcoStruxure. Build for custom integration with existing BMS or unique analytics requirements.",
-    "emb": [0.3, 0.6, 0.4, 0.8, 0.2, 0.9, 0.5, 0.7]
-  },
-  {
-    "id": "transit-routing-optimizer",
-    "title": "Transit Route Optimization Tool",
-    "sector": "Transportation",
-    "tags": ["routing", "optimization", "mapping", "logistics"],
-    "oneLiner": "Optimize public transit routes based on ridership data and traffic patterns",
-    "stack": ["Vue.js", "PostGIS", "GraphQL", "Mapbox"],
-    "kpis": ["20% reduction in wait times", "10% fuel savings", "Improved coverage"],
-    "feasibility": "configure",
-    "wheelRisk": 7,
-    "problem": "Transit agencies operate on legacy routes that don't reflect current demand patterns. Peak-hour congestion causes delays. Limited data-driven approach to route planning.",
-    "approach": "Ingest ridership data, traffic patterns, and demographic info. Use optimization algorithms (genetic algorithms, simulated annealing) to propose improved routes. Visualize on interactive maps.",
-    "oneWeek": "Scope Sprint: Gather historical ridership data (GTFS feeds). Define optimization objectives (coverage, wait time, cost). Prototype route visualization on map with sample data.",
-    "ninetyDay": "Tool that analyzes current routes, proposes 3-5 optimized alternatives, estimates impact on KPIs, and exports route plans in GTFS format for agency systems.",
-    "risks": ["Requires access to proprietary agency data", "Political/community resistance to route changes", "Complex optimization may need OR expertise"],
-    "buyVsBuild": "Consider: Remix (by Via), Optibus. Build if you need tight integration with legacy CAD/AVL systems or custom constraints.",
-    "emb": [0.5, 0.3, 0.6, 0.7, 0.8, 0.2, 0.4, 0.9]
-  },
-  {
-    "id": "water-leak-detection",
-    "title": "Water Leak Detection System",
-    "sector": "Water",
-    "tags": ["IoT", "sensors", "alerts", "maintenance"],
-    "oneLiner": "IoT-based leak detection for municipal water systems with predictive alerts",
-    "stack": ["Python", "InfluxDB", "TensorFlow", "Grafana"],
-    "kpis": ["30% reduction in water loss", "Early leak detection", "Cost savings"],
-    "feasibility": "configure",
-    "wheelRisk": 8,
-    "problem": "Municipal water systems lose 20-30% of water to leaks. Traditional detection relies on manual inspections or customer complaints. By the time leaks are found, significant damage has occurred.",
-    "approach": "Deploy acoustic sensors and pressure monitors throughout the distribution network. Use ML to detect anomalies indicating leaks. Alert crews with location and severity estimates.",
-    "oneWeek": "Scope Sprint: Identify sensor types and placement strategy. Define leak signatures (pressure drops, flow anomalies). Review historical leak data to understand patterns.",
-    "ninetyDay": "Pilot with 50-100 sensor nodes, real-time monitoring dashboard, ML-based leak detection, mobile app for field crews, and integration with work order systems.",
-    "risks": ["Hardware deployment costs and logistics", "False positive rate affects crew efficiency", "Harsh environment may damage sensors"],
-    "buyVsBuild": "Consider: Xylem, Echologics, Fathom. Build if you have unique network topology or want to integrate with existing SCADA systems.",
-    "emb": [0.4, 0.7, 0.5, 0.3, 0.9, 0.6, 0.2, 0.8]
-  },
-  {
-    "id": "building-permit-tracker",
-    "title": "Digital Building Permit Tracker",
-    "sector": "Buildings",
-    "tags": ["compliance", "workflow", "automation", "permitting"],
-    "oneLiner": "Streamline building permit applications and track approval workflows digitally",
-    "stack": ["Next.js", "PostgreSQL", "AWS S3", "Twilio"],
-    "kpis": ["50% faster permit processing", "Digital-first workflow", "Transparency for applicants"],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 4,
-    "problem": "Building permit processes are paper-based, slow, and opaque. Applicants don't know status. Staff manually route applications through multiple reviewers. Document storage is chaotic.",
-    "approach": "Build a web portal for applicants to submit permits with document uploads. Workflow engine routes to appropriate reviewers (zoning, fire, structural). Track status and send notifications.",
-    "oneWeek": "Scope Sprint: Map current permit process (roles, review steps). Define application form fields for common permit types (residential, commercial). Prototype status dashboard.",
-    "ninetyDay": "Launch with online application forms, automated routing, email/SMS notifications, reviewer dashboard, document management, and public-facing status lookup.",
-    "risks": ["Integration with legacy municipal systems", "User adoption by staff requires training", "Legal requirements for digital signatures"],
-    "buyVsBuild": "Consider: OpenGov, Accela, CityGrows. Build if you need deep customization for local ordinances or want to own the platform long-term.",
-    "emb": [0.6, 0.4, 0.8, 0.5, 0.3, 0.7, 0.9, 0.2]
-  },
-  {
-    "id": "ev-charging-network",
-    "title": "EV Charging Network Manager",
-    "sector": "Transportation",
-    "tags": ["EV", "charging", "fleet", "energy"],
-    "oneLiner": "Manage and optimize electric vehicle charging for municipal fleets",
-    "stack": ["React", "Node.js", "OCPP", "Redis"],
-    "kpis": ["20% charging cost reduction", "95% uptime", "Fleet readiness tracking"],
-    "feasibility": "configure",
-    "wheelRisk": 6,
-    "problem": "Municipal EV fleets lack centralized charging management. Vehicles may not be charged for next shift. No visibility into charger status or energy costs. Demand charges spike unpredictably.",
-    "approach": "Integrate with EV chargers via OCPP protocol. Schedule charging during off-peak hours. Monitor vehicle battery state and schedule readiness. Provide dashboard for fleet managers.",
-    "oneWeek": "Scope Sprint: Identify charger models and protocols. Define vehicle scheduling requirements. Prototype dashboard showing charger status and vehicle SOC. Map out load management logic.",
-    "ninetyDay": "System managing 20-50 chargers, automated scheduling based on shift needs and energy pricing, real-time status monitoring, usage reports, and mobile app for drivers.",
-    "risks": ["OCPP protocol compatibility varies by manufacturer", "Load management requires coordination with utility", "Hardware failures require field support"],
-    "buyVsBuild": "Consider: ChargePoint, Greenlots, EV Connect. Build if you need custom fleet scheduling or integration with existing fleet management systems.",
-    "emb": [0.8, 0.2, 0.4, 0.9, 0.5, 0.3, 0.7, 0.6]
-  },
-  {
-    "id": "wastewater-treatment-monitor",
-    "title": "Wastewater Treatment Monitor",
-    "sector": "Water",
-    "tags": ["monitoring", "compliance", "sensors", "environmental"],
-    "oneLiner": "Real-time monitoring of wastewater treatment processes with compliance reporting",
-    "stack": ["Python", "InfluxDB", "FastAPI", "Plotly"],
-    "kpis": ["100% compliance with EPA limits", "Early warning of upsets", "Reduced manual sampling"],
-    "feasibility": "configure",
-    "wheelRisk": 7,
-    "problem": "Wastewater treatment plants rely on periodic manual sampling. Process upsets can lead to permit violations and fines. Operators lack real-time visibility into treatment performance.",
-    "approach": "Install sensors for key parameters (pH, dissolved oxygen, turbidity, ammonia). Stream data to cloud platform. Alert operators when parameters approach permit limits. Generate compliance reports automatically.",
-    "oneWeek": "Scope Sprint: Identify critical parameters and permit limits. Map sensor placement in treatment process. Define alert thresholds. Review historical upset events to understand patterns.",
-    "ninetyDay": "Deploy sensors for 5-10 key parameters, real-time dashboard, automated alerts via SMS/email, historical trend analysis, and automated monthly compliance reports.",
-    "risks": ["Sensor calibration and maintenance in harsh environment", "Integration with existing SCADA may be complex", "Regulatory approval for automated reporting"],
-    "buyVsBuild": "Consider: Hach, Endress+Hauser, Xylem. Build if you need custom integration with legacy SCADA or specialized reporting for local regulations.",
-    "emb": [0.3, 0.8, 0.2, 0.6, 0.7, 0.4, 0.5, 0.9]
-  },
-  {
-    "id": "hvac-optimization-engine",
-    "title": "HVAC Optimization Engine",
-    "sector": "Buildings",
-    "tags": ["HVAC", "optimization", "energy", "ML"],
-    "oneLiner": "AI-driven HVAC optimization to reduce energy costs while maintaining comfort",
-    "stack": ["Python", "TensorFlow", "BACnet", "TimescaleDB"],
-    "kpis": ["25% energy savings", "Comfort complaints reduced", "Predictive maintenance"],
-    "feasibility": "configure",
-    "wheelRisk": 8,
-    "problem": "HVAC systems in large buildings operate on simple schedules, wasting energy when spaces are unoccupied or over-conditioning. Manual tuning is time-consuming and suboptimal.",
-    "approach": "Integrate with building management system (BMS) via BACnet. Use ML to learn occupancy patterns and thermal dynamics. Optimize setpoints and schedules in real-time to minimize energy use while meeting comfort targets.",
-    "oneWeek": "Scope Sprint: Audit BMS capabilities and data access. Define comfort metrics (temp, humidity, CO2). Collect baseline energy and occupancy data. Prototype simple rule-based optimization.",
-    "ninetyDay": "ML model trained on building data, automated setpoint adjustments, A/B testing framework to validate savings, dashboard showing energy vs. comfort tradeoffs, and ROI reporting.",
-    "risks": ["BMS integration complexity varies by vendor", "Comfort is subjective; occupant complaints possible", "Model requires months of data for training"],
-    "buyVsBuild": "Consider: BrainBox AI, Verdigris, 75F. Build if you have in-house ML expertise and want full control over optimization algorithms.",
-    "emb": [0.5, 0.6, 0.9, 0.3, 0.4, 0.8, 0.2, 0.7]
-  },
-  {
-    "id": "citizen-request-portal",
-    "title": "Citizen Request Portal (311)",
+    "id": "ai-project-knowledge-hub",
+    "title": "AI Project Knowledge Hub",
     "sector": "Internal",
-    "tags": ["311", "citizen-engagement", "workflow", "mobile"],
-    "oneLiner": "Modern 311 system for citizens to report issues and track resolution",
-    "stack": ["Next.js", "PostgreSQL", "AWS S3", "Mapbox"],
-    "kpis": ["30% increase in request volume", "50% faster resolution", "Citizen satisfaction score"],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 3,
-    "problem": "Citizens rely on phone calls to report issues (potholes, graffiti, broken streetlights). No visibility into status or resolution. Staff manually track requests in spreadsheets. Duplicate reports are common.",
-    "approach": "Build web and mobile app for citizens to submit requests with photos and location. Backend workflow routes to appropriate departments. Public dashboard shows request status. Deduplication based on location.",
-    "oneWeek": "Scope Sprint: Define request categories and routing rules. Prototype mobile-friendly submission form with photo upload and map picker. Design staff dashboard for triaging and assignment.",
-    "ninetyDay": "Launch with citizen portal (web + PWA), staff dashboard, automated routing, email/SMS updates, analytics on request volume and resolution time, and public map of open requests.",
-    "risks": ["User adoption requires marketing campaign", "Integration with existing work order systems", "Spam and low-quality submissions"],
-    "buyVsBuild": "Consider: SeeClickFix, PublicStuff, CitySourced. Build if you want deeper integration with internal systems or custom workflows for local needs.",
-    "emb": [0.7, 0.3, 0.6, 0.8, 0.2, 0.5, 0.9, 0.4]
-  },
-  {
-    "id": "asset-inventory-tracker",
-    "title": "Asset Inventory Tracker",
-    "sector": "Internal",
-    "tags": ["asset-management", "inventory", "QR", "mobile"],
-    "oneLiner": "Track municipal assets (vehicles, equipment, facilities) with QR codes and mobile app",
-    "stack": ["React Native", "PostgreSQL", "Node.js", "QR"],
-    "kpis": ["100% asset visibility", "Maintenance schedule compliance", "Reduced asset loss"],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 2,
-    "problem": "Departments lack centralized visibility into assets (vehicles, computers, machinery). Maintenance is reactive rather than preventive. Assets go missing or are underutilized. Spreadsheet tracking is error-prone.",
-    "approach": "Build asset registry with QR code labeling. Mobile app for field staff to scan and update asset info (location, condition, maintenance). Automated maintenance reminders based on usage/time.",
-    "oneWeek": "Scope Sprint: Define asset categories and key attributes. Design QR code labeling scheme. Prototype mobile scanning interface and asset detail view. Map out maintenance scheduling logic.",
-    "ninetyDay": "Deploy with asset registry of 500+ items, QR code generation and printing, mobile app for iOS/Android, maintenance scheduling, usage tracking, and reports on asset utilization and value.",
-    "risks": ["Requires upfront effort to tag all assets", "User adoption by field staff", "Integration with procurement/finance systems for asset lifecycle"],
-    "buyVsBuild": "Consider: Asset Panda, Snipe-IT (open-source), EZOfficeInventory. Build if you need custom fields for specialized equipment or tight integration with existing systems.",
-    "emb": [0.4, 0.5, 0.7, 0.2, 0.8, 0.3, 0.6, 0.9]
-  },
-  {
-    "id": "stormwater-runoff-model",
-    "title": "Stormwater Runoff Modeler",
-    "sector": "Environmental",
-    "tags": ["stormwater", "modeling", "GIS", "compliance"],
-    "oneLiner": "Model stormwater runoff and design green infrastructure to meet MS4 permits",
-    "stack": ["Python", "QGIS", "PostgreSQL", "Leaflet"],
-    "kpis": ["Compliance with MS4 permit", "20% runoff reduction", "Cost-effective GI design"],
+    "tags": [
+      "RAG",
+      "vector-search",
+      "SharePoint",
+      "semantic-search",
+      "expert-finder",
+      "governance"
+    ],
+    "oneLiner": "Centralized hub that indexes HDR’s project documents and expertise, using AI for smart search and Q&A to support staff in finding information quickly",
+    "stack": [
+      "Python",
+      "LangChain",
+      "OpenAI API",
+      "pgvector",
+      "Elasticsearch",
+      "Next.js"
+    ],
+    "kpis": [
+      "Query response in seconds (vs hours of manual search)",
+      "Increased proposal reuse of past content (up 25%)",
+      "Reduced onboarding time for new staff"
+    ],
     "feasibility": "configure",
-    "wheelRisk": 7,
-    "problem": "Municipalities must comply with MS4 stormwater permits but lack tools to model runoff and design green infrastructure. Manual calculations are time-consuming. Hard to evaluate cost-effectiveness of different interventions.",
-    "approach": "Build GIS-based tool that models runoff based on land cover, soils, and rainfall. Simulate impact of green infrastructure (rain gardens, permeable pavement). Optimize interventions to meet permit requirements at lowest cost.",
-    "oneWeek": "Scope Sprint: Gather GIS data (land cover, soils, drainage areas). Define modeling approach (rational method, SWMM, or simplified). Prototype map interface showing runoff hotspots.",
-    "ninetyDay": "Tool that models baseline runoff, allows user to place GI interventions on map, calculates reduction in runoff volume, estimates cost, and generates compliance reports for permit submittals.",
-    "risks": ["Requires GIS and hydrology expertise", "Model accuracy depends on data quality", "Permit requirements vary by jurisdiction"],
-    "buyVsBuild": "Consider: EPA SWMM, WinSLAMM, commercial GI design tools. Build if you need custom workflows for local permit requirements or integration with municipal GIS.",
-    "emb": [0.6, 0.9, 0.3, 0.4, 0.5, 0.7, 0.8, 0.2]
-  },
-  {
-    "id": "solar-feasibility-tool",
-    "title": "Solar Feasibility Assessment Tool",
-    "sector": "Energy",
-    "tags": ["solar", "renewable", "ROI", "GIS"],
-    "oneLiner": "Assess solar PV feasibility for municipal buildings and generate ROI projections",
-    "stack": ["Next.js", "Python", "NREL PVWatts API", "Mapbox"],
-    "kpis": ["Identify top 10 sites for solar", "ROI < 10 years", "GHG reduction estimate"],
-    "feasibility": "solo-90-day",
     "wheelRisk": 4,
-    "problem": "Municipalities want to install solar but don't know which buildings are best candidates. Manual feasibility studies are expensive ($5-10k per site). Hard to prioritize investments across portfolio of buildings.",
-    "approach": "Build tool that takes building addresses, pulls roof data from GIS/imagery, estimates solar potential using NREL API, calculates costs and incentives, and generates ROI projections. Rank sites by payback period.",
-    "oneWeek": "Scope Sprint: Identify building portfolio and energy data sources. Test NREL PVWatts API with sample sites. Define cost assumptions ($/watt, incentives). Prototype ROI calculation spreadsheet.",
-    "ninetyDay": "Tool that analyzes 50-100 buildings, generates feasibility reports with solar potential, cost, savings, payback period, and GHG reduction. Export prioritized list and site-specific proposals for procurement.",
-    "risks": ["Roof suitability (age, structural capacity) requires site visits", "Utility rate structures affect ROI calculation", "Incentive landscape changes frequently"],
-    "buyVsBuild": "Consider: Aurora Solar, Helioscope (focus on design, not feasibility screening). Build if you need bulk screening of large building portfolios or custom financial modeling.",
-    "emb": [0.8, 0.4, 0.5, 0.7, 0.3, 0.6, 0.2, 0.9]
-  },
-  {
-    "id": "recycling-contamination-detector",
-    "title": "Recycling Contamination Detector",
-    "sector": "Environmental",
-    "tags": ["recycling", "computer-vision", "waste", "ML"],
-    "oneLiner": "Use computer vision to detect contamination in recycling streams and educate residents",
-    "stack": ["Python", "TensorFlow", "OpenCV", "Raspberry Pi"],
-    "kpis": ["15% reduction in contamination", "Resident education", "MRF processing efficiency"],
-    "feasibility": "configure",
-    "wheelRisk": 6,
-    "problem": "Contamination (plastic bags, food waste) in recycling streams is costly. Material recovery facilities (MRFs) reject contaminated loads, sending them to landfill. Residents lack real-time feedback on what they're recycling incorrectly.",
-    "approach": "Install cameras on recycling trucks or at drop-off sites. Use computer vision to identify contaminants. Send automated feedback to residents (e.g., 'Plastic bag detected in your recycling'). Track contamination rates over time.",
-    "oneWeek": "Scope Sprint: Define common contaminants to detect. Collect sample images of recycling bins. Prototype ML model to classify items (paper, plastic, glass, contaminant). Test accuracy on sample data.",
-    "ninetyDay": "Deploy pilot on 5-10 recycling trucks, train model on local data, automated feedback system (email/app notification), dashboard showing contamination trends, and resident education campaigns.",
-    "risks": ["Model accuracy depends on training data quality", "Privacy concerns with camera deployment", "Hardware installation on trucks requires coordination with hauler"],
-    "buyVsBuild": "Consider: Compology, Rubicon, specialized waste tech startups. Build if you want to own the ML pipeline or integrate tightly with local hauler operations.",
-    "emb": [0.5, 0.7, 0.8, 0.3, 0.6, 0.2, 0.9, 0.4]
+    "problem": "HDR has decades of project reports, proposals, and institutional knowledge scattered across SharePoint, local drives, and individual brains. Employees often reinvent the wheel or spend valuable time hunting for information or experts who have solved similar problems. This inefficiency leads to missed opportunities and inconsistent quality in deliverables.",
+    "approach": "Implement a knowledge portal that ingests and indexes internal documents (design reports, calculations, best practices) and even past project data. Use AI natural language processing to allow users to query the system in plain English and get relevant snippets or answers, along with references to source documents and contacts of subject matter experts. The pilot could focus on one practice area (e.g., bridge design) to populate the knowledge base and train an AI model on that content, demonstrating fast retrieval of answers for technical questions or past project examples.",
+    "oneWeek": "Scope Sprint: Gather a small corpus of documents (perhaps 100 documents from a single department). Set up ElasticSearch for indexing and a basic UI for keyword search. Demonstrate a simple Q&A using an open-source language model on this content to show the potential of AI-driven answers. Get feedback from a few users on search results relevance.",
+    "ninetyDay": "Scale up the document ingestion pipeline using LangChain to chunk and embed documents for semantic search. Implement authentication and access controls to protect sensitive information. Develop the React frontend with a query interface and results page that highlights excerpts from documents. Integrate a feedback loop for users to rate helpfulness of answers, improving the model. Conduct training sessions for staff in the pilot group to ensure adoption. Measure usage and time saved on a few representative tasks (like preparing proposals or finding design examples) to quantify benefits.",
+    "risks": [
+      "Sensitive data handling and access permissions",
+      "Accuracy of AI responses (hallucinations or misinterpretation)",
+      "User trust and adoption—staff might stick to old habits without clear wins"
+    ],
+    "buyVsBuild": "Consider: enterprise search solutions like Microsoft Viva Topics or Elastic Enterprise which offer robust search but may not have advanced AI Q&A out-of-the-box. Also knowledge management platforms exist but often require heavy customization. Configure a combination of open-source tools and cloud AI services to tailor the solution to HDR’s needs, ensuring flexibility and ownership of the knowledge base as a strategic asset.",
+    "emb": [
+      0.5,
+      0.9,
+      0.0,
+      1.0,
+      0.3,
+      0.1,
+      0.2,
+      0.9
+    ]
   }
 ]
-

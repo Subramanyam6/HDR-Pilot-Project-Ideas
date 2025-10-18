@@ -6,20 +6,23 @@ interface MetadataProps {
 }
 
 export function Metadata({ pilot }: MetadataProps) {
+  const parsedRisk = typeof pilot.wheelRisk === 'number' ? pilot.wheelRisk : parseFloat(String(pilot.wheelRisk));
+  const riskScore = Number.isFinite(parsedRisk) ? parsedRisk : 0;
+
   return (
     <div className="space-y-6">
       {/* Sector */}
       <div>
         <h3 className="text-sm font-semibold text-muted-foreground mb-2">Sector</h3>
-        <Badge variant="default">{pilot.sector}</Badge>
+        <Badge variant="outline">{pilot.sector}</Badge>
       </div>
 
       {/* Tags */}
       <div>
         <h3 className="text-sm font-semibold text-muted-foreground mb-2">Tags</h3>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {pilot.tags.map((tag) => (
-            <Badge key={tag} variant="secondary">
+            <Badge key={tag} variant="outline" className="text-xs">
               {tag}
             </Badge>
           ))}
@@ -50,30 +53,30 @@ export function Metadata({ pilot }: MetadataProps) {
         <div className="flex items-center gap-3">
           <span
             className={`text-2xl font-bold ${
-              pilot.wheelRisk <= 4
+              riskScore <= 4
                 ? 'text-green-600 dark:text-green-400'
-                : pilot.wheelRisk <= 7
+                : riskScore <= 7
                 ? 'text-yellow-600 dark:text-yellow-400'
                 : 'text-red-600 dark:text-red-400'
             }`}
           >
-            {pilot.wheelRisk}/10
+            {riskScore}/10
           </span>
           <div className="flex-1">
             <div className="w-full bg-secondary rounded-full h-2">
               <div
                 className={`h-2 rounded-full ${
-                  pilot.wheelRisk <= 4
+                  riskScore <= 4
                     ? 'bg-green-600 dark:bg-green-400'
-                    : pilot.wheelRisk <= 7
+                    : riskScore <= 7
                     ? 'bg-yellow-600 dark:bg-yellow-400'
                     : 'bg-red-600 dark:bg-red-400'
                 }`}
-                style={{ width: `${(pilot.wheelRisk / 10) * 100}%` }}
+                style={{ width: `${(riskScore / 10) * 100}%` }}
               />
             </div>
             <p className="text-xs text-muted-foreground mt-1">
-              {pilot.wheelRisk <= 4 ? 'Low risk' : pilot.wheelRisk <= 7 ? 'Moderate risk' : 'Higher risk'}
+              {riskScore <= 4 ? 'Low risk' : riskScore <= 7 ? 'Moderate risk' : 'Higher risk'}
             </p>
           </div>
         </div>
@@ -82,15 +85,14 @@ export function Metadata({ pilot }: MetadataProps) {
       {/* Stack */}
       <div>
         <h3 className="text-sm font-semibold text-muted-foreground mb-2">Tech Stack</h3>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap gap-1.5">
           {pilot.stack.map((tech) => (
-            <span key={tech} className="text-sm px-2 py-1 bg-accent rounded">
+            <Badge key={tech} variant="outline" className="text-xs">
               {tech}
-            </span>
+            </Badge>
           ))}
         </div>
       </div>
     </div>
   );
 }
-

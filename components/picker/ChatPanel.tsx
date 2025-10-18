@@ -4,16 +4,10 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Card } from '@/components/ui/card';
-
-export interface Message {
-  id: string;
-  role: 'user' | 'assistant';
-  content: string;
-  timestamp: Date;
-}
+import type { ChatMessage } from '@/lib/chat-types';
 
 interface ChatPanelProps {
-  messages: Message[];
+  messages: ChatMessage[];
   onSendMessage: (content: string) => void;
   isProcessing?: boolean;
 }
@@ -39,8 +33,8 @@ export function ChatPanel({ messages, onSendMessage, isProcessing = false }: Cha
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
+    <div className="flex flex-col h-full min-h-0">
+      <div className="flex-1 min-h-0 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 ? (
           <div className="flex items-center justify-center h-full text-center text-muted-foreground p-8">
             <div className="max-w-md">

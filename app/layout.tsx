@@ -3,6 +3,7 @@ import './globals.css';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Topbar } from '@/components/layout/Topbar';
 import { ThemeProvider } from '@/components/theme-provider';
+import { ChatProvider } from '@/components/chat/ChatProvider';
 import { ChatWidget } from '@/components/ChatWidget';
 import { Analytics } from '@vercel/analytics/react';
 
@@ -30,17 +31,19 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className="flex h-screen overflow-hidden">
-            <Sidebar />
-            <div className="flex-1 flex flex-col overflow-hidden">
-              <Topbar />
-              <main className="flex-1 overflow-y-auto bg-background">
-                {children}
-              </main>
+          <ChatProvider>
+            <div className="flex h-screen overflow-hidden">
+              <Sidebar />
+              <div className="flex-1 flex flex-col overflow-hidden">
+                <Topbar />
+                <main className="flex-1 overflow-y-auto bg-background">
+                  {children}
+                </main>
+              </div>
             </div>
-          </div>
-          <ChatWidget />
-          <Analytics />
+            <ChatWidget />
+            <Analytics />
+          </ChatProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -15,6 +15,8 @@ interface PilotCardProps {
 export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
   const [showAllTags, setShowAllTags] = useState(false);
   const [showAllStack, setShowAllStack] = useState(false);
+  const parsedRisk = typeof pilot.wheelRisk === "number" ? pilot.wheelRisk : parseFloat(String(pilot.wheelRisk));
+  const riskScore = Number.isFinite(parsedRisk) ? parsedRisk : 0;
 
   return (
     <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-primary/10 bg-gradient-to-br from-card to-background">
@@ -78,17 +80,17 @@ export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
           </div>
         </div>
 
-        <div className="flex items-center gap-4 text-xs">
-          <div>
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs">
+          <div className="whitespace-nowrap">
             <span className="font-semibold text-muted-foreground">Feasibility:</span>{" "}
             <span className={pilot.feasibility === "solo-90-day" ? "text-green-600 dark:text-green-400" : ""}>
               {pilot.feasibility === "solo-90-day" ? "Solo 90-day" : "Configure"}
             </span>
           </div>
-          <div>
+          <div className="whitespace-nowrap">
             <span className="font-semibold text-muted-foreground">Risk:</span>{" "}
-            <span className={pilot.wheelRisk <= 4 ? "text-green-600 dark:text-green-400" : pilot.wheelRisk <= 7 ? "text-yellow-600 dark:text-yellow-400" : "text-red-600 dark:text-red-400"}>
-              {pilot.wheelRisk}/10
+            <span className={riskScore <= 4 ? "text-green-600 dark:text-green-400" : riskScore <= 7 ? "text-yellow-600 dark:text-yellow-400" : "text-red-600 dark:text-red-400"}>
+              {riskScore}/10
             </span>
           </div>
         </div>

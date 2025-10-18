@@ -1,69 +1,19 @@
 'use client';
 
 import * as React from 'react';
-import { ChatPanel, type Message } from '@/components/picker/ChatPanel';
+import { ChatPanel } from '@/components/picker/ChatPanel';
 import { RecommendationList } from '@/components/picker/RecommendationList';
-import { scorePilots, type ScoredPilot } from '@/lib/pilots';
+import { useChat } from '@/components/chat/ChatProvider';
 
 export default function PickerPage() {
-  const [messages, setMessages] = React.useState<Message[]>([]);
-  const [recommendations, setRecommendations] = React.useState<ScoredPilot[]>([]);
-  const [isProcessing, setIsProcessing] = React.useState(false);
+  const { messages, recommendations, isProcessing, sendMessage } = useChat();
 
-  const handleSendMessage = async (content: string) => {
-    try {
-      // Add user message
-      const userMessage: Message = {
-        id: Date.now().toString(),
-        role: 'user',
-        content,
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, userMessage]);
-      setIsProcessing(true);
-
-      // Simulate processing delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // Mock assistant response
-      // TODO: Replace with real LLM API call
-      const scored = scorePilots(content);
-      const topN = scored.slice(0, 3);
-
-      let assistantContent = `Based on your request, here are my top recommendations:\n\n`;
-      topN.forEach((sp, idx) => {
-        assistantContent += `${idx + 1}. **${sp.pilot.title}**\n`;
-        assistantContent += `   Match: ${Math.round(sp.score * 100)}%\n`;
-        if (sp.reasons.length > 0) {
-          assistantContent += `   Why: ${sp.reasons[0]}\n`;
-        }
-        assistantContent += `\n`;
-      });
-
-      assistantContent += `See the recommended pilots in the right panel for full details.`;
-
-      const assistantMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: assistantContent,
-        timestamp: new Date(),
-      };
-
-      setMessages((prev) => [...prev, assistantMessage]);
-      setRecommendations(topN);
-    } catch (error) {
-      console.error('Error processing message:', error);
-      const errorMessage: Message = {
-        id: (Date.now() + 1).toString(),
-        role: 'assistant',
-        content: 'Sorry, I encountered an error processing your request. Please try again.',
-        timestamp: new Date(),
-      };
-      setMessages((prev) => [...prev, errorMessage]);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
+  const handleSendMessage = React.useCallback(
+    async (content: string) => {
+      await sendMessage(content, 'pilot-picker');
+    },
+    [sendMessage]
+  );
 
   return (
     <div className="h-full flex flex-col lg:flex-row">
