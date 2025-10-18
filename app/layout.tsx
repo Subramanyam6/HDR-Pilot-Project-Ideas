@@ -3,7 +3,7 @@ import './globals.css';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Topbar } from '@/components/layout/Topbar';
 import { ThemeProvider } from '@/components/theme-provider';
-import { FeedbackButton } from '@/components/FeedbackButton';
+import { ChatWidget } from '@/components/ChatWidget';
 import { Analytics } from '@vercel/analytics/react';
 
 export const metadata: Metadata = {
@@ -39,7 +39,7 @@ export default function RootLayout({
               </main>
             </div>
           </div>
-          <FeedbackButton />
+          <ChatWidget />
           <Analytics />
         </ThemeProvider>
       </body>

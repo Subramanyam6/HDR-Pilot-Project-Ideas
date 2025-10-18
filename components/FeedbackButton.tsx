@@ -13,17 +13,16 @@ import {
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from '@/components/ui/tooltip';
 
 export function FeedbackButton() {
+  const [mounted, setMounted] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [name, setName] = React.useState('');
   const [feedback, setFeedback] = React.useState('');
+
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,26 +35,28 @@ export function FeedbackButton() {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <DialogTrigger asChild>
-              <Button
-                variant="outline"
-                size="icon"
-                className="fixed bottom-4 right-4 rounded-full shadow-lg hover:shadow-xl transition-shadow z-50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-                aria-label="Send feedback"
-              >
-                <MessageCircle className="h-5 w-5" />
-              </Button>
-            </DialogTrigger>
-          </TooltipTrigger>
-          <TooltipContent side="left">
-            <p>Send Feedback</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+    <>
+      {!mounted ? (
+        <Button
+          variant="ghost"
+          size="icon"
+          className="hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+          aria-label="Send feedback"
+        >
+          <MessageCircle className="h-5 w-5" />
+        </Button>
+      ) : (
+        <Dialog open={open} onOpenChange={setOpen}>
+          <DialogTrigger asChild>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hover:bg-accent hover:text-accent-foreground focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+              aria-label="Send feedback"
+            >
+              <MessageCircle className="h-5 w-5" />
+            </Button>
+          </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>Send Feedback</DialogTitle>
@@ -104,7 +105,8 @@ export function FeedbackButton() {
           </div>
         </form>
       </DialogContent>
-    </Dialog>
+        </Dialog>
+      )}
+    </>
   );
 }
-

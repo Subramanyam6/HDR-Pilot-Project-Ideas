@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/theme-switcher';
+import { FeedbackButton } from '@/components/FeedbackButton';
 
 export function Topbar() {
   return (
@@ -68,8 +69,11 @@ export function Topbar() {
         </div>
       </div>
 
-      {/* Theme switcher */}
-      <ThemeSwitcher />
+      {/* Right side actions */}
+      <div className="flex items-center gap-2">
+        <FeedbackButton />
+        <ThemeSwitcher />
+      </div>
     </header>
   );
 }

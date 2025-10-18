@@ -14,7 +14,6 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Home', href: '/', icon: '🏠' },
   { label: 'Pilots', href: '/pilots', icon: '📋' },
-  { label: 'Pilot Picker (AI Powered)', href: '/picker', icon: '🤖' },
 ];
 
 export function Sidebar() {

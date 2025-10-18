@@ -51,13 +51,14 @@ export default function HomePage() {
           Use our <span className="text-accent font-semibold">Pilot Picker (AI Powered)</span> chatbot to get personalized recommendations based on 
           your needs, constraints, and goals.
         </p>
-        <Link href="/picker">
-          <Button size="lg" className="bg-gradient-to-r from-accent to-warning hover:from-accent/90 hover:to-warning/90 text-accent-foreground shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 text-base px-8 py-6">
-            Try Pilot Picker →
-          </Button>
-        </Link>
+        <div className="mt-4">
+          <Link href="/picker">
+            <Button size="lg" className="bg-gradient-to-r from-accent to-warning hover:from-accent/90 hover:to-warning/90 text-accent-foreground shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 text-base px-8 py-6">
+              Try Pilot Picker →
+            </Button>
+          </Link>
+        </div>
       </section>
     </div>
   );
 }
-

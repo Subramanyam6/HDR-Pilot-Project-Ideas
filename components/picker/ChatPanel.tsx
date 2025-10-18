@@ -103,7 +103,6 @@ export function ChatPanel({ messages, onSendMessage, isProcessing = false }: Cha
           <Textarea
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Ask me anything about pilot projects... (e.g., 'What's a low-risk pilot for carbon tracking?')"
             className="flex-1 min-h-[60px] resize-none"
             onKeyDown={(e) => {
               if (e.key === 'Enter' && !e.shiftKey) {

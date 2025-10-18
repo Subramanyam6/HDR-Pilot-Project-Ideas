@@ -75,7 +75,7 @@ export default function PickerPage() {
               Ask Me Anything
             </h1>
             <p className="text-muted-foreground">
-              I&apos;m your AI assistant for pilot recommendations. Ask me anything about pilot projects!
+              I&apos;m your AI assistant for pilot recommendations.
             </p>
           </div>
         </div>

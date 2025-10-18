@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useState } from "react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -10,12 +13,15 @@ interface PilotCardProps {
 }
 
 export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
+  const [showAllTags, setShowAllTags] = useState(false);
+  const [showAllStack, setShowAllStack] = useState(false);
+
   return (
     <Card className="flex flex-col h-full hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-primary/10 bg-gradient-to-br from-card to-background">
       <CardHeader>
-        <div className="flex items-start justify-between gap-2 mb-2">
-          <CardTitle className="text-lg">{pilot.title}</CardTitle>
-          <Badge variant="outline" className="shrink-0">
+        <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
+          <CardTitle className="text-lg leading-tight">{pilot.title}</CardTitle>
+          <Badge variant="outline" className="shrink-0 max-w-full truncate">
             {pilot.sector}
           </Badge>
         </div>
@@ -24,14 +30,18 @@ export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
 
       <CardContent className="flex-1 space-y-4">
         <div className="flex flex-wrap gap-1.5">
-          {pilot.tags.slice(0, 3).map((tag) => (
-            <Badge key={tag} variant="secondary" className="text-xs">
+          {(showAllTags ? pilot.tags : pilot.tags.slice(0, 3)).map((tag) => (
+            <Badge key={tag} variant="outline" className="text-xs">
               {tag}
             </Badge>
           ))}
           {pilot.tags.length > 3 && (
-            <Badge variant="secondary" className="text-xs">
-              +{pilot.tags.length - 3}
+            <Badge 
+              variant="outline" 
+              className="text-xs cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors"
+              onClick={() => setShowAllTags(!showAllTags)}
+            >
+              {showAllTags ? '−' : `+${pilot.tags.length - 3}`}
             </Badge>
           )}
         </div>
@@ -51,15 +61,19 @@ export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
         <div>
           <p className="text-xs font-semibold text-muted-foreground mb-1">Stack:</p>
           <div className="flex flex-wrap gap-1.5">
-            {pilot.stack.slice(0, 4).map((tech) => (
-              <span key={tech} className="text-xs px-2 py-0.5 bg-accent rounded">
+            {(showAllStack ? pilot.stack : pilot.stack.slice(0, 3)).map((tech) => (
+              <Badge key={tech} variant="outline" className="text-xs">
                 {tech}
-              </span>
+              </Badge>
             ))}
-            {pilot.stack.length > 4 && (
-              <span className="text-xs px-2 py-0.5 bg-accent rounded">
-                +{pilot.stack.length - 4}
-              </span>
+            {pilot.stack.length > 3 && (
+              <Badge 
+                variant="outline" 
+                className="text-xs cursor-pointer hover:bg-accent hover:text-accent-foreground transition-colors"
+                onClick={() => setShowAllStack(!showAllStack)}
+              >
+                {showAllStack ? '−' : `+${pilot.stack.length - 3}`}
+              </Badge>
             )}
           </div>
         </div>
