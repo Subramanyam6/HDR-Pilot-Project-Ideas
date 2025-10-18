@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Menu, Search } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/theme-switcher';
-import { FeedbackButton } from '@/components/FeedbackButton';
 
 export function Topbar() {
   const pathname = usePathname();
@@ -28,7 +27,7 @@ export function Topbar() {
           <div className="flex flex-col h-full">
             <div className="flex h-16 items-center border-b border-primary/20 mb-6">
               <h1 className="text-xl font-bold text-foreground">
-                Pilot Project Ideas for HDR
+                HDR Pilot Ideas
               </h1>
             </div>
             <nav className="flex-1 space-y-2">
@@ -54,7 +53,7 @@ export function Topbar() {
         
         {/* Title - visible on mobile */}
         <h1 className="md:hidden text-lg font-bold text-foreground">
-          Pilot Project Ideas for HDR
+          HDR Pilot Ideas
         </h1>
       </div>
 
@@ -76,7 +75,6 @@ export function Topbar() {
 
       {/* Right side actions */}
       <div className="flex items-center gap-2">
-        <FeedbackButton />
         <ThemeSwitcher />
       </div>
     </header>

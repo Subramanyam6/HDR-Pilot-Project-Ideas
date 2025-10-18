@@ -2,6 +2,7 @@
 
 import * as React from 'react';
 import { MessageCircle, X } from 'lucide-react';
+import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,6 +13,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from '@/components/ui/tooltip';
 import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +27,8 @@ import { cn } from '@/lib/utils';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import { useChat } from '@/components/chat/ChatProvider';
 import type { ChatMessage } from '@/lib/chat-types';
+import { getSectorIcon } from '@/lib/sector-icons';
+import type { SectorType } from '@/lib/sector-icons';
 
 const ChatDialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -43,10 +52,12 @@ const ChatDialogContent = React.forwardRef<
 ChatDialogContent.displayName = 'ChatDialogContent';
 
 export function ChatWidget() {
+  const pathname = usePathname();
   const [open, setOpen] = React.useState(false);
   const [input, setInput] = React.useState('');
   const { messages, recommendations, isProcessing, sendMessage } = useChat();
   const messagesEndRef = React.useRef<HTMLDivElement>(null);
+  const recommendationsTopRef = React.useRef<HTMLDivElement>(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -55,6 +66,13 @@ export function ChatWidget() {
   React.useEffect(() => {
     scrollToBottom();
   }, [messages]);
+  
+  React.useEffect(() => {
+    // Scroll recommendations panel to top when recommendations change
+    if (recommendations.length > 0 && recommendationsTopRef.current) {
+      recommendationsTopRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, [recommendations]);
 
   const handleSendMessage = React.useCallback(
     async (content: string) => {
@@ -62,6 +80,11 @@ export function ChatWidget() {
     },
     [sendMessage]
   );
+  
+  // Hide chat widget on /picker page
+  if (pathname === '/picker') {
+    return null;
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,18 +96,26 @@ export function ChatWidget() {
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen} modal={false}>
-      <DialogTrigger asChild>
-        <Button
-          variant="outline"
-          size="icon"
-          data-chat-trigger
-          className="fixed bottom-4 right-4 rounded-full shadow-lg hover:shadow-xl transition-shadow z-50 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-          aria-label="Open chat"
-        >
-          <MessageCircle className="h-5 w-5" />
-        </Button>
-      </DialogTrigger>
+    <TooltipProvider>
+      <Dialog open={open} onOpenChange={setOpen} modal={false}>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <DialogTrigger asChild>
+              <Button
+                variant="default"
+                size="lg"
+                data-chat-trigger
+                className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 z-50 focus-visible:ring-2 focus-visible:ring-ring"
+                aria-label="Chat with AI Assistant"
+              >
+                <MessageCircle className="h-6 w-6 text-primary-foreground" />
+              </Button>
+            </DialogTrigger>
+          </TooltipTrigger>
+          <TooltipContent side="left" className="bg-foreground text-background font-medium">
+            <p>Chat with me</p>
+          </TooltipContent>
+        </Tooltip>
       <ChatDialogContent
         onPointerDownOutside={(event) => {
           const target = event.target as HTMLElement | null;
@@ -152,8 +183,8 @@ export function ChatWidget() {
                         <Card
                           className={`max-w-[85%] sm:max-w-[80%] p-2 sm:p-3 md:p-4 shadow-md ${
                             message.role === 'user'
-                              ? 'bg-gradient-to-br from-primary to-accent text-primary-foreground'
-                              : 'bg-card border-primary/20'
+                              ? 'bg-primary text-primary-foreground'
+                              : 'bg-card border-border'
                           }`}
                         >
                           <div className="text-xs sm:text-sm whitespace-pre-wrap break-words">{message.content}</div>
@@ -217,90 +248,89 @@ export function ChatWidget() {
               </div>
             ) : (
               <div className="space-y-4 p-4 flex-1">
-                <div className="sticky top-0 bg-background pb-2 border-b">
+                <div ref={recommendationsTopRef} className="sticky top-0 bg-background pb-2 border-b">
                   <h2 className="text-lg font-semibold">Recommended Pilots</h2>
                   <p className="text-sm text-muted-foreground">Based on your requirements</p>
                 </div>
 
                 <div className="space-y-4">
-                  {recommendations.map((scored, index) => (
-                    <Card key={scored.pilot.id} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-primary/10 bg-gradient-to-br from-card to-background">
-                      <div className="p-4">
-                        <div className="flex items-start justify-between gap-2 mb-2">
-                          <div className="flex items-center gap-2">
-                            <div className="flex items-center justify-center w-8 h-8 rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground font-bold text-sm shadow-md">
-                              #{index + 1}
+                  {recommendations.map((scored, index) => {
+                    const SectorIcon = getSectorIcon(scored.pilot.sector as SectorType);
+                    return (
+                      <Card key={scored.pilot.id} className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-border bg-card">
+                        <div className="p-4">
+                          <div className="flex items-start justify-between gap-2 mb-2">
+                            <div className="flex items-center gap-2">
+                              <div className="flex items-center justify-center w-8 h-8 rounded-full bg-primary text-primary-foreground font-bold text-sm shadow-sm">
+                                #{index + 1}
+                              </div>
+                              <h3 className="text-base font-semibold">{scored.pilot.title}</h3>
                             </div>
-                            <h3 className="text-base font-semibold">{scored.pilot.title}</h3>
+                            <Badge variant="default" className="shrink-0">
+                              {Math.round(scored.score * 100)}% match
+                            </Badge>
                           </div>
-                          <Badge variant="default" className="shrink-0">
-                            {Math.round(scored.score * 100)}% match
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-3">{scored.pilot.oneLiner}</p>
+                          <p className="text-sm text-muted-foreground mb-3">{scored.pilot.oneLiner}</p>
 
-                        <div className="space-y-3">
-                          {/* Why this pilot */}
-                          {scored.reasons.length > 0 && (
-                            <div>
-                              <p className="text-xs font-semibold text-muted-foreground mb-1">Why this pilot:</p>
-                              <ul className="text-xs space-y-0.5">
-                                {scored.reasons.map((reason, idx) => (
-                                  <li key={idx} className="flex items-start">
-                                    <span className="text-primary mr-1">•</span>
-                                    <span>{reason}</span>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          )}
+                          <div className="space-y-3">
+                            {/* Why this pilot */}
+                            {scored.reasons.length > 0 && (
+                              <div>
+                                <p className="text-xs font-semibold text-muted-foreground mb-1">Why this pilot:</p>
+                                <ul className="text-xs space-y-0.5">
+                                  {scored.reasons.map((reason, idx) => (
+                                    <li key={idx} className="flex items-start">
+                                      <span className="text-primary mr-1">•</span>
+                                      <span>{reason}</span>
+                                    </li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
 
-                          {/* Quick stats */}
-                          <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
-                            <div>
-                              <span className="font-semibold text-muted-foreground">Sector:</span>{' '}
-                              <Badge variant="secondary" className="text-xs ml-1">
-                                {scored.pilot.sector}
-                              </Badge>
+                            {/* Quick stats */}
+                            <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
+                              <div className="flex items-center gap-1">
+                                <span className="font-semibold text-muted-foreground">Sector:</span>{' '}
+                                <Badge variant="secondary" className="text-xs ml-1 flex items-center gap-1">
+                                  <SectorIcon className="h-3 w-3" />
+                                  {scored.pilot.sector}
+                                </Badge>
+                              </div>
+                              <div>
+                                <span className="font-semibold text-muted-foreground">Overall Pick:</span>{' '}
+                                <span
+                                  className={
+                                    scored.pilot.overallPick >= 7
+                                      ? 'text-green-600 dark:text-green-400'
+                                      : scored.pilot.overallPick >= 4
+                                      ? 'text-yellow-600 dark:text-yellow-400'
+                                      : 'text-red-600 dark:text-red-400'
+                                  }
+                                >
+                                  {scored.pilot.overallPick}/10
+                                </span>
+                              </div>
                             </div>
-                            <div>
-                              <span className="font-semibold text-muted-foreground">Risk:</span>{' '}
-                              <span
-                                className={
-                                  scored.pilot.wheelRisk <= 4
-                                    ? 'text-green-600 dark:text-green-400'
-                                    : scored.pilot.wheelRisk <= 7
-                                    ? 'text-yellow-600 dark:text-yellow-400'
-                                    : 'text-red-600 dark:text-red-400'
-                                }
-                              >
-                                {scored.pilot.wheelRisk}/10
-                              </span>
-                            </div>
-                            <div>
-                              <span className="font-semibold text-muted-foreground">Feasibility:</span>{' '}
-                              <span>
-                                {scored.pilot.feasibility === 'solo-90-day' ? 'Solo 90-day' : 'Configure'}
-                              </span>
-                            </div>
+
+                            {/* CTA */}
+                            <Link href={`/pilots/${scored.pilot.id}`} onClick={() => setOpen(false)}>
+                              <Button variant="outline" size="sm" className="w-full mt-2 hover:bg-primary hover:text-primary-foreground transition-all duration-200">
+                                View Full Details →
+                              </Button>
+                            </Link>
                           </div>
-
-                          {/* CTA */}
-                          <Link href={`/pilots/${scored.pilot.id}`} onClick={() => setOpen(false)}>
-                            <Button variant="outline" size="sm" className="w-full mt-2 hover:bg-primary hover:text-primary-foreground transition-all duration-200">
-                              View Full Details →
-                            </Button>
-                          </Link>
                         </div>
-                      </div>
-                    </Card>
-                  ))}
+                      </Card>
+                    );
+                  })}
                 </div>
               </div>
             )}
           </div>
         </div>
       </ChatDialogContent>
-    </Dialog>
+      </Dialog>
+    </TooltipProvider>
   );
 }

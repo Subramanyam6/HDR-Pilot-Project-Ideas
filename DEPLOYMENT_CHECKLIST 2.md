@@ -43,8 +43,7 @@ Navigate to Vercel Dashboard → Project → Settings → Environment Variables:
 - [ ] `OPENAI_API_KEY` = `sk-...` (Preview)
 
 **Optional** (use defaults if not set):
-- [ ] `OPENAI_MODEL` = `gpt-5`
-- [ ] `OPENAI_FALLBACK_MODEL` = `gpt-4o-mini`
+- [ ] `OPENAI_MODEL` = `gpt-4o-mini`
 - [ ] `OPENAI_EMBEDDING_MODEL` = `text-embedding-3-small`
 - [ ] `RAG_ENABLED` = `true`
 - [ ] `RAG_TOP_K` = `3`
@@ -172,7 +171,7 @@ Redeploy to apply changes.
 **Cause**: Too many queries or expensive model  
 **Fix**:
 - Set OpenAI usage limits ($10/month)
-- Use `gpt-5` (or pick a model that balances cost and capability for your use case)
+- Use `gpt-4o-mini` (cheaper than `gpt-4o`)
 - Monitor usage in OpenAI dashboard
 
 ---
@@ -236,3 +235,4 @@ Before announcing the feature:
 - [ ] ✅ Team trained on usage
 
 **You're ready to launch!** 🚀
+

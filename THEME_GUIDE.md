@@ -189,7 +189,6 @@ app/
 components/
 ├── theme-provider.tsx       # next-themes wrapper
 ├── theme-switcher.tsx       # UI for theme selection
-├── FeedbackButton.tsx       # Example shadcn Dialog usage
 ├── layout/
 │   ├── Sidebar.tsx          # Uses tokens (border-border, etc.)
 │   └── Topbar.tsx           # Includes ThemeSwitcher
@@ -220,4 +219,3 @@ Consider these additions:
 
 **Last Updated**: October 2025  
 **Built with**: Next.js 14, shadcn/ui, Tailwind CSS, Radix UI
-

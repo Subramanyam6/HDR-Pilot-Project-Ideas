@@ -8,8 +8,8 @@ interface Pilot {
   title: string;
   sector: string;
   tags: string[];
-  feasibility: string;
-  wheelRisk: number;
+  competitors: string;
+  overallPick: number;
 }
 
 interface PilotEmbedding {
@@ -53,8 +53,7 @@ function applyBoosts(
   // Get config from env (with defaults)
   const tagBoost = parseFloat(process.env.RAG_TAG_BOOST || '0.2');
   const sectorBoost = parseFloat(process.env.RAG_SECTOR_BOOST || '0.2');
-  const feasibilityBoost = parseFloat(process.env.RAG_FEASIBILITY_BOOST || '0.2');
-  const riskPenalty = parseFloat(process.env.RAG_WHEELRISK_PENALTY || '0.2');
+  const pickBoost = parseFloat(process.env.RAG_OVERALLPICK_BOOST || '0.4');
   
   const queryLower = query.toLowerCase();
   
@@ -73,17 +72,11 @@ function applyBoosts(
     reasons.push(`Relevant tags: ${matchingTags.slice(0, 3).join(', ')}`);
   }
   
-  // Solo-90-day feasibility boost
-  if (pilot.feasibility === 'solo-90-day') {
-    finalScore += feasibilityBoost;
-    reasons.push('Quick to implement (90 days)');
-  }
-  
-  // Lower risk penalty (invert: lower risk = higher score)
-  const riskFactor = (10 - pilot.wheelRisk) / 10;
-  finalScore += riskFactor * riskPenalty;
-  if (pilot.wheelRisk <= 4) {
-    reasons.push(`Low risk (${pilot.wheelRisk}/10)`);
+  // Overall pick bonus (higher = better)
+  const pickFactor = pilot.overallPick / 10;
+  finalScore += pickFactor * pickBoost;
+  if (pilot.overallPick >= 7) {
+    reasons.push(`Highly recommended (${pilot.overallPick}/10 overall pick)`);
   }
   
   return { score: Math.min(finalScore, 1), reasons };

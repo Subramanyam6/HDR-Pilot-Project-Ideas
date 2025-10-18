@@ -68,11 +68,11 @@ git push origin main
 
 ## Cost Per Query
 
-- Embedding: refer to current OpenAI pricing for `text-embedding-3-small`
-- Answer (GPT-5): check the latest OpenAI rate card (pricing changes frequently)
-- **Total**: depends on your selected model combination and usage
+- Embedding: $0.0001
+- Answer (GPT-4o-mini): $0.001
+- **Total**: ~$0.0011 per query
 
-Tip: review https://platform.openai.com/pricing for up-to-date numbers before large deployments.
+**100 queries/day** = ~$3.30/month 💰
 
 ---
 
@@ -81,9 +81,8 @@ Tip: review https://platform.openai.com/pricing for up-to-date numbers before la
 Edit `.env.local`:
 
 ```bash
-# Select an alternate model
-OPENAI_MODEL=gpt-5
-OPENAI_FALLBACK_MODEL=gpt-4o-mini
+# Use cheaper model
+OPENAI_MODEL=gpt-4o-mini
 
 # Adjust ranking boosts (0.0 to 1.0)
 RAG_TAG_BOOST=0.3
@@ -131,3 +130,4 @@ Quick tests:
 ---
 
 **That's it!** Your RAG chat is ready. 🎉
+

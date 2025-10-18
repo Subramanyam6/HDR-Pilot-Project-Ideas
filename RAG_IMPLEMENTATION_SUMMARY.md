@@ -98,21 +98,22 @@ Add `OPENAI_API_KEY` to Vercel environment variables.
 ## 💰 Cost Estimates
 
 **Per Query**:
-- Embedding: ~$0.0001
-- GPT-4o-mini: ~$0.001
-- **Total**: ~$0.0011
+- Embedding: see current pricing for `text-embedding-3-small`
+- GPT-5: consult OpenAI's latest rate card
+- **Total**: depends on selections and traffic volume
 
 **Monthly** (100 queries/day):
-- ~$3.30/month
+- Estimate costs with https://platform.openai.com/pricing before launch
 
-**Very affordable!** ✅
+**Still extremely manageable for pilot-scale usage.** ✅
 
 ## ⚙️ Configuration (Optional)
 
 All optional with sensible defaults:
 
 ```bash
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_MODEL=gpt-5
+OPENAI_FALLBACK_MODEL=gpt-4o-mini
 OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 RAG_ENABLED=true
 RAG_TOP_K=3
@@ -192,4 +193,3 @@ The RAG system is **production-ready** and waiting for:
 3. Testing with real queries
 
 Everything else is complete and functional! 🚀
-

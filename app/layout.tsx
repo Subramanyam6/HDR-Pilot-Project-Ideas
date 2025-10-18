@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Merriweather, Source_Serif_4, JetBrains_Mono } from 'next/font/google';
+import { Montserrat, Inter, Fira_Code } from 'next/font/google';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Topbar } from '@/components/layout/Topbar';
 import { ThemeProvider } from '@/components/theme-provider';
@@ -8,28 +8,28 @@ import { ChatProvider } from '@/components/chat/ChatProvider';
 import { ChatWidget } from '@/components/ChatWidget';
 import { Analytics } from '@vercel/analytics/react';
 
-const merriweather = Merriweather({
+const montserrat = Montserrat({
   subsets: ['latin'],
-  weight: ['300', '400', '700', '900'],
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
   display: 'swap',
   variable: '--font-sans',
 });
 
-const sourceSerif = Source_Serif_4({
+const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-serif',
+  variable: '--font-sans-dark',
 });
 
-const jetbrainsMono = JetBrains_Mono({
+const firaCode = Fira_Code({
   subsets: ['latin'],
-  weight: ['400', '500', '700'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
   variable: '--font-mono',
 });
 
 export const metadata: Metadata = {
-  title: 'Pilot Project Ideas for HDR',
+  title: 'HDR Pilot Ideas',
   description: 'Explore and discover pilot project ideas across sectors',
 };
 
@@ -40,7 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${merriweather.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${montserrat.variable} ${inter.variable} ${firaCode.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

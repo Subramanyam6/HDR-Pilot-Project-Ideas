@@ -7,7 +7,7 @@ A UI-only Next.js application showcasing 15 pilot project ideas across various s
 - 🏠 **Landing Page**: Overview with top 3 featured pilots and "Our 3 Asks"
 - 📋 **Pilots List**: Browse all 15 pilots with advanced filtering (sector, feasibility, risk, tags, search)
 - 📄 **Pilot Detail**: Comprehensive view of each pilot with problem, approach, KPIs, risks, and buy-vs-build analysis
-- 🤖 **AI Chat Widget**: RAG-powered chatbot with semantic search and GPT-4o-mini recommendations
+- 🤖 **AI Chat Widget**: RAG-powered chatbot with semantic search and GPT-5 recommendations
 - 🔍 **Smart Search**: Cosine similarity + intelligent boosts (sector, tags, feasibility, risk)
 - 🌙 **Dark Mode**: Toggle between light and dark themes
 - 📱 **Responsive**: Mobile-friendly with collapsible sidebar and filter sheets
@@ -16,7 +16,7 @@ A UI-only Next.js application showcasing 15 pilot project ideas across various s
 ## Tech Stack
 
 - **Next.js 14** (App Router, TypeScript)
-- **OpenAI API** (text-embedding-3-small, gpt-4o-mini)
+- **OpenAI API** (text-embedding-3-small, gpt-5)
 - **Tailwind CSS** (with CSS variables for theming)
 - **Zod** (schema validation)
 - **shadcn/ui patterns** (locally implemented UI components)
@@ -213,4 +213,3 @@ Proprietary (HDR internal use)
 ---
 
 **Built with ❤️ by a senior Next.js/Tailwind/shadcn engineer**
-

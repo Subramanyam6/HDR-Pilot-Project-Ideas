@@ -28,9 +28,6 @@ npx shadcn@latest add card badge dropdown-menu separator tooltip toggle checkbox
 - `lib/themes.ts` - Theme registry for switchable design theme packs
 - `components.json` - shadcn configuration
 
-#### New Components
-- `components/FeedbackButton.tsx` - Feedback dialog with tooltips
-
 #### Documentation
 - `THEME_GUIDE.md` - Comprehensive theming documentation
 - `UPGRADE_SUMMARY.md` - This file
@@ -40,7 +37,6 @@ npx shadcn@latest add card badge dropdown-menu separator tooltip toggle checkbox
 #### `app/layout.tsx`
 - ✅ Added `ThemeProvider` wrapper
 - ✅ Added `<Analytics />` from Vercel
-- ✅ Added `<FeedbackButton />` floating button
 
 #### `app/globals.css`
 - ✅ Updated radius from `0.5rem` to `0.75rem`
@@ -160,7 +156,6 @@ npm run build
 ### Immediate
 1. Test on real devices (iOS Safari, Android Chrome)
 2. Run Lighthouse audit for accessibility
-3. Gather user feedback via FeedbackButton
 
 ### Future
 1. **Add real Notebook theme**
@@ -214,4 +209,3 @@ document.documentElement.className
 **Upgrade Date**: October 2025  
 **Engineer**: Senior Next.js/Tailwind/shadcn Engineer  
 **Status**: ✅ Complete - Build passes, all features functional
-

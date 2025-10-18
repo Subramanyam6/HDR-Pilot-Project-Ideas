@@ -10,8 +10,8 @@ interface Pilot {
   tags: string[];
   problem: string;
   approach: string;
-  feasibility: string;
-  wheelRisk: number;
+  competitors: string;
+  overallPick: number;
 }
 
 interface AnswerRequest {
@@ -68,14 +68,15 @@ Sector: ${pilot.sector}
 Description: ${pilot.oneLiner}
 Problem: ${pilot.problem}
 Approach: ${pilot.approach}
-Feasibility: ${pilot.feasibility}
-Risk Level: ${pilot.wheelRisk}/10
+Competitors: ${pilot.competitors || 'None'}
+Overall Pick: ${pilot.overallPick}/10
 Tags: ${pilot.tags.join(', ')}
 `).join('\n---\n');
     
     // Initialize OpenAI
     const openai = new OpenAI({ apiKey });
-    const model = process.env.OPENAI_MODEL || 'gpt-4o-mini';
+    const preferredModel = process.env.OPENAI_MODEL || 'gpt-5';
+    const fallbackModel = process.env.OPENAI_FALLBACK_MODEL || 'gpt-4o';
     
     // Create prompt
     const systemPrompt = `You are the Pilot Navigator assistant for HDR. You can use:
@@ -122,16 +123,60 @@ ${context}
 
 Follow the intent detection rules above and respond accordingly.`;
     
-    // Call OpenAI
-    const completion = await openai.chat.completions.create({
-      model,
-      messages: [
-        { role: 'system', content: systemPrompt },
-        { role: 'user', content: userPrompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 300
-    });
+    // Call OpenAI with graceful fallback
+    const createCompletion = (modelName: string) =>
+      openai.chat.completions.create({
+        model: modelName,
+        messages: [
+          { role: 'system', content: systemPrompt },
+          { role: 'user', content: userPrompt },
+        ],
+        temperature: 0.7,
+        max_tokens: 300,
+      });
+
+    const shouldFallback = (error: unknown) => {
+      if (!fallbackModel || fallbackModel === preferredModel) return false;
+      const err = error as {
+        status?: number;
+        error?: { type?: string; message?: string };
+        message?: string;
+      };
+      const status = err?.status;
+      const type = err?.error?.type;
+      const message = (err?.error?.message || err?.message || '').toLowerCase();
+      const hintsModelIssue =
+        message.includes('model') ||
+        message.includes('not exist') ||
+        message.includes('unsupported') ||
+        message.includes('not found');
+      return (
+        hintsModelIssue &&
+        (status === 400 ||
+          status === 404 ||
+          status === 422 ||
+          type === 'invalid_request_error' ||
+          type === 'not_found' ||
+          type === 'model_not_found')
+      );
+    };
+
+    let model = preferredModel;
+    let completion: Awaited<ReturnType<typeof createCompletion>>;
+
+    try {
+      completion = await createCompletion(preferredModel);
+    } catch (primaryError) {
+      if (shouldFallback(primaryError)) {
+        console.warn(
+          `⚠️ OpenAI model "${preferredModel}" unavailable, falling back to "${fallbackModel}".`,
+        );
+        model = fallbackModel;
+        completion = await createCompletion(fallbackModel);
+      } else {
+        throw primaryError;
+      }
+    }
     
     const summary = completion.choices[0]?.message?.content || 'Unable to generate recommendation.';
     
@@ -163,4 +208,3 @@ Follow the intent detection rules above and respond accordingly.`;
     );
   }
 }
-

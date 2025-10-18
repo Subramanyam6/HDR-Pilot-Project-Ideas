@@ -10,8 +10,8 @@ export const PilotSchema = z.object({
   oneLiner: z.string(),
   stack: z.array(z.string()),
   kpis: z.array(z.string()),
-  feasibility: z.enum(['solo-90-day', 'configure']),
-  wheelRisk: z.number().min(0).max(10),
+  competitors: z.string(),
+  overallPick: z.number().min(1).max(10),
   problem: z.string(),
   approach: z.string(),
   oneWeek: z.string(),
@@ -49,15 +49,13 @@ export function getPilotById(id: string): Pilot | undefined {
 // Get top 3 pinned pilots (manually selected for landing page)
 export function getTopPilots(): Pilot[] {
   const allPilots = getAllPilots();
-  // First 3 from JSON are the "top" pilots
-  return allPilots.slice(0, 3);
+  return [...allPilots].sort((a, b) => b.overallPick - a.overallPick).slice(0, 3);
 }
 
 // Filter options
 export interface FilterOptions {
   sectors?: Sector[];
-  feasibility?: 'solo-90-day' | 'configure' | 'all';
-  wheelRiskMax?: number;
+  overallPickMin?: number;
   tags?: string[];
   search?: string;
 }
@@ -70,12 +68,8 @@ export function filterPilots(options: FilterOptions): Pilot[] {
     pilots = pilots.filter(p => options.sectors!.includes(p.sector as Sector));
   }
 
-  if (options.feasibility && options.feasibility !== 'all') {
-    pilots = pilots.filter(p => p.feasibility === options.feasibility);
-  }
-
-  if (options.wheelRiskMax !== undefined) {
-    pilots = pilots.filter(p => p.wheelRisk <= options.wheelRiskMax!);
+  if (options.overallPickMin !== undefined) {
+    pilots = pilots.filter(p => p.overallPick >= options.overallPickMin!);
   }
 
   if (options.tags && options.tags.length > 0) {
@@ -99,21 +93,14 @@ export function filterPilots(options: FilterOptions): Pilot[] {
 }
 
 // Sort options
-export type SortOption = 'relevance' | 'wheelRisk' | 'feasibility';
+export type SortOption = 'relevance' | 'overallPick';
 
 export function sortPilots(pilots: Pilot[], sortBy: SortOption): Pilot[] {
   const sorted = [...pilots];
   
   switch (sortBy) {
-    case 'wheelRisk':
-      return sorted.sort((a, b) => a.wheelRisk - b.wheelRisk);
-    case 'feasibility':
-      return sorted.sort((a, b) => {
-        // solo-90-day first
-        if (a.feasibility === 'solo-90-day' && b.feasibility !== 'solo-90-day') return -1;
-        if (a.feasibility !== 'solo-90-day' && b.feasibility === 'solo-90-day') return 1;
-        return 0;
-      });
+    case 'overallPick':
+      return sorted.sort((a, b) => b.overallPick - a.overallPick); // Higher overall pick first
     case 'relevance':
     default:
       return sorted;
@@ -154,17 +141,11 @@ export function scorePilots(query: string, pilots: Pilot[] = getAllPilots()): Sc
         reasons.push('Relevant to your query');
       }
 
-      // Feasibility bonus (0.2 weight)
-      if (pilot.feasibility === 'solo-90-day') {
-        score += 0.2;
-        reasons.push('Can be built solo in 90 days');
-      }
-
-      // Low wheel risk bonus (0.2 weight)
-      const riskScore = 0.2 * ((10 - pilot.wheelRisk) / 10);
-      score += riskScore;
-      if (pilot.wheelRisk <= 4) {
-        reasons.push(`Low implementation risk (${pilot.wheelRisk}/10)`);
+      // Overall pick bonus (0.4 weight)
+      const pickScore = 0.4 * (pilot.overallPick / 10);
+      score += pickScore;
+      if (pilot.overallPick >= 7) {
+        reasons.push(`Highly recommended (${pilot.overallPick}/10 overall pick)`);
       }
 
       // Hybrid retrieval: simple cosine similarity over embeddings
@@ -198,4 +179,3 @@ export function getAllTags(): string[] {
 // - Embedding generation via OpenAI/Cohere
 // - Vector DB (Pinecone, Weaviate, etc.) for similarity search
 // - LLM call to generate personalized recommendations and reasons
-

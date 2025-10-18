@@ -26,8 +26,6 @@
       "Lower vehicle idle time",
       "Improved travel time reliability"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 5,
     "problem": "City traffic signals often operate on fixed schedules that fail to adapt to real-time conditions. This leads to unnecessary congestion, longer travel times, and higher emissions as vehicles idle at red lights.",
     "approach": "Deploy an AI-driven system that ingests live traffic data (cameras, sensors) and optimizes signal timing in real-time. Use machine learning to adapt to patterns throughout the day. Start with one corridor of connected intersections as a pilot and measure improvements in flow and emissions.",
     "oneWeek": "Scope Sprint: Collect baseline traffic data for a busy intersection corridor. Simulate traffic with existing timings vs. optimized timing in software (e.g., SUMO simulator). Develop a simple ML model that adjusts one intersection’s timing based on flow.",
@@ -47,7 +45,9 @@
       0.4,
       0.2,
       0.2
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 6
   },
   {
     "id": "voltspot-ev-planner",
@@ -74,8 +74,6 @@
       "Higher charger utilization rates",
       "Coverage gaps identified and reduced"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 4,
     "problem": "Transportation agencies and utilities need to rapidly expand EV charging networks but struggle to decide where stations will be most effective. Planners must manually combine traffic patterns, electric grid data, and community needs, which is time-consuming and prone to oversight.",
     "approach": "Build a web application that layers relevant datasets on an interactive map. Include traffic volumes, current EV ownership, power grid capacity, and points of interest. Implement an algorithm to score potential sites based on criteria like demand and infrastructure readiness. The tool will output top recommended locations and allow planners to adjust assumptions.",
     "oneWeek": "Scope Sprint: Gather open data for one city (traffic counts, existing chargers, population). Create a basic map UI with Mapbox showing current charger locations and overlay traffic density. Outline scoring criteria for site selection.",
@@ -95,7 +93,9 @@
       0.6,
       0.4,
       0.5
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 7
   },
   {
     "id": "pavewatch-road-monitor",
@@ -121,8 +121,6 @@
       "Earlier pothole detection (by 1 month)",
       "Lower vehicle damage claims"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 5,
     "problem": "Roadway maintenance is often reactive, relying on periodic inspections or public complaints to find potholes and cracks. This reactive approach can lead to worsening damage and higher repair costs. A proactive system is needed to continuously monitor pavement health and flag issues early.",
     "approach": "Deploy accelerometer and vibration sensors on fleet vehicles or dedicated IoT devices on road segments to capture real-time condition data. Transmit data to a cloud platform for analysis of roughness and anomalies. Use machine learning to identify patterns that indicate developing potholes or structural issues, allowing maintenance crews to intervene sooner.",
     "oneWeek": "Scope Sprint: Instrument one vehicle with a smartphone or sensor to collect road vibration data on a known route. Develop a simple script to identify spikes in vibration (potential potholes) and map those locations. Validate findings against actual road conditions.",
@@ -135,14 +133,16 @@
     "buyVsBuild": "Consider: commercial offerings like RoadBotics (AI-based road assessment via smartphone video) or StreetScan. These provide turn-key road surveys. Build if an ongoing, in-house monitoring network is preferred for continuous data and integration with local operations.",
     "emb": [
       0.3,
-      1.0,
+      1,
       0.9,
       0.8,
-      0.0,
+      0,
       0.8,
       0.6,
       0.6
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 6
   },
   {
     "id": "aquawatch-quality-network",
@@ -167,8 +167,6 @@
       "Alerts triggered within minutes of threshold breach",
       "Improved compliance reporting efficiency"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 4,
     "problem": "Utilities and environmental agencies rely on periodic manual water sampling, which can miss sudden contamination events. Delayed detection of water quality issues can pose health risks and incur regulatory penalties. A faster, automated monitoring approach is needed to ensure water safety.",
     "approach": "Deploy a network of IoT sensor stations at critical points (e.g., treatment plant output, distribution nodes, watershed inflows). Each station measures parameters like pH, turbidity, and chemical contaminants, sending data to a central cloud platform in real-time. The platform visualizes trends and triggers alerts when readings exceed safe thresholds, allowing immediate response.",
     "oneWeek": "Scope Sprint: Set up a prototype sensor (Raspberry Pi + basic water quality sensor) in the lab. Stream data to an Azure IoT instance. Create a simple Grafana dashboard showing live pH and turbidity readings. Simulate an anomaly to test alert generation.",
@@ -188,7 +186,9 @@
       0.7,
       0.4,
       0.5
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 7
   },
   {
     "id": "hydrocast-flood-predictor",
@@ -216,8 +216,6 @@
       "High-risk zones identified with >90% accuracy",
       "Emergency response planning time reduced"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 6,
     "problem": "Communities face increasing flood risks due to climate change, but existing flood maps are static and forecasts often lack localized detail. Emergency managers need better predictive tools to anticipate where flooding will occur and how severe it will be, so they can allocate resources and issue warnings effectively.",
     "approach": "Combine real-time rainfall forecasts with terrain and river data to simulate potential flood events. Develop an AI model trained on historical flood data to refine predictions of flood extent. Present results on an interactive map showing predicted inundation areas, depths, and timelines. The tool will allow scenario planning (e.g., what-if analysis for different rainfall intensities) for emergency preparedness.",
     "oneWeek": "Scope Sprint: Choose a pilot area (e.g., one river basin or city). Gather elevation data (DEM) and past flood records for that area. Set up a basic hydrologic model or use a simple runoff calculation to estimate flood extent for a known storm. Display this on a Leaflet map as a proof of concept.",
@@ -230,14 +228,16 @@
     "buyVsBuild": "Consider: established flood modeling software (HEC-RAS, FEMA tools) for rigorous analysis. These require expertise and time for each scenario. Build if aiming for a quicker, automated predictor that can update with real-time data, at the expense of some precision but offering speed and customization (especially useful for localized applications).",
     "emb": [
       0.5,
-      1.0,
+      1,
       0.8,
       0.3,
       0.8,
-      1.0,
+      1,
       0.5,
       0.4
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 5
   },
   {
     "id": "gridsense-microgrid-optimizer",
@@ -265,8 +265,6 @@
       "Higher renewable utilization (up to 80% solar use)",
       "Reduced peak grid demand by 25%"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 6,
     "problem": "Facilities with solar panels and battery storage struggle to manually decide when to use stored energy versus grid power, especially with variable rates and intermittent generation. Suboptimal decisions can lead to higher costs or reliability issues. A smarter system is needed to automate energy management in real-time.",
     "approach": "Develop an AI controller that continuously monitors solar output, battery levels, load demand, and electricity prices. Using predictive algorithms (e.g., forecasting next hour’s solar generation and usage), it decides optimal charge/discharge schedules and grid usage. The system can send control signals to the battery inverter and other controllable loads. A web dashboard will show performance, savings, and allow overrides or mode changes by facility managers.",
     "oneWeek": "Scope Sprint: Model a simple scenario in code (e.g., one day of solar production vs load) and implement a rule-based optimizer. Show potential savings on historical data for a small commercial facility with a given solar/battery setup. Outline the AI approach (reinforcement learning or predictive control) to improve upon the rule-based strategy.",
@@ -280,13 +278,15 @@
     "emb": [
       0.5,
       0.1,
-      1.0,
+      1,
       0.1,
       0.5,
       0.1,
-      1.0,
+      1,
       0.6
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 5
   },
   {
     "id": "ecoaudit-ai-advisor",
@@ -312,8 +312,6 @@
       "Auditing process time reduced by 40%",
       "Customized retrofit recommendations generated"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 4,
     "problem": "Manual energy audits require substantial time from experts to comb through utility data, building information, and identify inefficiencies. This limits how many buildings can be audited and may miss subtle patterns. An automated assistant could rapidly analyze data and suggest improvements, augmenting the experts’ capabilities.",
     "approach": "Develop an AI assistant that takes in building data: smart meter readings, HVAC schedules, insulation levels, etc. Use machine learning to detect anomalies (like unusually high nighttime consumption) and compare performance against benchmarks or simulation models. The system then outputs a report of recommended actions (for example, \"upgrade lighting to LED\" or \"adjust thermostat settings after hours\") with estimated savings. The interface allows an energy engineer to input building specifics and get preliminary recommendations, accelerating the audit process.",
     "oneWeek": "Scope Sprint: Collect sample data from one building (e.g., a small office) including hourly energy usage and basic building info. Implement a simple rule-based analysis (if usage after 10pm is above X, flag HVAC schedule issue). Generate a mock report to illustrate recommendations. Identify data points needed for more advanced analysis.",
@@ -333,7 +331,9 @@
       0.6,
       0.1,
       0.7
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 7
   },
   {
     "id": "renewsite-planner",
@@ -360,8 +360,6 @@
       "Increased proposal success rate with data-backed site selection",
       "Accurate energy yield estimates (±5%)"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 4,
     "problem": "Developers and engineers must assess numerous factors when choosing sites for renewable energy projects: resource availability (sun, wind), land suitability, grid access, and financial incentives. Doing this analysis manually for each potential site is slow and may result in suboptimal choices or missed opportunities, especially under tight proposal deadlines.",
     "approach": "Build a web-based mapping application where users can draw or select a site and immediately get an analysis. Integrate data layers such as solar irradiance maps, wind speed data, land use/parcel info, distance to nearest grid interconnection, and available incentives by region. The backend uses these inputs to estimate potential energy output (using models like NREL’s PVWatts for solar) and calculates an expected financial model (CAPEX, OPEX, payback period). The result is a ranked list of sites or a detailed report for a chosen site to support decision-making and client proposals.",
     "oneWeek": "Scope Sprint: Assemble key datasets for one region (e.g., solar irradiance and land use for a specific state). Create a simple map with Mapbox allowing selection of a test site polygon. Manually run a PVWatts calculation for that site to demonstrate energy yield output. Sketch out the financial model assumptions (cost per MW, etc.).",
@@ -376,12 +374,14 @@
       0.7,
       0.8,
       0.1,
-      0.0,
+      0,
       0.9,
       0.5,
       0.8,
       0.4
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 7
   },
   {
     "id": "spacesense-occupancy",
@@ -407,8 +407,6 @@
       "Office space utilization improved by 20%",
       "HVAC runtime reduced by 15% during off-hours"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 4,
     "problem": "Many offices and facilities waste energy conditioning or lighting unoccupied spaces, and organizations often lease more space than needed because they lack data on actual usage. Without real-time occupancy insights, it's hard to make informed decisions about space planning and energy management.",
     "approach": "Set up motion sensors, badge readers, or Wi-Fi analytics to collect occupancy data for different zones in a building. Stream this data via MQTT to a central database. The platform visualizes current occupancy on floor maps and analyzes historical trends. It can trigger HVAC or lighting adjustments (e.g., turn off AC in empty areas) through integration with building management systems. The data also helps facility managers identify underutilized spaces and consolidate or reassign areas, leading to cost savings.",
     "oneWeek": "Scope Sprint: Instrument one conference room with a simple occupancy sensor. Connect the sensor data to a PostgreSQL database through an MQTT broker. Build a Grafana dashboard that shows when the room is occupied in real-time and logs daily utilization hours. Use this as a demo to gather requirements from facility stakeholders.",
@@ -421,14 +419,16 @@
     "buyVsBuild": "Consider: commercial occupancy analytics solutions like VergeSense or Density, which offer hardware and analytics but could be costly at scale. Build if leveraging existing sensors (badge data, Wi-Fi) and for a tailored analytics approach that integrates with HDR’s specific building systems or client facilities on a budget.",
     "emb": [
       0.7,
-      1.0,
+      1,
       0.7,
       0.7,
       0.3,
       0.8,
       0.7,
       0.9
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 7
   },
   {
     "id": "twinview-facility-manager",
@@ -454,8 +454,6 @@
       "Improved maintenance scheduling efficiency",
       "Single source of truth for building data established"
     ],
-    "feasibility": "configure",
-    "wheelRisk": 6,
     "problem": "Facility managers often juggle BIM models, sensor dashboards, and maintenance logs separately. Vital information about building systems is siloed, making it hard to visualize and understand the real-time state of the facility in context. This can delay troubleshooting and lead to suboptimal operational decisions.",
     "approach": "Create an interactive digital twin by linking the building’s 3D BIM model with real-time data feeds (HVAC performance, temperatures, equipment status). Using Autodesk Forge or similar, the BIM model is accessible in a web interface. Overlay sensor readings and alerts directly on the 3D model (e.g., a chiller flashing if a fault is detected). Maintenance personnel can click on any building component to see its specs, maintenance history, and live data. This integrated view helps quickly pinpoint issues and assess impacts. The pilot would use an existing HDR office or client building as a test case.",
     "oneWeek": "Scope Sprint: Obtain a BIM model (or floor plan) of the pilot building. Hook up one data source (e.g., a thermostat temperature) into a simple web page that shows the value when a room is clicked. Demonstrate the concept of linking model geometry to sensor data to facility stakeholders and IT for feedback on security/integration.",
@@ -469,13 +467,15 @@
     "emb": [
       0.3,
       0.2,
-      1.0,
+      1,
       0.8,
       0.5,
       0.9,
       0.1,
       0.7
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 5
   },
   {
     "id": "sitevision-progress",
@@ -502,8 +502,6 @@
       "Reduced site inspection hours by 30%",
       "Improved issue resolution time"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 7,
     "problem": "Construction managers rely on manual site walks and reports to assess progress, which can be subjective and infrequent. This means schedule slips or errors in construction might go unnoticed for weeks. There’s a need for an objective, frequent, and automated way to verify progress and catch issues early by comparing what’s built on-site to the plan.",
     "approach": "Utilize drone or 360° camera imagery captured regularly on-site and process it with computer vision. The system will align the images to the 3D BIM model or previous images and use AI to identify completed vs pending work (e.g., walls constructed, equipment installed). It can also highlight anomalies, like an installed element that doesn’t match the model or safety hazards visible in imagery. A web dashboard will show a visual diff of planned vs actual and list potential issues or delays, so project managers can act quickly.",
     "oneWeek": "Scope Sprint: Use a set of sample construction site photos and the corresponding portion of a BIM model. Develop a basic OpenCV script to compare two images taken a week apart, highlighting differences (new vs missing objects). Manually correlate these differences to construction activities to show feasibility. Prepare a concept demo for the project team to get their input.",
@@ -523,7 +521,9 @@
       0.8,
       0.1,
       0.7
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 4
   },
   {
     "id": "cv-site-safety",
@@ -552,8 +552,6 @@
       "Reduce manual video review time by 50%",
       "Actionable alerts under 60 seconds"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 1,
     "problem": "Site teams miss PPE violations and restricted-area intrusions when relying on manual monitoring and periodic walks. Near-misses are under-reported, reducing the ability to learn and prevent incidents.",
     "approach": "Ingest RTSP camera feeds, run on-edge or server CV models for PPE (hardhat, vest) and zone intrusion. Queue detections for human review, suppress duplicates, and export events to safety logs. Start with one cam + two rules, then expand.",
     "oneWeek": "Set up a single camera stream and run pre-trained PPE/zone models on recorded clips. Produce a web preview with bounding boxes and a simple review/approve queue.",
@@ -573,7 +571,9 @@
       0.22,
       0.47,
       0.59
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 10
   },
   {
     "id": "forma-carbon-tracker",
@@ -601,8 +601,6 @@
       "Real-time emission tracking",
       "Compliance dashboard"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 1,
     "problem": "Organizations struggle to track carbon emissions across multiple facilities and supply chains. Manual data collection is error-prone and time-consuming. Compliance reporting requires significant manual effort.",
     "approach": "Build a dashboard that ingests utility bills and operational data, applies emission factors, and generates visualizations. Use pre-built carbon calculation libraries and focus on UX for data input and report generation.",
     "oneWeek": "Scope Sprint: Define data sources (utility bills, transportation logs). Prototype a single-facility dashboard mockup. Identify 3 key emission categories to track. Map out data flow from input to visualization.",
@@ -614,7 +612,7 @@
     ],
     "buyVsBuild": "Consider: Watershed, Persefoni (enterprise focus, $$$). Build if you need customization for specific industry or internal integration with existing systems.",
     "emb": [
-      0.0,
+      0,
       0.1,
       0.2,
       0.3,
@@ -622,7 +620,9 @@
       0.8,
       0.6,
       0.2
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 10
   },
   {
     "id": "ecopermitting-ai-assistant",
@@ -650,8 +650,6 @@
       "Reduced errors in permit applications",
       "Comprehensive regulatory coverage (local, state, federal)"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 5,
     "problem": "Environmental permitting for projects is complex and varies by location and project type. Project teams must manually research which environmental permits and reviews (NEPA, wetlands, air quality, etc.) apply, which is time-consuming and prone to missing less obvious requirements, risking compliance issues or delays.",
     "approach": "Develop an AI-driven tool where a user inputs key project details (location, project type, size, environmental impact factors). The system uses an NLP engine trained on regulations to suggest a list of likely required permits and studies. It provides references to the specific regulation text for each permit and a checklist of steps to comply. The tool could also track status of each permit through completion. Start with a specific region or subset of regulations to train the model and demonstrate value, then expand.",
     "oneWeek": "Scope Sprint: Focus on one permit domain (e.g., wetland permitting). Gather a dataset of related regulations and permit guidelines. Build a simple rule-based prototype: if project involves wetlands and >acre threshold, then Clean Water Act Section 404 permit needed. Show how input parameters map to a basic permit list to illustrate the concept.",
@@ -664,14 +662,16 @@
     "buyVsBuild": "Consider: legal database services or environmental compliance management software that include permit tracking, but they often lack intelligent suggestion features. Build if aiming to encapsulate HDR’s deep regulatory knowledge into a tool, giving us an internal advantage and potential client-facing product. This could also reduce reliance on individual heroics for complex permitting processes.",
     "emb": [
       0.7,
-      0.0,
+      0,
       0.1,
       0.3,
       0.9,
       0.7,
       0.1,
       0.1
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 6
   },
   {
     "id": "ai-proposal-verification",
@@ -700,8 +700,6 @@
       "Zero critical compliance misses in pilot proposals",
       "50% reduction in consistency/formatting errors"
     ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 1,
     "problem": "Proposal teams spend significant time manually checking RFP/RFQ compliance, cross-referencing requirements, and hunting for inconsistencies (names, dates, project numbers, resumes, certifications). Manual review is error-prone, and HDR leadership has stated that generative AI should not produce final deliverables, limiting typical 'AI writing' tools.",
     "approach": "Build a verification-first pipeline: (1) ingest DOCX/PDF and segment by sections; (2) rule engine runs must-have checks derived from RFP (e.g., required forms, page limits, key personnel, insurance limits); (3) LLM classifiers (analysis-only) rate compliance, detect risky claims/unsupported metrics, and spot contradictions; (4) consistency checks for names/dates/figures across the document set; (5) style/branding linting against a configurable guide; (6) PII scan and redaction suggestions. Output a prioritized issue list with severity, page/section citations, and suggested fixes (templated, not generative).",
     "oneWeek": "Scope Sprint: Select 2–3 redacted past proposals + one target RFP. Define 10–15 high-value checks (compliance, page limits, key staff, insurance, forms). Build a CLI prototype that parses one DOCX/PDF, runs rules + basic LLM classification, and outputs a JSON issue list. Create a simple web mock of the issue dashboard.",
@@ -721,6 +719,8 @@
       0.3,
       0.8,
       0.6
-    ]
+    ],
+    "competitors": "",
+    "overallPick": 10
   }
 ]

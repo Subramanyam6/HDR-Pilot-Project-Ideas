@@ -2,28 +2,43 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Star } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Pilot } from "@/lib/pilots";
+import { getSectorIcon } from "@/lib/sector-icons";
+import type { SectorType } from "@/lib/sector-icons";
 
 interface PilotCardProps {
   pilot: Pilot;
   showCTA?: boolean;
+  isTopPilot?: boolean;
 }
 
-export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
+export function PilotCard({ pilot, showCTA = true, isTopPilot = false }: PilotCardProps) {
   const [showAllTags, setShowAllTags] = useState(false);
   const [showAllStack, setShowAllStack] = useState(false);
-  const parsedRisk = typeof pilot.wheelRisk === "number" ? pilot.wheelRisk : parseFloat(String(pilot.wheelRisk));
-  const riskScore = Number.isFinite(parsedRisk) ? parsedRisk : 0;
+  const pickScore = typeof pilot.overallPick === "number" ? pilot.overallPick : parseFloat(String(pilot.overallPick));
+  const overallPick = Number.isFinite(pickScore) ? pickScore : 5;
+  
+  const SectorIcon = getSectorIcon(pilot.sector as SectorType);
 
   return (
-    <Card className="flex flex-col h-full shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-border/50 bg-card backdrop-blur-sm">
+    <Card className="relative flex flex-col h-full shadow-md hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-border/50 bg-card backdrop-blur-sm">
+      {isTopPilot && (
+        <div className="absolute top-3 right-3 z-10">
+          <Star className="h-5 w-5 text-amber-500 fill-amber-500" />
+        </div>
+      )}
       <CardHeader>
         <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-          <CardTitle className="text-lg leading-tight font-bold">{pilot.title}</CardTitle>
-          <Badge variant="secondary" className="shrink-0 max-w-full truncate font-medium bg-secondary/80 text-secondary-foreground">
+          <CardTitle className="text-lg leading-tight font-bold pr-8">{pilot.title}</CardTitle>
+          <Badge 
+            variant="secondary" 
+            className="shrink-0 max-w-full truncate font-semibold text-sm px-3 py-1 bg-primary/15 text-primary border-2 border-primary/30 flex items-center gap-1.5"
+          >
+            <SectorIcon className="h-4 w-4" />
             {pilot.sector}
           </Badge>
         </div>
@@ -49,7 +64,7 @@ export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
         </div>
 
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1">Key Outcomes:</p>
+          <p className="text-xs font-semibold text-muted-foreground mb-1">Target KPIs:</p>
           <ul className="text-xs space-y-0.5">
             {pilot.kpis.slice(0, 2).map((kpi, idx) => (
               <li key={idx} className="flex items-start">
@@ -61,7 +76,7 @@ export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
         </div>
 
         <div>
-          <p className="text-xs font-semibold text-muted-foreground mb-1.5">Stack:</p>
+          <p className="text-xs font-semibold text-muted-foreground mb-1.5">Technology:</p>
           <div className="flex flex-wrap gap-2">
             {(showAllStack ? pilot.stack : pilot.stack.slice(0, 3)).map((tech) => (
               <Badge key={tech} variant="secondary" className="text-xs font-medium px-2.5 py-0.5 bg-muted/60 text-foreground border border-border/30">
@@ -80,26 +95,31 @@ export function PilotCard({ pilot, showCTA = true }: PilotCardProps) {
           </div>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 text-xs pt-2 border-t border-border/30">
+        <div className="flex flex-col gap-2 text-xs pt-2 border-t border-border/30">
+          {pilot.competitors ? (
+            <div className="flex items-center gap-1.5">
+              <span className="font-semibold text-muted-foreground">Competitors:</span>
+              <span className="text-xs">{pilot.competitors}</span>
+            </div>
+          ) : (
+            <div className="flex items-center gap-1.5">
+              <span className="font-semibold text-muted-foreground">Competitors:</span>
+              <span className="text-xs text-muted-foreground">-</span>
+            </div>
+          )}
           <div className="flex items-center gap-1.5">
-            <span className="font-semibold text-muted-foreground">Feasibility:</span>
-            <Badge variant={pilot.feasibility === "solo-90-day" ? "default" : "secondary"} className="text-xs font-medium px-2 py-0.5">
-              {pilot.feasibility === "solo-90-day" ? "Solo 90-day" : "Configure"}
-            </Badge>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <span className="font-semibold text-muted-foreground">Risk:</span>
+            <span className="font-semibold text-muted-foreground">Overall Pick:</span>
             <Badge 
               variant="secondary"
               className={`text-xs font-medium px-2 py-0.5 ${
-                riskScore <= 4 
+                overallPick >= 7 
                   ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400" 
-                  : riskScore <= 7 
+                  : overallPick >= 4 
                   ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400" 
                   : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400"
               }`}
             >
-              {riskScore}/10
+              {overallPick}/10
             </Badge>
           </div>
         </div>

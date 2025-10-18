@@ -88,7 +88,7 @@ User Query → /api/search → OpenAI Embeddings → Cosine Similarity →
   "summary": "AI-generated recommendation",
   "citations": ["pilot-id-1", "pilot-id-2"],
   "pilots": ["pilot-id-1", "pilot-id-2", "pilot-id-3"],
-  "model": "gpt-4o-mini"
+  "model": "gpt-5"
 }
 ```
 
@@ -107,7 +107,8 @@ All configuration is optional with sensible defaults:
 
 ```bash
 # Model Selection (defaults shown)
-OPENAI_MODEL=gpt-4o-mini
+OPENAI_MODEL=gpt-5
+OPENAI_FALLBACK_MODEL=gpt-4o-mini
 OPENAI_EMBEDDING_MODEL=text-embedding-3-small
 
 # RAG Settings
@@ -222,4 +223,3 @@ Make sure `data/pilots-embeddings.json` exists and is committed to git.
 - `app/api/search/route.ts`
 - `app/api/answer/route.ts`  
 - `components/chat/ChatProvider.tsx`
-

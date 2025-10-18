@@ -18,11 +18,10 @@ import { getAllTags } from '@/lib/pilots';
 
 export interface FilterState {
   sectors: Sector[];
-  feasibility: 'all' | 'solo-90-day' | 'configure';
-  wheelRiskMax: number;
+  overallPickMin: number;
   tags: string[];
   search: string;
-  sortBy: 'relevance' | 'wheelRisk' | 'feasibility';
+  sortBy: 'relevance' | 'overallPick';
 }
 
 interface FiltersProps {
@@ -50,8 +49,7 @@ export function Filters({ filters, onChange }: FiltersProps) {
   const handleReset = () => {
     onChange({
       sectors: [],
-      feasibility: 'all',
-      wheelRiskMax: 10,
+      overallPickMin: 1,
       tags: [],
       search: '',
       sortBy: 'relevance',
@@ -105,8 +103,7 @@ export function Filters({ filters, onChange }: FiltersProps) {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="relevance">Relevance</SelectItem>
-              <SelectItem value="wheelRisk">Risk (Low to High)</SelectItem>
-              <SelectItem value="feasibility">Feasibility (Solo first)</SelectItem>
+              <SelectItem value="overallPick">Overall Pick (High to Low)</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -128,39 +125,19 @@ export function Filters({ filters, onChange }: FiltersProps) {
           </div>
         </div>
 
-        {/* Feasibility */}
+        {/* Overall Pick */}
         <div>
-          <label htmlFor="filter-feasibility" className="text-sm font-semibold mb-2 block">
-            Feasibility
-          </label>
-          <Select
-            value={filters.feasibility}
-            onValueChange={(value) => onChange({ ...filters, feasibility: value as any })}
-          >
-            <SelectTrigger id="filter-feasibility" aria-label="Filter by feasibility">
-              <SelectValue placeholder="Select feasibility" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All</SelectItem>
-              <SelectItem value="solo-90-day">Solo 90-day</SelectItem>
-              <SelectItem value="configure">Configure</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Wheel Risk */}
-        <div>
-          <label htmlFor="filter-risk" className="text-sm font-semibold mb-2 block">
-            Max Risk: {filters.wheelRiskMax}/10
+          <label htmlFor="filter-pick" className="text-sm font-semibold mb-2 block">
+            Min Overall Pick: {filters.overallPickMin}/10
           </label>
           <Slider
-            id="filter-risk"
-            min={0}
+            id="filter-pick"
+            min={1}
             max={10}
             step={1}
-            value={[filters.wheelRiskMax]}
-            onValueChange={(value) => onChange({ ...filters, wheelRiskMax: value[0] })}
-            aria-label={`Maximum risk level: ${filters.wheelRiskMax} out of 10`}
+            value={[filters.overallPickMin]}
+            onValueChange={(value) => onChange({ ...filters, overallPickMin: value[0] })}
+            aria-label={`Minimum overall pick level: ${filters.overallPickMin} out of 10`}
           />
         </div>
 

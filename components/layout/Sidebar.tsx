@@ -25,7 +25,7 @@ export function Sidebar() {
         {/* Logo */}
         <div className="flex h-16 items-center px-6 border-b border-primary/20">
           <h1 className="text-xl font-bold text-foreground">
-            Pilot Project Ideas for HDR
+            HDR Pilot Ideas
           </h1>
         </div>
 

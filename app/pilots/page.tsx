@@ -4,7 +4,7 @@ import * as React from 'react';
 import { motion } from 'framer-motion';
 import { PilotCard } from '@/components/pilots/PilotCard';
 import { Filters, type FilterState } from '@/components/pilots/Filters';
-import { getAllPilots } from '@/lib/pilots';
+import { getAllPilots, getTopPilots } from '@/lib/pilots';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },
@@ -23,11 +23,12 @@ const staggerContainer = {
 
 export default function PilotsPage() {
   const allPilots = getAllPilots();
+  const topPilots = getTopPilots();
+  const topPilotIds = React.useMemo(() => topPilots.map(p => p.id), [topPilots]);
   
   const [filters, setFilters] = React.useState<FilterState>({
     sectors: [],
-    feasibility: 'all',
-    wheelRiskMax: 10,
+    overallPickMin: 1,
     tags: [],
     search: '',
     sortBy: 'relevance',
@@ -42,13 +43,8 @@ export default function PilotsPage() {
       result = result.filter((p) => filters.sectors.includes(p.sector));
     }
 
-    // Filter by feasibility
-    if (filters.feasibility !== 'all') {
-      result = result.filter((p) => p.feasibility === filters.feasibility);
-    }
-
-    // Filter by wheel risk
-    result = result.filter((p) => p.wheelRisk <= filters.wheelRiskMax);
+    // Filter by overall pick
+    result = result.filter((p) => p.overallPick >= filters.overallPickMin);
 
     // Filter by tags
     if (filters.tags.length > 0) {
@@ -69,14 +65,8 @@ export default function PilotsPage() {
     }
 
     // Sort
-    if (filters.sortBy === 'wheelRisk') {
-      result.sort((a, b) => a.wheelRisk - b.wheelRisk);
-    } else if (filters.sortBy === 'feasibility') {
-      result.sort((a, b) => {
-        if (a.feasibility === 'solo-90-day' && b.feasibility !== 'solo-90-day') return -1;
-        if (a.feasibility !== 'solo-90-day' && b.feasibility === 'solo-90-day') return 1;
-        return 0;
-      });
+    if (filters.sortBy === 'overallPick') {
+      result.sort((a, b) => b.overallPick - a.overallPick); // Higher first
     }
 
     return result;
@@ -130,7 +120,7 @@ export default function PilotsPage() {
                 variants={fadeInUp}
                 transition={{ delay: index * 0.03 }}
               >
-                <PilotCard pilot={pilot} />
+                <PilotCard pilot={pilot} isTopPilot={topPilotIds.includes(pilot.id)} />
               </motion.div>
             ))}
           </motion.div>
