@@ -240,55 +240,6 @@
     ]
   },
   {
-    "id": "pipepulse-maintenance",
-    "title": "PipePulse Predictive Maintenance",
-    "sector": "Water",
-    "tags": [
-      "SCADA",
-      "predictive-maintenance",
-      "failure-risk",
-      "condition-based",
-      "water-utilities",
-      "asset-health"
-    ],
-    "oneLiner": "Predictive maintenance platform for water infrastructure using sensor data and analytics to prevent pipeline and equipment failures",
-    "stack": [
-      "Python",
-      "scikit-learn",
-      "Apache Airflow",
-      "MQTT",
-      "MySQL",
-      "Dash"
-    ],
-    "kpis": [
-      "30% reduction in unplanned outages",
-      "Increased asset life by 15%",
-      "Maintenance labor efficiency improved"
-    ],
-    "feasibility": "solo-90-day",
-    "wheelRisk": 5,
-    "problem": "Water utilities manage extensive networks of pipes, pumps, and valves with limited resources. Unexpected failures (main breaks, pump outages) cause service disruptions and costly emergency repairs. Currently, maintenance is often schedule-based rather than condition-based, leading to inefficient use of resources.",
-    "approach": "Implement a predictive maintenance system that collects data from existing SCADA sensors (pressure, flow, vibration) and maintenance logs. Use machine learning to identify patterns that precede failures (e.g., pressure drops, vibration spikes) and assign a health score or remaining life estimate to each asset. Provide a dashboard for maintenance planners highlighting high-risk assets and optimal maintenance timing to fix issues before they fail.",
-    "oneWeek": "Scope Sprint: Focus on one critical pump or pipeline section. Compile historical sensor readings and failure records for that asset. Develop a simple model to correlate sensor anomalies with past failures. Create a basic visualization of this asset’s condition over time and any warning signs before failure.",
-    "ninetyDay": "Extend to multiple assets. Build a data pipeline to continuously ingest sensor data into a MySQL database. Train and validate ML models (scikit-learn) for different asset types (pumps, pipes). Develop a Dash web app for utility staff showing asset health dashboards, a map of infrastructure with color-coded risk levels, and recommended maintenance schedules. Pilot with a maintenance team to refine the alert thresholds and integrate feedback.",
-    "risks": [
-      "Data quality and availability (many older assets lack sensors)",
-      "False positives/negatives in predictions affecting trust",
-      "Integration with existing maintenance management systems (CMMS)"
-    ],
-    "buyVsBuild": "Consider: large EAM (Enterprise Asset Management) systems like IBM Maximo or specialized water asset platforms which offer predictive modules. These can be expensive and complex. Build if targeting a lightweight, focused solution that can integrate with the utility’s specific data and be iteratively improved with domain expertise.",
-    "emb": [
-      0.3,
-      0.8,
-      0.3,
-      0.4,
-      0.5,
-      0.3,
-      0.1,
-      0.8
-    ]
-  },
-  {
     "id": "gridsense-microgrid-optimizer",
     "title": "GridSense Microgrid Optimizer",
     "sector": "Energy",
@@ -575,18 +526,68 @@
     ]
   },
   {
+    "id": "cv-site-safety",
+    "title": "Computer Vision Site Safety Monitor",
+    "sector": "Buildings",
+    "tags": [
+      "safety",
+      "PPE",
+      "zone-breach",
+      "near-miss",
+      "computer-vision",
+      "hardhat",
+      "hi-vis-vest"
+    ],
+    "oneLiner": "Detect PPE compliance, zone breaches, and near-misses from site cameras with a human review queue",
+    "stack": [
+      "Python",
+      "PyTorch",
+      "OpenCV",
+      "FastAPI",
+      "RTSP",
+      "AWS S3"
+    ],
+    "kpis": [
+      ">90% precision on PPE/zone events (pilot)",
+      "Reduce manual video review time by 50%",
+      "Actionable alerts under 60 seconds"
+    ],
+    "feasibility": "solo-90-day",
+    "wheelRisk": 1,
+    "problem": "Site teams miss PPE violations and restricted-area intrusions when relying on manual monitoring and periodic walks. Near-misses are under-reported, reducing the ability to learn and prevent incidents.",
+    "approach": "Ingest RTSP camera feeds, run on-edge or server CV models for PPE (hardhat, vest) and zone intrusion. Queue detections for human review, suppress duplicates, and export events to safety logs. Start with one cam + two rules, then expand.",
+    "oneWeek": "Set up a single camera stream and run pre-trained PPE/zone models on recorded clips. Produce a web preview with bounding boxes and a simple review/approve queue.",
+    "ninetyDay": "Deploy to 3–5 cameras on one site, add zone polygons, alerting (email/SMS), analytics (trends by area/time), and export to existing safety workflows. Conduct precision/recall validation with the safety manager.",
+    "risks": [
+      "Privacy and consent for video analytics",
+      "False positives in complex scenes",
+      "Network/camera reliability on active sites"
+    ],
+    "buyVsBuild": "Consider: Intenseye/ViViD/Triax for turnkey PPE analytics. Build to tailor rules, integrate with BIM/schedules, and keep footage on client-controlled infra.",
+    "emb": [
+      0.72,
+      0.18,
+      0.65,
+      0.31,
+      0.84,
+      0.22,
+      0.47,
+      0.59
+    ]
+  },
+  {
     "id": "forma-carbon-tracker",
-    "title": "Forma Carbon Footprint Tracker",
+    "title": "AI Carbon Design (Autodesk Forma)",
     "sector": "Environmental",
     "tags": [
-      "GHG-Protocol",
-      "Scope-1",
-      "Scope-2",
-      "Scope-3",
-      "reporting",
-      "decarbonization"
+      "Forma",
+      "embodied-carbon",
+      "operational-carbon",
+      "early-phase",
+      "massing",
+      "design-opt"
     ],
-    "oneLiner": "Track and visualize corporate carbon emissions with automated reporting and reduction recommendations",
+    "oneLiner": "Early-phase massing checks for embodied/operational CO₂ that suggest lower‑carbon options via Autodesk Forma integration",
     "stack": [
       "Next.js",
       "Python",
@@ -601,7 +602,7 @@
       "Compliance dashboard"
     ],
     "feasibility": "solo-90-day",
-    "wheelRisk": 3,
+    "wheelRisk": 1,
     "problem": "Organizations struggle to track carbon emissions across multiple facilities and supply chains. Manual data collection is error-prone and time-consuming. Compliance reporting requires significant manual effort.",
     "approach": "Build a dashboard that ingests utility bills and operational data, applies emission factors, and generates visualizations. Use pre-built carbon calculation libraries and focus on UX for data input and report generation.",
     "oneWeek": "Scope Sprint: Define data sources (utility bills, transportation logs). Prototype a single-facility dashboard mockup. Identify 3 key emission categories to track. Map out data flow from input to visualization.",
@@ -673,52 +674,53 @@
     ]
   },
   {
-    "id": "ai-project-knowledge-hub",
-    "title": "AI Project Knowledge Hub",
+    "id": "ai-proposal-verification",
+    "title": "AI Proposal Verification Assistant",
     "sector": "Internal",
     "tags": [
-      "RAG",
-      "vector-search",
-      "SharePoint",
-      "semantic-search",
-      "expert-finder",
-      "governance"
+      "proposal-QA",
+      "compliance",
+      "RFP/RFQ",
+      "consistency",
+      "risk-flags",
+      "style-guide",
+      "non-generative"
     ],
-    "oneLiner": "Centralized hub that indexes HDR’s project documents and expertise, using AI for smart search and Q&A to support staff in finding information quickly",
+    "oneLiner": "LLM-assisted checker that flags RFP compliance gaps, inconsistent data, risky claims, and style issues in proposals—no generative text in final deliverables",
     "stack": [
+      "Next.js",
       "Python",
-      "LangChain",
+      "spaCy",
       "OpenAI API",
-      "pgvector",
       "Elasticsearch",
-      "Next.js"
+      "PostgreSQL"
     ],
     "kpis": [
-      "Query response in seconds (vs hours of manual search)",
-      "Increased proposal reuse of past content (up 25%)",
-      "Reduced onboarding time for new staff"
+      "30% faster internal review cycle",
+      "Zero critical compliance misses in pilot proposals",
+      "50% reduction in consistency/formatting errors"
     ],
-    "feasibility": "configure",
-    "wheelRisk": 4,
-    "problem": "HDR has decades of project reports, proposals, and institutional knowledge scattered across SharePoint, local drives, and individual brains. Employees often reinvent the wheel or spend valuable time hunting for information or experts who have solved similar problems. This inefficiency leads to missed opportunities and inconsistent quality in deliverables.",
-    "approach": "Implement a knowledge portal that ingests and indexes internal documents (design reports, calculations, best practices) and even past project data. Use AI natural language processing to allow users to query the system in plain English and get relevant snippets or answers, along with references to source documents and contacts of subject matter experts. The pilot could focus on one practice area (e.g., bridge design) to populate the knowledge base and train an AI model on that content, demonstrating fast retrieval of answers for technical questions or past project examples.",
-    "oneWeek": "Scope Sprint: Gather a small corpus of documents (perhaps 100 documents from a single department). Set up ElasticSearch for indexing and a basic UI for keyword search. Demonstrate a simple Q&A using an open-source language model on this content to show the potential of AI-driven answers. Get feedback from a few users on search results relevance.",
-    "ninetyDay": "Scale up the document ingestion pipeline using LangChain to chunk and embed documents for semantic search. Implement authentication and access controls to protect sensitive information. Develop the React frontend with a query interface and results page that highlights excerpts from documents. Integrate a feedback loop for users to rate helpfulness of answers, improving the model. Conduct training sessions for staff in the pilot group to ensure adoption. Measure usage and time saved on a few representative tasks (like preparing proposals or finding design examples) to quantify benefits.",
+    "feasibility": "solo-90-day",
+    "wheelRisk": 1,
+    "problem": "Proposal teams spend significant time manually checking RFP/RFQ compliance, cross-referencing requirements, and hunting for inconsistencies (names, dates, project numbers, resumes, certifications). Manual review is error-prone, and HDR leadership has stated that generative AI should not produce final deliverables, limiting typical 'AI writing' tools.",
+    "approach": "Build a verification-first pipeline: (1) ingest DOCX/PDF and segment by sections; (2) rule engine runs must-have checks derived from RFP (e.g., required forms, page limits, key personnel, insurance limits); (3) LLM classifiers (analysis-only) rate compliance, detect risky claims/unsupported metrics, and spot contradictions; (4) consistency checks for names/dates/figures across the document set; (5) style/branding linting against a configurable guide; (6) PII scan and redaction suggestions. Output a prioritized issue list with severity, page/section citations, and suggested fixes (templated, not generative).",
+    "oneWeek": "Scope Sprint: Select 2–3 redacted past proposals + one target RFP. Define 10–15 high-value checks (compliance, page limits, key staff, insurance, forms). Build a CLI prototype that parses one DOCX/PDF, runs rules + basic LLM classification, and outputs a JSON issue list. Create a simple web mock of the issue dashboard.",
+    "ninetyDay": "Deliver a web tool where staff upload proposal files, run the verification pipeline, and review a dashboard of issues with filters (severity, category). Include export to PDF/CSV, audit log of fixes, and a 'Ready to Submit' checklist. Integrate read-only access to a SharePoint sample library (if available) to reuse references; no generative text in outputs. Validate on 5–10 proposals and report time saved + zero critical misses.",
     "risks": [
-      "Sensitive data handling and access permissions",
-      "Accuracy of AI responses (hallucinations or misinterpretation)",
-      "User trust and adoption—staff might stick to old habits without clear wins"
+      "False positives/negatives may erode trust—mitigate with human-in-the-loop review",
+      "Handling sensitive client data—enforce access controls and PII redaction",
+      "Parsing variability across complex PDFs—fallback to DOCX where possible"
     ],
-    "buyVsBuild": "Consider: enterprise search solutions like Microsoft Viva Topics or Elastic Enterprise which offer robust search but may not have advanced AI Q&A out-of-the-box. Also knowledge management platforms exist but often require heavy customization. Configure a combination of open-source tools and cloud AI services to tailor the solution to HDR’s needs, ensuring flexibility and ownership of the knowledge base as a strategic asset.",
+    "buyVsBuild": "Consider: RFPIO/Loopio/QorusDocs offer authoring and basic checks; some legal AI (e.g., Document Crunch) flags clauses but not A/E proposal specifics. Build to add deep RFP rule packs, cross-document consistency validation, and strict 'no-gen' compliance aligned to HDR policy.",
     "emb": [
-      0.5,
+      0.4,
       0.9,
-      0.0,
-      1.0,
-      0.3,
-      0.1,
       0.2,
-      0.9
+      0.7,
+      0.5,
+      0.3,
+      0.8,
+      0.6
     ]
   }
 ]
