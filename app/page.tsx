@@ -64,7 +64,7 @@ export default function HomePage() {
           <div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">Top 3 Pilots</h2>
             <p className="text-muted-foreground mt-2 text-base">
-              Bala's Recommendations
+              Bala&apos;s Recommendations
             </p>
           </div>
           <Link href="/pilots">

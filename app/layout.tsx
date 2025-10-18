@@ -1,11 +1,32 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Merriweather, Source_Serif_4, JetBrains_Mono } from 'next/font/google';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Topbar } from '@/components/layout/Topbar';
 import { ThemeProvider } from '@/components/theme-provider';
 import { ChatProvider } from '@/components/chat/ChatProvider';
 import { ChatWidget } from '@/components/ChatWidget';
 import { Analytics } from '@vercel/analytics/react';
+
+const merriweather = Merriweather({
+  subsets: ['latin'],
+  weight: ['300', '400', '700', '900'],
+  display: 'swap',
+  variable: '--font-sans',
+});
+
+const sourceSerif = Source_Serif_4({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-serif',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500', '700'],
+  display: 'swap',
+  variable: '--font-mono',
+});
 
 export const metadata: Metadata = {
   title: 'Pilot Project Ideas for HDR',
@@ -19,12 +40,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-      </head>
-      <body className="font-sans antialiased">
+      <body className={`${merriweather.variable} ${sourceSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
