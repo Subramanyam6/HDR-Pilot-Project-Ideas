@@ -13,6 +13,11 @@ const LOG_FILES = [
   path.join(LOG_DIR, 'chat-copy-5.log'),
 ];
 
+const loggingDisabled = (() => {
+  const flag = process.env.DISABLE_CHAT_LOGGING?.toLowerCase() ?? '';
+  return flag === 'true' || flag === '1';
+})();
+
 async function ensureLogFiles() {
   await mkdir(LOG_DIR, { recursive: true });
   await Promise.all(
@@ -29,6 +34,10 @@ export async function POST(request: NextRequest) {
     const { message, source } = await request.json();
     if (typeof message !== 'string' || message.trim().length === 0) {
       return NextResponse.json({ error: 'Message is required' }, { status: 400 });
+    }
+
+    if (loggingDisabled) {
+      return NextResponse.json({ ok: true, disabled: true });
     }
 
     await ensureLogFiles();
