@@ -30,7 +30,7 @@ const ChatDialogContent = React.forwardRef<
     <DialogPrimitive.Content
       ref={ref}
       className={cn(
-        'fixed bottom-[5.5rem] right-2 sm:right-4 z-50 flex h-[75vh] sm:h-[70vh] max-h-[85vh] w-[calc(100vw-1rem)] sm:w-[min(90vw,28rem)] md:w-[min(85vw,36rem)] lg:w-[min(85vw,64rem)] xl:w-[min(80vw,72rem)] flex-col overflow-hidden rounded-xl sm:rounded-2xl border border-primary/10 bg-background p-0 shadow-2xl',
+        'fixed bottom-[5.5rem] right-2 sm:right-4 z-50 flex h-[75vh] sm:h-[70vh] max-h-[85vh] w-[calc(100vw-1rem)] sm:w-[min(90vw,28rem)] md:w-[min(85vw,36rem)] lg:w-[min(85vw,64rem)] xl:w-[min(80vw,72rem)] flex-col overflow-hidden rounded-xl sm:rounded-2xl border-2 border-border/50 bg-card p-0 shadow-2xl backdrop-blur-sm',
         'data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0 data-[state=open]:slide-in-from-bottom-2 data-[state=closed]:slide-out-to-bottom-2',
         className
       )}
@@ -96,9 +96,9 @@ export function ChatWidget() {
         }}
         onEscapeKeyDown={() => setOpen(false)}
       >
-        <DialogHeader className="p-6 border-b">
+        <DialogHeader className="p-6 border-b border-border/50 bg-muted/20">
           <div className="flex items-center justify-between">
-            <DialogTitle className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <DialogTitle className="text-2xl font-bold text-foreground tracking-tight">
               AI Pilot Assistant
             </DialogTitle>
             <DialogClose asChild>
@@ -116,9 +116,9 @@ export function ChatWidget() {
         <div className="flex-1 flex flex-col lg:flex-row overflow-hidden min-h-0">
           {/* Chat panel - Full width on small, left side on large */}
           <div className="flex-1 lg:border-r flex flex-col min-h-0">
-            <div className="border-b p-3 sm:p-4 md:p-6 bg-gradient-to-r from-primary/5 to-accent/5 flex-shrink-0">
+            <div className="border-b border-border/30 p-3 sm:p-4 md:p-6 bg-muted/10 flex-shrink-0">
               <div className="text-center">
-                <h2 className="text-base sm:text-lg md:text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-1 sm:mb-2">
+                <h2 className="text-base sm:text-lg md:text-xl font-bold text-foreground mb-1 sm:mb-2 tracking-tight">
                   Ask Me Anything
                 </h2>
                 <p className="text-muted-foreground text-xs sm:text-sm hidden sm:block">
@@ -177,13 +177,13 @@ export function ChatWidget() {
                 )}
               </div>
 
-              <form onSubmit={handleSubmit} className="border-t p-2 sm:p-3 md:p-4 bg-background flex-shrink-0">
+              <form onSubmit={handleSubmit} className="border-t border-border/50 p-2 sm:p-3 md:p-4 bg-muted/5 flex-shrink-0">
                 <div className="flex gap-1.5 sm:gap-2">
                   <Textarea
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
                     placeholder="Ask me anything..."
-                    className="flex-1 min-h-[50px] sm:min-h-[60px] resize-none text-xs sm:text-sm"
+                    className="flex-1 min-h-[50px] sm:min-h-[60px] resize-none text-xs sm:text-sm border-border/50 bg-background shadow-sm"
                     onKeyDown={(e) => {
                       if (e.key === 'Enter' && !e.shiftKey) {
                         e.preventDefault();
@@ -193,7 +193,7 @@ export function ChatWidget() {
                     disabled={isProcessing}
                     aria-label="Chat input"
                   />
-                  <Button type="submit" disabled={!input.trim() || isProcessing} size="sm" className="sm:size-default">
+                  <Button type="submit" disabled={!input.trim() || isProcessing} size="sm" className="sm:size-default bg-primary hover:bg-primary/90 text-primary-foreground font-medium shadow-sm hover:shadow-md transition-all">
                     Send
                   </Button>
                 </div>
@@ -209,7 +209,7 @@ export function ChatWidget() {
             {recommendations.length === 0 ? (
               <div className="flex flex-1 items-center justify-center text-center text-muted-foreground p-8">
                 <div className="space-y-2 max-w-sm mx-auto">
-                  <p className="text-lg font-semibold">💡 No recommendations yet</p>
+                  <p className="text-lg font-semibold">No recommendations yet</p>
                   <p className="text-sm text-pretty">
                     Send a message describing your needs, and I&apos;ll find the best pilots for you.
                   </p>

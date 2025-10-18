@@ -35,13 +35,11 @@ export function Metadata({ pilot }: MetadataProps) {
         <div className="text-sm">
           {pilot.feasibility === 'solo-90-day' ? (
             <div className="flex items-center gap-2">
-              <span className="text-green-600 dark:text-green-400 text-xl">✓</span>
-              <span>Solo 90-day build</span>
+              <span className="text-sm">Solo 90-day build</span>
             </div>
           ) : (
             <div className="flex items-center gap-2">
-              <span className="text-blue-600 dark:text-blue-400 text-xl">⚙️</span>
-              <span>Configuration project</span>
+              <span className="text-sm">Configuration project</span>
             </div>
           )}
         </div>

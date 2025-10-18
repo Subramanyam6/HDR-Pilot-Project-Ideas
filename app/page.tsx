@@ -11,10 +11,10 @@ export default function HomePage() {
       {/* Hero */}
       <section className="text-center space-y-6 py-16 px-4">
         <div className="inline-block">
-          <h1 className="text-5xl md:text-6xl font-bold tracking-tight bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent animate-gradient">
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
             Pilot Project Ideas for HDR
           </h1>
-          <div className="h-1 bg-gradient-to-r from-transparent via-primary to-transparent mt-4"></div>
+          <div className="h-1.5 bg-primary mt-6 rounded-full shadow-sm"></div>
         </div>
         <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Discover <span className="text-primary font-semibold">15 actionable pilot projects</span> across Transportation, Water, Energy, Buildings, 
@@ -26,13 +26,13 @@ export default function HomePage() {
       <section>
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h2 className="text-3xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">Top 3 Pilots</h2>
-            <p className="text-muted-foreground mt-1">
+            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">Top 3 Pilots</h2>
+            <p className="text-muted-foreground mt-2 text-base">
               Our most impactful, ready-to-launch pilots
             </p>
           </div>
           <Link href="/pilots">
-            <Button className="bg-gradient-to-r from-primary to-accent hover:from-primary/90 hover:to-accent/90 shadow-lg hover:shadow-xl transition-all duration-300">
+            <Button className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-xl transition-all duration-300 font-semibold">
               Browse All Pilots
             </Button>
           </Link>
@@ -45,15 +45,15 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="text-center py-16 space-y-6 bg-gradient-to-b from-transparent via-primary/5 to-transparent rounded-2xl">
-        <h2 className="text-3xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Not sure where to start?</h2>
+      <section className="text-center py-16 space-y-6 bg-primary/5 rounded-2xl border border-primary/10 shadow-sm">
+        <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">Not sure where to start?</h2>
         <p className="text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-          Use our <span className="text-accent font-semibold">Pilot Picker (AI Powered)</span> chatbot to get personalized recommendations based on 
+          Use our <span className="text-primary font-bold">Pilot Picker</span> to get personalized recommendations based on 
           your needs, constraints, and goals.
         </p>
         <div className="mt-4">
           <Link href="/picker">
-            <Button size="lg" className="bg-gradient-to-r from-accent to-warning hover:from-accent/90 hover:to-warning/90 text-accent-foreground shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 text-base px-8 py-6">
+            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 text-base px-8 py-6 font-semibold">
               Try Pilot Picker →
             </Button>
           </Link>

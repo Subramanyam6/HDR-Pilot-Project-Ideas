@@ -39,8 +39,8 @@ export function ChatPanel({ messages, onSendMessage, isProcessing = false }: Cha
           <div className="flex items-center justify-center h-full text-center text-muted-foreground p-8">
             <div className="max-w-md">
               <div className="mb-6">
-                <div className="w-16 h-16 bg-gradient-to-br from-primary to-accent rounded-full flex items-center justify-center mx-auto mb-4">
-                  <span className="text-2xl">🤖</span>
+                <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border-2 border-primary/20">
+                  <span className="text-2xl font-bold text-primary">AI</span>
                 </div>
                 <h3 className="text-xl font-semibold mb-2 text-foreground">Hi! I&apos;m your AI Assistant</h3>
                 <p className="text-sm leading-relaxed">
@@ -67,7 +67,7 @@ export function ChatPanel({ messages, onSendMessage, isProcessing = false }: Cha
                 <Card
                   className={`max-w-[80%] p-4 shadow-md ${
                     message.role === 'user'
-                      ? 'bg-gradient-to-br from-primary to-accent text-primary-foreground'
+                      ? 'bg-primary text-primary-foreground'
                       : 'bg-card border-primary/20'
                   }`}
                 >

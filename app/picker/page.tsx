@@ -19,9 +19,9 @@ export default function PickerPage() {
     <div className="h-full flex flex-col lg:flex-row">
       {/* Chat panel */}
       <div className="flex-1 border-r flex flex-col h-[50vh] lg:h-full">
-        <div className="border-b p-6 bg-gradient-to-r from-primary/5 to-accent/5">
+        <div className="border-b border-border/50 p-6 bg-muted/10">
           <div className="text-center">
-            <h1 className="text-2xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent mb-2">
+            <h1 className="text-2xl font-bold text-foreground mb-2 tracking-tight">
               Ask Me Anything
             </h1>
             <p className="text-muted-foreground">

@@ -12,8 +12,8 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  { label: 'Home', href: '/', icon: '🏠' },
-  { label: 'Pilots', href: '/pilots', icon: '📋' },
+  { label: 'Home', href: '/' },
+  { label: 'Pilots', href: '/pilots' },
 ];
 
 export function Sidebar() {
@@ -24,7 +24,7 @@ export function Sidebar() {
       <div className="flex flex-col h-full">
         {/* Logo */}
         <div className="flex h-16 items-center px-6 border-b border-primary/20">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+          <h1 className="text-xl font-bold text-foreground">
             Pilot Project Ideas for HDR
           </h1>
         </div>
@@ -42,7 +42,7 @@ export function Sidebar() {
                       'flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors',
                       'hover:bg-accent hover:text-accent-foreground',
                       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-                      isActive && 'bg-gradient-to-r from-primary/20 to-accent/20 text-foreground shadow-sm border-l-2 border-primary'
+                      isActive && 'bg-primary/10 text-foreground shadow-sm border-l-2 border-primary'
                     )}
                   >
                     {item.icon && <span className="text-lg">{item.icon}</span>}

@@ -53,17 +53,17 @@ export function ThemeSwitcher() {
         <DropdownMenuItem onClick={() => setTheme('light')} className="cursor-pointer">
           <Sun className="mr-2 h-4 w-4" />
           <span>Light</span>
-          {currentTheme === 'light' && <span className="ml-auto">✓</span>}
+          {currentTheme === 'light' && <span className="ml-auto">•</span>}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('dark')} className="cursor-pointer">
           <Moon className="mr-2 h-4 w-4" />
           <span>Dark</span>
-          {currentTheme === 'dark' && <span className="ml-auto">✓</span>}
+          {currentTheme === 'dark' && <span className="ml-auto">•</span>}
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => setTheme('system')} className="cursor-pointer">
           <Monitor className="mr-2 h-4 w-4" />
           <span>System</span>
-          {currentTheme === 'system' && <span className="ml-auto">✓</span>}
+          {currentTheme === 'system' && <span className="ml-auto">•</span>}
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -27,27 +27,24 @@ export function Topbar() {
         <SheetContent side="left" className="w-64">
           <div className="flex flex-col h-full">
             <div className="flex h-16 items-center border-b border-primary/20 mb-6">
-              <h1 className="text-xl font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+              <h1 className="text-xl font-bold text-foreground">
                 Pilot Project Ideas for HDR
               </h1>
             </div>
             <nav className="flex-1 space-y-2">
               <Link href="/">
                 <Button variant="ghost" className="w-full justify-start">
-                  <span className="mr-2">🏠</span>
                   Home
                 </Button>
               </Link>
               <Link href="/pilots">
                 <Button variant="ghost" className="w-full justify-start">
-                  <span className="mr-2">📋</span>
                   Pilots
                 </Button>
               </Link>
               <Link href="/picker">
                 <Button variant="ghost" className="w-full justify-start">
-                  <span className="mr-2">🤖</span>
-                  Pilot Picker (AI Powered)
+                  Pilot Picker
                 </Button>
               </Link>
             </nav>
@@ -56,7 +53,7 @@ export function Topbar() {
         </Sheet>
         
         {/* Title - visible on mobile */}
-        <h1 className="md:hidden text-lg font-bold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+        <h1 className="md:hidden text-lg font-bold text-foreground">
           Pilot Project Ideas for HDR
         </h1>
       </div>

@@ -59,17 +59,17 @@ export function Filters({ filters, onChange }: FiltersProps) {
   };
 
   return (
-    <Card className="border-primary/20 shadow-lg">
-      <CardHeader className="bg-gradient-to-br from-primary/5 to-accent/5">
+    <Card className="border border-border/50 shadow-md bg-card">
+      <CardHeader className="bg-muted/20 border-b border-border/30">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-lg">
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Filters</span>
+          <CardTitle className="text-lg font-bold">
+            <span className="text-foreground">Filters</span>
           </CardTitle>
           <Button 
             variant="ghost" 
             size="sm" 
             onClick={handleReset} 
-            className="hover:text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+            className="hover:bg-primary/10 hover:text-primary focus-visible:ring-2 focus-visible:ring-ring transition-colors font-medium"
           >
             Reset
           </Button>

@@ -50,77 +50,72 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
         {/* Main content */}
         <div className="flex-1 space-y-8">
           {/* Header */}
-          <div className="pb-6 border-b border-primary/20">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">{pilot.title}</h1>
-            <p className="text-xl text-muted-foreground leading-relaxed">{pilot.oneLiner}</p>
+          <div className="pb-6 border-b border-border/50">
+            <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-foreground tracking-tight leading-tight">{pilot.title}</h1>
+            <p className="text-xl text-muted-foreground leading-relaxed font-medium">{pilot.oneLiner}</p>
           </div>
 
           {/* Problem */}
-          <Card className="border-primary/20 shadow-md">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-primary">🎯</span>
+          <Card className="border border-border/50 shadow-md bg-card">
+            <CardHeader className="bg-destructive/5 border-b border-border/30">
+              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
                 The Problem
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <p className="text-muted-foreground leading-relaxed">{pilot.problem}</p>
             </CardContent>
           </Card>
 
           {/* Approach */}
-          <Card className="border-accent/20 shadow-md">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-accent">💡</span>
+          <Card className="border border-border/50 shadow-md bg-card">
+            <CardHeader className="bg-primary/5 border-b border-border/30">
+              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
                 Our Approach
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <p className="text-muted-foreground leading-relaxed">{pilot.approach}</p>
             </CardContent>
           </Card>
 
           {/* 1-Week Scope Sprint */}
-          <Card className="border-accent/30 shadow-md bg-gradient-to-br from-accent/5 to-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">📅</span>
-                <span className="bg-gradient-to-r from-accent to-warning bg-clip-text text-transparent">1-Week Scope Sprint</span>
+          <Card className="border border-border/50 shadow-md bg-accent/5">
+            <CardHeader className="bg-accent/10 border-b border-border/30">
+              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
+                1-Week Scope Sprint
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <p className="text-muted-foreground leading-relaxed">{pilot.oneWeek}</p>
             </CardContent>
           </Card>
 
           {/* 90-Day Pilot */}
-          <Card className="border-primary/30 shadow-md bg-gradient-to-br from-primary/5 to-card">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">🚀</span>
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">90-Day Pilot Deliverables</span>
+          <Card className="border border-border/50 shadow-md bg-primary/5">
+            <CardHeader className="bg-primary/10 border-b border-border/30">
+              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
+                90-Day Pilot Deliverables
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <p className="text-muted-foreground leading-relaxed">{pilot.ninetyDay}</p>
             </CardContent>
           </Card>
 
           {/* KPIs */}
-          <Card className="border-success/20 shadow-md">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-success">📊</span>
+          <Card className="border border-border/50 shadow-md bg-card">
+            <CardHeader className="bg-muted/10 border-b border-border/30">
+              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
                 Key Performance Indicators
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
+            <CardContent className="pt-4">
+              <ul className="space-y-3">
                 {pilot.kpis.map((kpi, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <span className="text-primary mr-2 mt-0.5">✓</span>
-                    <span>{kpi}</span>
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="text-primary text-lg mt-0.5 font-bold">•</span>
+                    <span className="leading-relaxed">{kpi}</span>
                   </li>
                 ))}
               </ul>
@@ -128,19 +123,18 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
           </Card>
 
           {/* Risks & Guardrails */}
-          <Card className="border-warning/20 shadow-md">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-warning">⚠️</span>
+          <Card className="border border-border/50 shadow-md bg-card">
+            <CardHeader className="bg-destructive/5 border-b border-border/30">
+              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
                 Risks & Guardrails
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <ul className="space-y-2">
+            <CardContent className="pt-4">
+              <ul className="space-y-3">
                 {pilot.risks.map((risk, idx) => (
-                  <li key={idx} className="flex items-start">
-                    <span className="text-yellow-600 dark:text-yellow-400 mr-2 mt-0.5">⚠️</span>
-                    <span>{risk}</span>
+                  <li key={idx} className="flex items-start gap-3">
+                    <span className="text-destructive text-lg mt-0.5 font-bold">•</span>
+                    <span className="leading-relaxed">{risk}</span>
                   </li>
                 ))}
               </ul>
@@ -148,14 +142,13 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
           </Card>
 
           {/* Buy vs Build */}
-          <Card className="border-primary/20 shadow-md">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-primary">⚖️</span>
+          <Card className="border border-border/50 shadow-md bg-card">
+            <CardHeader className="bg-muted/10 border-b border-border/30">
+              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
                 Buy vs. Build
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <p className="text-muted-foreground leading-relaxed">{pilot.buyVsBuild}</p>
             </CardContent>
           </Card>

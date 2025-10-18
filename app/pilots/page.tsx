@@ -70,9 +70,9 @@ export default function PilotsPage() {
     <div className="container mx-auto px-4 py-8">
       <div className="flex items-center justify-between mb-8">
         <div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">All Pilots</h1>
-          <p className="text-muted-foreground mt-2 text-lg">
-            <span className="text-primary font-semibold">{filteredPilots.length}</span> pilot{filteredPilots.length !== 1 ? 's' : ''} found
+          <h1 className="text-4xl md:text-5xl font-extrabold text-foreground tracking-tight">All Pilots</h1>
+          <p className="text-muted-foreground mt-2 text-base">
+            <span className="text-primary font-bold text-lg">{filteredPilots.length}</span> <span className="font-medium">pilot{filteredPilots.length !== 1 ? 's' : ''} found</span>
           </p>
         </div>
       </div>
