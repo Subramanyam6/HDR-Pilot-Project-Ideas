@@ -9,8 +9,15 @@ export const PilotSchema = z.object({
   tags: z.array(z.string()),
   oneLiner: z.string(),
   stack: z.array(z.string()),
+  painPoints: z.array(z.object({
+    name: z.string(),
+    url: z.string()
+  })),
   kpis: z.array(z.string()),
-  competitors: z.string(),
+  competitors: z.array(z.object({
+    name: z.string(),
+    url: z.string()
+  })),
   overallPick: z.number().min(1).max(10),
   problem: z.string(),
   approach: z.string(),
@@ -18,6 +25,9 @@ export const PilotSchema = z.object({
   ninetyDay: z.string(),
   risks: z.array(z.string()),
   buyVsBuild: z.string(),
+  buildVsBuy: z.enum(['Build', 'Buy']),
+  buyUrl: z.string(),
+  sources: z.array(z.string()),
   emb: z.array(z.number()),
 });
 

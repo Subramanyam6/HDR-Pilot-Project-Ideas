@@ -4,6 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { Github } from 'lucide-react';
 
 interface NavItem {
   label: string;
@@ -14,6 +15,7 @@ interface NavItem {
 const navItems: NavItem[] = [
   { label: 'Home', href: '/' },
   { label: 'Pilots', href: '/pilots' },
+  { label: 'About', href: '/about' },
 ];
 
 export function Sidebar() {
@@ -75,6 +77,25 @@ export function Sidebar() {
             })}
           </ul>
         </nav>
+        <div className="px-4 pb-6">
+          <a
+            href="https://github.com/Subramanyam6/HDR-Pilot-Project-Ideas"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group inline-flex items-center gap-3 rounded-md px-3 py-2 text-sm font-semibold text-white transition-transform duration-200 btn-github-gradient focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-ring"
+            onMouseEnter={(event) => {
+              event.currentTarget.classList.add('animate-wiggle-soft');
+            }}
+            onAnimationEnd={(event) => {
+              event.currentTarget.classList.remove('animate-wiggle-soft');
+            }}
+          >
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20">
+              <Github className="h-4 w-4 text-white" />
+            </span>
+            GitHub
+          </a>
+        </div>
       </div>
     </aside>
   );

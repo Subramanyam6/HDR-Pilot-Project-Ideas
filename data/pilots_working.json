@@ -14,10 +14,12 @@
     ],
     "oneLiner": "Use AI to dynamically optimize traffic light timings across intersections to reduce congestion and emissions",
     "stack": [
-      "Machine Learning Optimization",
-      "Real-time Traffic Analytics",
-      "Signal Controller Integration",
-      "Operations Dashboard"
+      "Python",
+      "FastAPI",
+      "PyTorch",
+      "SUMO",
+      "PostgreSQL",
+      "Kafka"
     ],
     "kpis": [
       "25% reduction in intersection delays",
@@ -26,7 +28,7 @@
     ],
     "problem": "City traffic signals often operate on fixed schedules that fail to adapt to real-time conditions. This leads to unnecessary congestion, longer travel times, and higher emissions as vehicles idle at red lights.",
     "approach": "Deploy an AI-driven system that ingests live traffic data (cameras, sensors) and optimizes signal timing in real-time. Use machine learning to adapt to patterns throughout the day. Start with one corridor of connected intersections as a pilot and measure improvements in flow and emissions.",
-    "oneWeek": "Scope Sprint: Collect baseline traffic data for a busy intersection corridor. Simulate traffic with existing timings vs. optimized timing in software (e.g., SUMO simulator). Develop a simple ML model that adjusts one intersection\u2019s timing based on flow.",
+    "oneWeek": "Scope Sprint: Collect baseline traffic data for a busy intersection corridor. Simulate traffic with existing timings vs. optimized timing in software (e.g., SUMO simulator). Develop a simple ML model that adjusts one intersection’s timing based on flow.",
     "ninetyDay": "Deploy a prototype on a small network of intersections. Integrate with traffic controller hardware or simulator. Implement a dashboard to monitor live traffic conditions and signal states. Demonstrate reduced average wait times and coordinate with city traffic engineers for feedback.",
     "risks": [
       "Integration with legacy signal hardware",
@@ -35,18 +37,18 @@
     ],
     "buyVsBuild": "Consider: Surtrac (CMU spinoff) or Miovision for adaptive signals. These are proven but costly. Build if needing a tailored solution for specific city conditions or to integrate with custom traffic management systems.",
     "emb": [
-      0.610579,
-      0.957976,
-      0.269128,
-      0.866608,
-      0.417936,
-      0.280134,
-      0.075064,
-      0.909786
+      0.6,
+      0.4,
+      0.5,
+      0.2,
+      0.7,
+      0.4,
+      0.2,
+      0.2
     ],
     "competitors": [
       {
-        "name": "HNTB \u2014 Columbus Traffic Signal System",
+        "name": "HNTB — Columbus Traffic Signal System",
         "url": "https://www.hntb.com/projects/columbus-traffic-signal-system/"
       }
     ],
@@ -54,18 +56,9 @@
     "buildVsBuy": "Buy",
     "buyUrl": "https://rapidflowtech.com/surtrac/",
     "painPoints": [
-      {
-        "name": "Improper signal timing drives avoidable delay; improved timing can cut delays 15\u201340% and fuel up to 10%.",
-        "url": "https://ops.fhwa.dot.gov/publications/fhwahop08024/chapter1.htm"
-      },
-      {
-        "name": "U.S. signal operations scored D+ in the National Traffic Signal Report Card, indicating widespread underperformance.",
-        "url": "https://transportationops.org/publications/2012-national-traffic-signal-report-card"
-      },
-      {
-        "name": "Conventional fixed-time systems cannot adapt to demand; FHWA flags poor timing as a major source of congestion.",
-        "url": "https://www.fhwa.dot.gov/innovation/everydaycounts/edc-1/asct.cfm"
-      }
+      {"name": "Improper signal timing drives avoidable delay; improved timing can cut delays 15–40% and fuel up to 10%.", "url": "https://ops.fhwa.dot.gov/publications/fhwahop08024/chapter1.htm"},
+      {"name": "U.S. signal operations scored D+ in the National Traffic Signal Report Card, indicating widespread underperformance.", "url": "https://transportationops.org/publications/2012-national-traffic-signal-report-card"},
+      {"name": "Conventional fixed-time systems cannot adapt to demand; FHWA flags poor timing as a major source of congestion.", "url": "https://www.fhwa.dot.gov/innovation/everydaycounts/edc-1/asct.cfm"}
     ],
     "sources": [
       "https://rapidflowtech.com/surtrac/",
@@ -89,10 +82,11 @@
     ],
     "oneLiner": "Map-based tool to identify optimal locations for new EV charging stations using traffic, grid capacity and demographic data",
     "stack": [
-      "Geospatial Site Analytics",
-      "Demand & Grid Forecasting",
-      "Equity & Coverage Scoring",
-      "Interactive Planning Maps"
+      "Next.js",
+      "PostgreSQL/PostGIS",
+      "Mapbox GL",
+      "Python",
+      "Turf.js"
     ],
     "kpis": [
       "50% faster site planning",
@@ -110,22 +104,22 @@
     ],
     "buyVsBuild": "Consider: using existing GIS planning tools or consulting reports for EV infrastructure. However, those can be static or generic. Build for a customizable, interactive tool tailored to specific regional data and to update as conditions change.",
     "emb": [
-      0.383843,
-      0.101994,
-      0.84769,
-      0.900194,
-      0.263741,
-      0.710932,
-      0.827163,
-      0.103175
+      0.8,
+      0.9,
+      0.6,
+      0.2,
+      0.9,
+      0.6,
+      0.4,
+      0.5
     ],
     "competitors": [
       {
-        "name": "AECOM \u2014 Arizona statewide EV charging plan (NEVI)",
+        "name": "AECOM — Arizona statewide EV charging plan (NEVI)",
         "url": "https://azdot.gov/news/adot-laying-groundwork-develop-statewide-network-electric-vehicle-charging-stations"
       },
       {
-        "name": "Black & Veatch \u2014 EV charging services",
+        "name": "Black & Veatch — EV charging services",
         "url": "https://www.bv.com/what-we-do/energy-transition/ev-charging"
       }
     ],
@@ -133,18 +127,9 @@
     "buildVsBuy": "Build",
     "buyUrl": "",
     "painPoints": [
-      {
-        "name": "Public charging satisfaction declines as reliability issues persist; outages and payment faults hinder drivers.",
-        "url": "https://www.jdpower.com/business/press-releases/2024-us-electric-vehicle-experience-evx-public-charging-study"
-      },
-      {
-        "name": "FHWA\u2019s final rule for NEVI-funded stations sets a minimum 97% operational uptime, emphasizing reliability and maintenance planning.",
-        "url": "https://www.federalregister.gov/documents/2023/02/28/2023-03500/national-electric-vehicle-infrastructure-standards-and-requirements"
-      },
-      {
-        "name": "Grid interconnection backlogs delay new sites; typical interconnection time rose to ~5 years for projects built in 2023.",
-        "url": "https://emp.lbl.gov/queues"
-      }
+      {"name": "Public charger reliability remains a barrier; driver satisfaction is hampered by inoperable and poorly maintained stations.", "url": "https://www.jdpower.com/business/resources/ev-charging-experience-eve-study"},
+      {"name": "Federal NEVI rules require 97% charging uptime, underscoring the need to plan for reliability and maintenance.", "url": "https://www.fhwa.dot.gov/environment/nevi/evguidance_final.cfm"},
+      {"name": "Grid interconnection backlogs delay new sites; typical interconnection time rose to ~5 years for projects built in 2023.", "url": "https://emp.lbl.gov/queues"}
     ],
     "sources": [
       "https://www.nrel.gov/transportation/evi-pro.html",
@@ -167,10 +152,11 @@
     ],
     "oneLiner": "Collect and analyze road condition data via sensors and vehicles to predict maintenance needs and improve safety",
     "stack": [
-      "Fleet Telemetry Ingestion",
-      "Road Surface Analytics",
-      "Predictive Maintenance Modeling",
-      "Operations Alerting"
+      "Python",
+      "AWS IoT Core",
+      "AWS Lambda",
+      "Amazon S3",
+      "DynamoDB"
     ],
     "kpis": [
       "20% reduction in inspection costs",
@@ -188,28 +174,22 @@
     ],
     "buyVsBuild": "Consider: commercial offerings like RoadBotics (AI-based road assessment via smartphone video) or StreetScan. These provide turn-key road surveys. Build if an ongoing, in-house monitoring network is preferred for continuous data and integration with local operations.",
     "emb": [
-      0.788539,
-      0.184043,
-      0.33206,
-      0.100047,
-      0.762923,
-      0.789504,
-      0.754697,
-      0.855099
+      0.3,
+      1,
+      0.9,
+      0.8,
+      0,
+      0.8,
+      0.6,
+      0.6
     ],
     "competitors": [],
     "overallPick": 6,
     "buildVsBuy": "Buy",
-    "buyUrl": "https://xweather.com/roadai",
+    "buyUrl": "https://goodroads.ai/road-assessment",
     "painPoints": [
-      {
-        "name": "ASCE reports 43% of public roadways are in poor or mediocre condition, indicating widespread deficiency.",
-        "url": "https://2021.infrastructurereportcard.org/cat-item/roads-infrastructure/"
-      },
-      {
-        "name": "Roadway conditions remain widely deficient, contributing to higher costs and safety risks.",
-        "url": "https://www.iccsafe.org/building-safety-journal/bsj-dives/close-to-failing-american-infrastructure-scores-a-c-on-new-asce-report-card/"
-      }
+      {"name": "39% of major U.S. roads are in poor or mediocre condition; drivers pay about $725 extra per year from vehicle wear and delays.", "url": "https://tripnet.org/wp-content/uploads/2023/02/TRIP_US_TRB_KeyFacts_2023.pdf"},
+      {"name": "Roadway conditions remain widely deficient, contributing to higher costs and safety risks.", "url": "https://www.iccsafe.org/building-safety-journal/bsj-dives/close-to-failing-american-infrastructure-scores-a-c-on-new-asce-report-card/"}
     ],
     "sources": [
       "https://goodroads.ai/road-assessment",
@@ -231,10 +211,10 @@
     ],
     "oneLiner": "Real-time water quality monitoring system using IoT sensors for early contamination detection and alerts",
     "stack": [
-      "Water Quality Sensing",
-      "Continuous Monitoring",
-      "Compliance Alerting",
-      "Reporting Dashboards"
+      "Python",
+      "Azure IoT Hub",
+      "InfluxDB",
+      "Grafana"
     ],
     "kpis": [
       "Continuous monitoring (vs weekly manual tests)",
@@ -252,18 +232,18 @@
     ],
     "buyVsBuild": "Consider: off-the-shelf solutions like Libelium's Smart Water IoT kit or Hach's remote monitoring systems, which provide hardware and software but may be expensive or inflexible. Build to customize sensor types and integrate with existing SCADA or reporting tools at lower cost.",
     "emb": [
-      0.298914,
-      0.300103,
-      0.770112,
-      0.388246,
-      0.535598,
-      0.406896,
-      0.074559,
-      0.746057
+      0.7,
+      0.9,
+      0.3,
+      0.4,
+      0.1,
+      0.7,
+      0.4,
+      0.5
     ],
     "competitors": [
       {
-        "name": "Stantec \u2014 WaterWatch (satellite-based water quality monitoring)",
+        "name": "Stantec — WaterWatch (satellite-based water quality monitoring)",
         "url": "https://www.stantec.com/en/services/digital/waterwatch"
       }
     ],
@@ -271,14 +251,8 @@
     "buildVsBuy": "Buy",
     "buyUrl": "https://www.hach.com/claros",
     "painPoints": [
-      {
-        "name": "A water main breaks every two minutes in the U.S., wasting ~6 billion gallons of treated water daily.",
-        "url": "https://2021.infrastructurereportcard.org/cat-item/drinking-water-infrastructure/"
-      },
-      {
-        "name": "26% of U.S. public water systems had at least one Safe Drinking Water Act violation in 2020; 19% failed monitoring/reporting.",
-        "url": "https://www.epa.gov/compliance/providing-safe-drinking-water-america-2020-national-public-water-systems-compliance"
-      }
+      {"name": "A water main breaks every two minutes in the U.S., wasting ~6 billion gallons of treated water daily.", "url": "https://2021.infrastructurereportcard.org/cat-item/drinking-water-infrastructure/"},
+      {"name": "26% of U.S. public water systems had at least one Safe Drinking Water Act violation in 2020; 19% failed monitoring/reporting.", "url": "https://www.epa.gov/compliance/providing-safe-drinking-water-america-2020-national-public-water-systems-compliance"}
     ],
     "sources": [
       "https://www.hach.com/claros",
@@ -301,10 +275,12 @@
     ],
     "oneLiner": "Predicts flood extents and risk levels using weather forecasts and hydrological modeling to improve emergency preparedness",
     "stack": [
-      "Hydrologic Modeling",
-      "Machine Learning Forecasts",
-      "Climate & Terrain Data Fusion",
-      "Flood Readiness Dashboards"
+      "Python",
+      "TensorFlow",
+      "xarray",
+      "PostGIS",
+      "Leaflet",
+      "NOAA/NWS APIs"
     ],
     "kpis": [
       "Improved flood warning lead time (e.g. +48 hours)",
@@ -322,28 +298,22 @@
     ],
     "buyVsBuild": "Consider: established flood modeling software (HEC-RAS, FEMA tools) for rigorous analysis. These require expertise and time for each scenario. Build if aiming for a quicker, automated predictor that can update with real-time data, at the expense of some precision but offering speed and customization (especially useful for localized applications).",
     "emb": [
-      0.747946,
-      0.850789,
-      0.837997,
-      0.520362,
-      0.79637,
-      0.676246,
-      0.344415,
-      0.543245
+      0.5,
+      1,
+      0.8,
+      0.3,
+      0.8,
+      1,
+      0.5,
+      0.4
     ],
     "competitors": [],
     "overallPick": 5,
     "buildVsBuy": "Build",
     "buyUrl": "",
     "painPoints": [
-      {
-        "name": "Just one inch of water can cause around $25,000 in damage to a home, underscoring the value of early warnings.",
-        "url": "https://agents.floodsmart.gov/sites/default/files/media/document/2025-07/fema-nfip-just-one-inch-of-floodwater-flyer-06-2023.pdf"
-      },
-      {
-        "name": "Billion\u2011dollar weather disasters are increasing; floods are among the most frequent and costly hazards.",
-        "url": "https://www.ncei.noaa.gov/access/billions/"
-      }
+      {"name": "Even an inch of floodwater can cause around $25,000 in damage to a home, underscoring the value of early warnings.", "url": "https://www.floodsmart.gov/cost-flooding"},
+      {"name": "Billion‑dollar weather disasters are increasing; floods are among the most frequent and costly hazards.", "url": "https://www.ncei.noaa.gov/access/billions/"}
     ],
     "sources": [
       "https://www.hec.usace.army.mil/software/hec-ras/",
@@ -367,10 +337,11 @@
     ],
     "oneLiner": "AI-driven control platform for microgrids to balance solar, battery, and grid power, optimizing cost and reliability",
     "stack": [
-      "Microgrid Simulation",
-      "Optimization Scheduling",
-      "DER Coordination",
-      "Scenario Planning"
+      "Python",
+      "Pyomo",
+      "TensorFlow",
+      "TimescaleDB",
+      "Node.js"
     ],
     "kpis": [
       "15% energy cost savings achieved",
@@ -378,7 +349,7 @@
       "Reduced peak grid demand by 25%"
     ],
     "problem": "Facilities with solar panels and battery storage struggle to manually decide when to use stored energy versus grid power, especially with variable rates and intermittent generation. Suboptimal decisions can lead to higher costs or reliability issues. A smarter system is needed to automate energy management in real-time.",
-    "approach": "Develop an AI controller that continuously monitors solar output, battery levels, load demand, and electricity prices. Using predictive algorithms (e.g., forecasting next hour\u2019s solar generation and usage), it decides optimal charge/discharge schedules and grid usage. The system can send control signals to the battery inverter and other controllable loads. A web dashboard will show performance, savings, and allow overrides or mode changes by facility managers.",
+    "approach": "Develop an AI controller that continuously monitors solar output, battery levels, load demand, and electricity prices. Using predictive algorithms (e.g., forecasting next hour’s solar generation and usage), it decides optimal charge/discharge schedules and grid usage. The system can send control signals to the battery inverter and other controllable loads. A web dashboard will show performance, savings, and allow overrides or mode changes by facility managers.",
     "oneWeek": "Scope Sprint: Model a simple scenario in code (e.g., one day of solar production vs load) and implement a rule-based optimizer. Show potential savings on historical data for a small commercial facility with a given solar/battery setup. Outline the AI approach (reinforcement learning or predictive control) to improve upon the rule-based strategy.",
     "ninetyDay": "Implement the AI optimization module using TensorFlow (or another ML framework) to learn from data and adjust control policies. Connect to a simulated or actual microgrid controller via Node.js backend and AWS Lambda for event-driven control actions. Test in a lab environment or simulation, demonstrating automatic cost-saving decisions (like peak shaving, shifting to battery during high tariff periods). Develop the UI for monitoring real-time status and override controls.",
     "risks": [
@@ -388,18 +359,18 @@
     ],
     "buyVsBuild": "Consider: existing microgrid controllers from companies like Schneider or Siemens that offer optimization. Those are reliable but may not leverage cutting-edge AI or specific site customization. Build if the project requires a tailored approach or to integrate with unique site conditions and to avoid vendor lock-in.",
     "emb": [
-      0.6174,
-      0.234208,
-      0.946223,
-      0.689363,
-      0.721808,
-      0.891736,
-      0.83545,
-      0.958803
+      0.5,
+      0.1,
+      1,
+      0.1,
+      0.5,
+      0.1,
+      1,
+      0.6
     ],
     "competitors": [
       {
-        "name": "AECOM \u2014 Microgrids",
+        "name": "AECOM — Microgrids",
         "url": "https://aecom.com/markets/energy/microgrids/"
       }
     ],
@@ -407,14 +378,8 @@
     "buildVsBuy": "Buy",
     "buyUrl": "https://www.se.com/us/en/work/products/explore/ecostruxure-microgrid-advisor/",
     "painPoints": [
-      {
-        "name": "Demand charges can represent 30\u201370% of a C&I electricity bill, making peak shaving a primary savings lever.",
-        "url": "https://www.fs.usda.gov/wwetac/brief/energy-basics-demand-charges"
-      },
-      {
-        "name": "Manual dispatch struggles with variable solar and volatile prices; optimization tools are needed to manage costs and reliability.",
-        "url": "https://reopt.nrel.gov/tool"
-      }
+      {"name": "Demand charges can represent 30–70% of a C&I electricity bill, making peak shaving a primary savings lever.", "url": "https://www.fs.usda.gov/wwetac/brief/energy-basics-demand-charges"},
+      {"name": "Manual dispatch struggles with variable solar and volatile prices; optimization tools are needed to manage costs and reliability.", "url": "https://reopt.nrel.gov/tool"}
     ],
     "sources": [
       "https://www.se.com/us/en/work/products/explore/ecostruxure-microgrid-advisor/",
@@ -435,49 +400,44 @@
     ],
     "oneLiner": "AI-powered system that analyzes building energy usage patterns and recommends efficiency improvements and retrofits",
     "stack": [
-      "Energy Benchmarking",
-      "Savings Opportunity Modeling",
-      "Portfolio Diagnostics",
-      "Stakeholder Reporting"
+      "Python",
+      "Pandas",
+      "scikit-learn",
+      "React",
+      "Plotly"
     ],
     "kpis": [
       "Identified 20% average energy savings per audit",
       "Auditing process time reduced by 40%",
       "Customized retrofit recommendations generated"
     ],
-    "problem": "Manual energy audits require substantial time from experts to comb through utility data, building information, and identify inefficiencies. This limits how many buildings can be audited and may miss subtle patterns. An automated assistant could rapidly analyze data and suggest improvements, augmenting the experts\u2019 capabilities.",
+    "problem": "Manual energy audits require substantial time from experts to comb through utility data, building information, and identify inefficiencies. This limits how many buildings can be audited and may miss subtle patterns. An automated assistant could rapidly analyze data and suggest improvements, augmenting the experts’ capabilities.",
     "approach": "Develop an AI assistant that takes in building data: smart meter readings, HVAC schedules, insulation levels, etc. Use machine learning to detect anomalies (like unusually high nighttime consumption) and compare performance against benchmarks or simulation models. The system then outputs a report of recommended actions (for example, \"upgrade lighting to LED\" or \"adjust thermostat settings after hours\") with estimated savings. The interface allows an energy engineer to input building specifics and get preliminary recommendations, accelerating the audit process.",
     "oneWeek": "Scope Sprint: Collect sample data from one building (e.g., a small office) including hourly energy usage and basic building info. Implement a simple rule-based analysis (if usage after 10pm is above X, flag HVAC schedule issue). Generate a mock report to illustrate recommendations. Identify data points needed for more advanced analysis.",
-    "ninetyDay": "Integrate multiple data sources (e.g., weather, occupancy) for context. Train ML models to classify usage patterns and predict potential savings from various interventions. Build the React frontend for users to upload data (CSV or via API integration with smart meters) and view the generated audit report. Validate recommendations against a professional auditor\u2019s assessment on a pilot building, refining accuracy and usefulness. Prepare case study results showing time saved and recommendations quality.",
+    "ninetyDay": "Integrate multiple data sources (e.g., weather, occupancy) for context. Train ML models to classify usage patterns and predict potential savings from various interventions. Build the React frontend for users to upload data (CSV or via API integration with smart meters) and view the generated audit report. Validate recommendations against a professional auditor’s assessment on a pilot building, refining accuracy and usefulness. Prepare case study results showing time saved and recommendations quality.",
     "risks": [
       "Limited data availability or quality for older buildings",
       "Recommendations might not account for all real-world constraints, leading to skepticism",
       "Need to regularly update models as building usage patterns change"
     ],
-    "buyVsBuild": "Consider: existing energy management software (e.g., EnergyStar Portfolio Manager or commercial tools like SkySpark, BuildingIQ) for tracking usage. Those provide data views but often lack automated recommendation engines. Build if aiming for a proprietary AI that differentiates HDR\u2019s audit services or integrates deeply with our project data and provides a unique selling point to clients.",
+    "buyVsBuild": "Consider: existing energy management software (e.g., EnergyStar Portfolio Manager or commercial tools like SkySpark, BuildingIQ) for tracking usage. Those provide data views but often lack automated recommendation engines. Build if aiming for a proprietary AI that differentiates HDR’s audit services or integrates deeply with our project data and provides a unique selling point to clients.",
     "emb": [
-      0.435948,
-      0.395864,
-      0.242422,
-      0.226295,
-      0.606241,
-      0.800753,
-      0.04792,
-      0.544225
+      0.1,
+      0.7,
+      0.7,
+      0.9,
+      0.4,
+      0.6,
+      0.1,
+      0.7
     ],
     "competitors": [],
     "overallPick": 7,
     "buildVsBuy": "Build",
     "buyUrl": "",
     "painPoints": [
-      {
-        "name": "Commercial buildings waste up to ~30% of the energy they consume due to inefficiencies.",
-        "url": "https://www.energy.gov/eere/buildings/take-action-save-energy-commercial-buildings"
-      },
-      {
-        "name": "Benchmarking with ENERGY STAR is associated with ~2.4% annual energy savings in participating buildings.",
-        "url": "https://www.energystar.gov/buildings/about_us/datatrends_research"
-      }
+      {"name": "Commercial buildings waste up to ~30% of the energy they consume due to inefficiencies.", "url": "https://www.energy.gov/eere/buildings/take-action-save-energy-commercial-buildings"},
+      {"name": "Benchmarking with ENERGY STAR is associated with ~2.4% annual energy savings in participating buildings.", "url": "https://www.energystar.gov/buildings/about_us/datatrends_research"}
     ],
     "sources": [
       "https://skyfoundry.com/skyspark/",
@@ -500,18 +460,19 @@
     ],
     "oneLiner": "Interactive GIS tool to evaluate potential solar/wind farm sites, calculating energy output and financial return for each location",
     "stack": [
-      "Renewable Resource Screening",
-      "Geospatial Suitability Analysis",
-      "Interconnection Readiness Checks",
-      "Financial Scenario Modeling"
+      "Next.js",
+      "Mapbox GL",
+      "PostgreSQL/PostGIS",
+      "Python",
+      "NREL APIs"
     ],
     "kpis": [
       "Site analysis time cut by 50%",
       "Increased proposal success rate with data-backed site selection",
-      "Accurate energy yield estimates (\u00b15%)"
+      "Accurate energy yield estimates (±5%)"
     ],
     "problem": "Developers and engineers must assess numerous factors when choosing sites for renewable energy projects: resource availability (sun, wind), land suitability, grid access, and financial incentives. Doing this analysis manually for each potential site is slow and may result in suboptimal choices or missed opportunities, especially under tight proposal deadlines.",
-    "approach": "Build a web-based mapping application where users can draw or select a site and immediately get an analysis. Integrate data layers such as solar irradiance maps, wind speed data, land use/parcel info, distance to nearest grid interconnection, and available incentives by region. The backend uses these inputs to estimate potential energy output (using models like NREL\u2019s PVWatts for solar) and calculates an expected financial model (CAPEX, OPEX, payback period). The result is a ranked list of sites or a detailed report for a chosen site to support decision-making and client proposals.",
+    "approach": "Build a web-based mapping application where users can draw or select a site and immediately get an analysis. Integrate data layers such as solar irradiance maps, wind speed data, land use/parcel info, distance to nearest grid interconnection, and available incentives by region. The backend uses these inputs to estimate potential energy output (using models like NREL’s PVWatts for solar) and calculates an expected financial model (CAPEX, OPEX, payback period). The result is a ranked list of sites or a detailed report for a chosen site to support decision-making and client proposals.",
     "oneWeek": "Scope Sprint: Assemble key datasets for one region (e.g., solar irradiance and land use for a specific state). Create a simple map with Mapbox allowing selection of a test site polygon. Manually run a PVWatts calculation for that site to demonstrate energy yield output. Sketch out the financial model assumptions (cost per MW, etc.).",
     "ninetyDay": "Implement automated data retrieval for any user-selected location (e.g., query a solar API for irradiance and a wind database for speeds). Complete the financial calculations within the app, allowing the user to adjust parameters like system size or cost assumptions. Ensure the PostGIS/PostgreSQL database efficiently stores spatial data and query results for reuse. Add an export function to generate a summary report. Beta test with a renewable energy team on a few prospective sites and refine accuracy of predictions and usability of the interface.",
     "risks": [
@@ -519,30 +480,24 @@
       "Rapid changes in incentives or energy prices require frequent updates",
       "Users may need training to interpret results correctly"
     ],
-    "buyVsBuild": "Consider: NREL\u2019s tools (e.g., REopt and PVWatts) which provide underlying calculations but not a full decision platform; also GIS systems like ArcGIS have some analysis capabilities. If those prove insufficient or not integrated, building a unified tool allows HDR to quickly iterate features and own the IP for a competitive edge in renewable consulting.",
+    "buyVsBuild": "Consider: NREL’s tools (e.g., REopt and PVWatts) which provide underlying calculations but not a full decision platform; also GIS systems like ArcGIS have some analysis capabilities. If those prove insufficient or not integrated, building a unified tool allows HDR to quickly iterate features and own the IP for a competitive edge in renewable consulting.",
     "emb": [
-      0.797088,
-      0.120862,
-      0.497155,
-      0.951438,
-      0.712842,
-      0.632045,
-      0.328503,
-      0.180517
+      0.7,
+      0.8,
+      0.1,
+      0,
+      0.9,
+      0.5,
+      0.8,
+      0.4
     ],
     "competitors": [],
     "overallPick": 7,
     "buildVsBuy": "Build",
     "buyUrl": "",
     "painPoints": [
-      {
-        "name": "Transmission interconnection backlogs are severe; median wait time reached ~5 years for projects built in 2023.",
-        "url": "https://emp.lbl.gov/queues"
-      },
-      {
-        "name": "U.S. interconnection queues swelled to ~2.6 TW in 2023, delaying many renewable projects.",
-        "url": "https://www.utilitydive.com/news/grid-interconnection-queue-berkeley-lab-lbnl/712926/"
-      }
+      {"name": "Transmission interconnection backlogs are severe; median wait time reached ~5 years for projects built in 2023.", "url": "https://emp.lbl.gov/queues"},
+      {"name": "U.S. interconnection queues swelled to ~2.6 TW in 2023, delaying many renewable projects.", "url": "https://www.utilitydive.com/news/grid-interconnection-queue-berkeley-lab-lbnl/712926/"}
     ],
     "sources": [
       "https://pvwatts.nrel.gov/",
@@ -564,10 +519,11 @@
     ],
     "oneLiner": "Platform that tracks and analyzes building occupancy in real-time to optimize space utilization and HVAC energy use",
     "stack": [
-      "Occupancy Sensing",
-      "Building Automation Integration",
-      "Utilization Analytics",
-      "Anomaly Detection"
+      "Node.js",
+      "MQTT",
+      "InfluxDB",
+      "Grafana",
+      "BACnet"
     ],
     "kpis": [
       "Real-time occupancy tracking implemented",
@@ -583,30 +539,24 @@
       "Sensor inaccuracies or failures leading to wrong automation triggers",
       "Integration challenges with existing Building Management Systems"
     ],
-    "buyVsBuild": "Consider: commercial occupancy analytics solutions like VergeSense or Density, which offer hardware and analytics but could be costly at scale. Build if leveraging existing sensors (badge data, Wi-Fi) and for a tailored analytics approach that integrates with HDR\u2019s specific building systems or client facilities on a budget.",
+    "buyVsBuild": "Consider: commercial occupancy analytics solutions like VergeSense or Density, which offer hardware and analytics but could be costly at scale. Build if leveraging existing sensors (badge data, Wi-Fi) and for a tailored analytics approach that integrates with HDR’s specific building systems or client facilities on a budget.",
     "emb": [
-      0.979091,
-      0.955176,
-      0.348357,
-      0.74134,
-      0.435145,
-      0.319185,
-      0.690941,
-      0.467757
+      0.7,
+      1,
+      0.7,
+      0.7,
+      0.3,
+      0.8,
+      0.7,
+      0.9
     ],
     "competitors": [],
     "overallPick": 7,
     "buildVsBuy": "Buy",
     "buyUrl": "https://density.io/",
     "painPoints": [
-      {
-        "name": "U.S. office occupancy remains well below pre\u2011COVID; Kastle\u2019s 10\u2011city barometer has averaged about 50\u201355% in 2024\u201325.",
-        "url": "https://www.kastle.com/safety-wellness/getting-america-back-to-work/"
-      },
-      {
-        "name": "HVAC is a major energy load in commercial buildings; aligning operation with occupancy is critical.",
-        "url": "https://www.eia.gov/consumption/commercial/reports/2018/energyusage/"
-      }
+      {"name": "Average office utilization remained low in 2023 (e.g., ~37%), indicating significant underused space post‑COVID.", "url": "https://www.xysense.com/blog/2023-occupancy-index/"},
+      {"name": "HVAC is a major energy load in commercial buildings; aligning operation with occupancy is critical.", "url": "https://www.eia.gov/consumption/commercial/reports/2018/energyusage/"}
     ],
     "sources": [
       "https://density.io/",
@@ -628,10 +578,11 @@
     ],
     "oneLiner": "3D digital twin of a building integrating live sensor data for proactive maintenance and streamlined facility operations",
     "stack": [
-      "Digital Twin Modeling",
-      "IoT Device Integration",
-      "3D Operations Visualization",
-      "Asset Performance Tracking"
+      "Autodesk Forge Viewer",
+      "Azure IoT Hub",
+      "Azure Digital Twins",
+      "Node.js",
+      "MongoDB"
     ],
     "kpis": [
       "Issue diagnosis time reduced by 30%",
@@ -639,38 +590,32 @@
       "Single source of truth for building data established"
     ],
     "problem": "Facility managers often juggle BIM models, sensor dashboards, and maintenance logs separately. Vital information about building systems is siloed, making it hard to visualize and understand the real-time state of the facility in context. This can delay troubleshooting and lead to suboptimal operational decisions.",
-    "approach": "Create an interactive digital twin by linking the building\u2019s 3D BIM model with real-time data feeds (HVAC performance, temperatures, equipment status). Using Autodesk Forge or similar, the BIM model is accessible in a web interface. Overlay sensor readings and alerts directly on the 3D model (e.g., a chiller flashing if a fault is detected). Maintenance personnel can click on any building component to see its specs, maintenance history, and live data. This integrated view helps quickly pinpoint issues and assess impacts. The pilot would use an existing HDR office or client building as a test case.",
+    "approach": "Create an interactive digital twin by linking the building’s 3D BIM model with real-time data feeds (HVAC performance, temperatures, equipment status). Using Autodesk Forge or similar, the BIM model is accessible in a web interface. Overlay sensor readings and alerts directly on the 3D model (e.g., a chiller flashing if a fault is detected). Maintenance personnel can click on any building component to see its specs, maintenance history, and live data. This integrated view helps quickly pinpoint issues and assess impacts. The pilot would use an existing HDR office or client building as a test case.",
     "oneWeek": "Scope Sprint: Obtain a BIM model (or floor plan) of the pilot building. Hook up one data source (e.g., a thermostat temperature) into a simple web page that shows the value when a room is clicked. Demonstrate the concept of linking model geometry to sensor data to facility stakeholders and IT for feedback on security/integration.",
     "ninetyDay": "Stand up the full digital twin environment using Autodesk Forge for model viewing and Azure IoT for data ingestion. Map several critical data streams into the model (e.g., HVAC readings, energy meters). Implement a basic alert system highlighting anomalies on the model. Train the facility management team on using the interface. Collect feedback on usability and identify additional features like AR mode or mobile access for future improvements. Document any efficiency gains observed during the pilot (e.g., faster identification of a failing component).",
     "risks": [
       "Data integration complexity with proprietary building systems",
       "Ensuring the digital model stays updated with physical changes",
-      "User adoption \u2013 facilities staff may resist new tools without clear benefits"
+      "User adoption – facilities staff may resist new tools without clear benefits"
     ],
-    "buyVsBuild": "Consider: comprehensive facility management suites (IBM Maximo, etc.) and newer digital twin platforms like Azure Digital Twins or Siemens Navigator. These offer frameworks but may not mesh with existing BIM data out-of-the-box. Configure using platforms like Forge for a custom-fit solution that leverages our in-house BIM expertise and targets the client\u2019s specific needs.",
+    "buyVsBuild": "Consider: comprehensive facility management suites (IBM Maximo, etc.) and newer digital twin platforms like Azure Digital Twins or Siemens Navigator. These offer frameworks but may not mesh with existing BIM data out-of-the-box. Configure using platforms like Forge for a custom-fit solution that leverages our in-house BIM expertise and targets the client’s specific needs.",
     "emb": [
-      0.1761,
-      0.982234,
-      0.586137,
-      0.938803,
-      0.96456,
-      0.372142,
-      0.816387,
-      0.895681
+      0.3,
+      0.2,
+      1,
+      0.8,
+      0.5,
+      0.9,
+      0.1,
+      0.7
     ],
     "competitors": [],
     "overallPick": 5,
     "buildVsBuy": "Buy",
     "buyUrl": "https://aps.autodesk.com/",
     "painPoints": [
-      {
-        "name": "Operations and maintenance account for roughly 60\u201380% of a building\u2019s life\u2011cycle costs, making better visibility valuable.",
-        "url": "https://www.wbdg.org/resources/design-for-maintainability"
-      },
-      {
-        "name": "Knowledge workers can spend ~20% of time searching for information, reflecting siloed data and poor context linking.",
-        "url": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy"
-      }
+      {"name": "Operations and maintenance account for roughly 60–80% of a building’s life‑cycle costs, making better visibility valuable.", "url": "https://www.wbdg.org/resources/design-for-maintainability"},
+      {"name": "Knowledge workers can spend ~20% of time searching for information, reflecting siloed data and poor context linking.", "url": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy"}
     ],
     "sources": [
       "https://aps.autodesk.com/",
@@ -694,18 +639,19 @@
     ],
     "oneLiner": "Uses drone imagery and AI to compare construction site progress against BIM models and schedules, flagging delays and quality issues early",
     "stack": [
-      "Reality Capture Comparison",
-      "Progress Analytics",
-      "Schedule Variance Tracking",
-      "Executive Dashboards"
+      "Python",
+      "OpenCV",
+      "PyTorch",
+      "AWS S3",
+      "Three.js"
     ],
     "kpis": [
       "Detection of schedule deviations within 24 hours",
       "Reduced site inspection hours by 30%",
       "Improved issue resolution time"
     ],
-    "problem": "Construction managers rely on manual site walks and reports to assess progress, which can be subjective and infrequent. This means schedule slips or errors in construction might go unnoticed for weeks. There\u2019s a need for an objective, frequent, and automated way to verify progress and catch issues early by comparing what\u2019s built on-site to the plan.",
-    "approach": "Utilize drone or 360\u00b0 camera imagery captured regularly on-site and process it with computer vision. The system will align the images to the 3D BIM model or previous images and use AI to identify completed vs pending work (e.g., walls constructed, equipment installed). It can also highlight anomalies, like an installed element that doesn\u2019t match the model or safety hazards visible in imagery. A web dashboard will show a visual diff of planned vs actual and list potential issues or delays, so project managers can act quickly.",
+    "problem": "Construction managers rely on manual site walks and reports to assess progress, which can be subjective and infrequent. This means schedule slips or errors in construction might go unnoticed for weeks. There’s a need for an objective, frequent, and automated way to verify progress and catch issues early by comparing what’s built on-site to the plan.",
+    "approach": "Utilize drone or 360° camera imagery captured regularly on-site and process it with computer vision. The system will align the images to the 3D BIM model or previous images and use AI to identify completed vs pending work (e.g., walls constructed, equipment installed). It can also highlight anomalies, like an installed element that doesn’t match the model or safety hazards visible in imagery. A web dashboard will show a visual diff of planned vs actual and list potential issues or delays, so project managers can act quickly.",
     "oneWeek": "Scope Sprint: Use a set of sample construction site photos and the corresponding portion of a BIM model. Develop a basic OpenCV script to compare two images taken a week apart, highlighting differences (new vs missing objects). Manually correlate these differences to construction activities to show feasibility. Prepare a concept demo for the project team to get their input.",
     "ninetyDay": "Train a PyTorch model on recognizing certain construction elements (e.g., detect presence of structural framing or drywall). Set up a pipeline where new drone images are uploaded to AWS S3 and automatically processed. Build a simple UI to visualize detected progress (e.g., color-coding areas of the model that are completed). Pilot this on an active project by running the system in parallel with traditional progress tracking, and compare findings. Adjust the AI model for site-specific conditions and document any caught issues that would have been missed by standard practice.",
     "risks": [
@@ -715,28 +661,22 @@
     ],
     "buyVsBuild": "Consider: startups like Doxel or OpenSpace that offer automated progress tracking with proprietary hardware and software. These solutions are effective but can be expensive and might not integrate with our BIM workflows. Build if we want to develop internal capability, especially to integrate with our existing project management systems and tailor the detection to focus on our priorities (e.g., specific quality checks).",
     "emb": [
-      0.950648,
-      0.44457,
-      0.842719,
-      0.098961,
-      0.110272,
-      0.055399,
-      0.15159,
-      0.884693
+      0.6,
+      0.4,
+      0.7,
+      0.8,
+      0.2,
+      0.8,
+      0.1,
+      0.7
     ],
     "competitors": [],
     "overallPick": 4,
     "buildVsBuy": "Buy",
     "buyUrl": "https://www.openspace.ai/",
     "painPoints": [
-      {
-        "name": "Large construction projects take ~20% longer than scheduled and can run up to 80% over budget.",
-        "url": "https://www.mckinsey.com/~/media/mckinsey/business%20functions/operations/our%20insights/reinventing%20construction%20through%20a%20productivity%20revolution/mgi-reinventing-construction-a-route-to-higher-productivity-full-report.pdf"
-      },
-      {
-        "name": "Poor data and miscommunication drive costly rework; PlanGrid/FMI found 48% of rework tied to bad data/communication, costing ~$31.3B in 2018.",
-        "url": "https://pg.plangrid.com/rs/572-JSV-775/images/Construction_Disconnected.pdf"
-      }
+      {"name": "Large construction projects take ~20% longer than scheduled and can run up to 80% over budget.", "url": "https://www.mckinsey.com/~/media/mckinsey/business%20functions/operations/our%20insights/reinventing%20construction%20through%20a%20productivity%20revolution/mgi-reinventing-construction-a-route-to-higher-productivity-full-report.pdf"},
+      {"name": "Bad or siloed data drives costly rework; U.S. contractors reported billions in rework tied to data issues.", "url": "https://constructionexec.com/article/the-cost-of-data-why-numbers-matter-in-construction"}
     ],
     "sources": [
       "https://www.openspace.ai/",
@@ -761,10 +701,12 @@
     ],
     "oneLiner": "Detect PPE compliance, zone breaches, and near-misses from site cameras with a human review queue",
     "stack": [
-      "Computer Vision Safety Analytics",
-      "Real-time Incident Monitoring",
-      "PPE Compliance Detection",
-      "Human Review Workflow"
+      "Python",
+      "PyTorch",
+      "OpenCV",
+      "FastAPI",
+      "RTSP",
+      "AWS S3"
     ],
     "kpis": [
       ">90% precision on PPE/zone events (pilot)",
@@ -774,7 +716,7 @@
     "problem": "Site teams miss PPE violations and restricted-area intrusions when relying on manual monitoring and periodic walks. Near-misses are under-reported, reducing the ability to learn and prevent incidents.",
     "approach": "Ingest RTSP camera feeds, run on-edge or server CV models for PPE (hardhat, vest) and zone intrusion. Queue detections for human review, suppress duplicates, and export events to safety logs. Start with one cam + two rules, then expand.",
     "oneWeek": "Set up a single camera stream and run pre-trained PPE/zone models on recorded clips. Produce a web preview with bounding boxes and a simple review/approve queue.",
-    "ninetyDay": "Deploy to 3\u20135 cameras on one site, add zone polygons, alerting (email/SMS), analytics (trends by area/time), and export to existing safety workflows. Conduct precision/recall validation with the safety manager.",
+    "ninetyDay": "Deploy to 3–5 cameras on one site, add zone polygons, alerting (email/SMS), analytics (trends by area/time), and export to existing safety workflows. Conduct precision/recall validation with the safety manager.",
     "risks": [
       "Privacy and consent for video analytics",
       "False positives in complex scenes",
@@ -782,27 +724,21 @@
     ],
     "buyVsBuild": "Consider: Intenseye/ViViD/Triax for turnkey PPE analytics. Build to tailor rules, integrate with BIM/schedules, and keep footage on client-controlled infra.",
     "emb": [
-      0.826042,
-      0.988101,
-      0.28498,
-      0.360581,
-      0.573871,
-      0.683799,
-      0.176661,
-      0.63713
+      0.72,
+      0.18,
+      0.65,
+      0.31,
+      0.84,
+      0.22,
+      0.47,
+      0.59
     ],
     "overallPick": 10,
     "buildVsBuy": "Buy",
     "buyUrl": "https://www.intenseye.com/",
     "painPoints": [
-      {
-        "name": "Construction consistently accounts for nearly one in five U.S. worker fatalities, indicating persistent risk exposure.",
-        "url": "https://www.bls.gov/news.release/cfoi.nr0.htm"
-      },
-      {
-        "name": "Fall protection remains OSHA\u2019s most frequently cited construction violation, highlighting compliance gaps.",
-        "url": "https://www.osha.gov/top10citedstandards"
-      }
+      {"name": "Construction consistently accounts for nearly one in five U.S. worker fatalities, indicating persistent risk exposure.", "url": "https://www.bls.gov/news.release/cfoi.nr0.htm"},
+      {"name": "Fall protection remains OSHA’s most frequently cited construction violation, highlighting compliance gaps.", "url": "https://www.osha.gov/top10citedstandards"}
     ],
     "sources": [
       "https://www.intenseye.com/",
@@ -824,12 +760,14 @@
       "massing",
       "design-opt"
     ],
-    "oneLiner": "Early-phase massing checks for embodied/operational CO\u2082 that suggest lower\u2011carbon options via Autodesk Forma integration",
+    "oneLiner": "Early-phase massing checks for embodied/operational CO₂ that suggest lower‑carbon options via Autodesk Forma integration",
     "stack": [
-      "Concept Carbon Modeling",
-      "Scenario Tradeoff Analysis",
-      "Design Guidance Dashboards",
-      "Stakeholder Reporting"
+      "Next.js",
+      "Python",
+      "Pandas",
+      "DuckDB",
+      "PostgreSQL",
+      "Chart.js"
     ],
     "kpis": [
       "30% reduction in reporting time",
@@ -847,18 +785,18 @@
     ],
     "buyVsBuild": "Consider: Watershed, Persefoni (enterprise focus, $$$). Build if you need customization for specific industry or internal integration with existing systems.",
     "emb": [
-      0.796383,
-      0.405716,
-      0.334286,
-      0.033273,
-      0.359326,
-      0.625139,
-      0.172251,
-      0.102759
+      0,
+      0.1,
+      0.2,
+      0.3,
+      0.2,
+      0.8,
+      0.6,
+      0.2
     ],
     "competitors": [
       {
-        "name": "Stantec \u2014 Using Autodesk Forma in early-stage design",
+        "name": "Stantec — Using Autodesk Forma in early-stage design",
         "url": "https://www.stantec.com/en/ideas/topic/innovation-technology/building-dubais-first-integrated-cancer-hospital-using-autodesk-forma"
       }
     ],
@@ -866,19 +804,13 @@
     "buildVsBuy": "Buy",
     "buyUrl": "https://www.autodesk.com/products/forma/overview",
     "painPoints": [
-      {
-        "name": "Buildings are a major emitter: operations plus materials account for ~37% of global CO\u2082 (GlobalABC).",
-        "url": "https://www.unep.org/resources/report/global-status-report-buildings-and-construction"
-      },
-      {
-        "name": "Upfront embodied carbon can comprise ~50% of whole\u2011life emissions in new buildings, making early design choices critical.",
-        "url": "https://architecture2030.org/why-the-building-sector/"
-      }
+      {"name": "Buildings are a major emitter: operations plus materials account for ~37% of global CO₂ (GlobalABC).", "url": "https://globalabc.org/resources/publications/global-status-report-buildings-and-construction-2023"},
+      {"name": "Upfront embodied carbon can comprise ~50% of whole‑life emissions in new buildings, making early design choices critical.", "url": "https://architecture2030.org/why-the-building-sector/"}
     ],
     "sources": [
       "https://www.autodesk.com/products/forma/overview",
       "https://oneclicklca.com/",
-      "https://www.unep.org/resources/report/global-status-report-buildings-and-construction",
+      "https://globalabc.org/resources/publications/global-status-report-buildings-and-construction-2023",
       "https://architecture2030.org/why-the-building-sector/"
     ]
   },
@@ -896,10 +828,12 @@
     ],
     "oneLiner": "AI assistant that streamlines environmental permitting by identifying required permits and compliance steps for projects across jurisdictions",
     "stack": [
-      "Natural Language Processing",
-      "Regulation Knowledge Base",
-      "Workflow Automation",
-      "Document Summaries"
+      "Python",
+      "spaCy",
+      "Elasticsearch",
+      "PostgreSQL",
+      "OpenAI API",
+      "Next.js"
     ],
     "kpis": [
       "50% faster permit identification process",
@@ -909,36 +843,30 @@
     "problem": "Environmental permitting for projects is complex and varies by location and project type. Project teams must manually research which environmental permits and reviews (NEPA, wetlands, air quality, etc.) apply, which is time-consuming and prone to missing less obvious requirements, risking compliance issues or delays.",
     "approach": "Develop an AI-driven tool where a user inputs key project details (location, project type, size, environmental impact factors). The system uses an NLP engine trained on regulations to suggest a list of likely required permits and studies. It provides references to the specific regulation text for each permit and a checklist of steps to comply. The tool could also track status of each permit through completion. Start with a specific region or subset of regulations to train the model and demonstrate value, then expand.",
     "oneWeek": "Scope Sprint: Focus on one permit domain (e.g., wetland permitting). Gather a dataset of related regulations and permit guidelines. Build a simple rule-based prototype: if project involves wetlands and >acre threshold, then Clean Water Act Section 404 permit needed. Show how input parameters map to a basic permit list to illustrate the concept.",
-    "ninetyDay": "Expand to a broader set of regulations. Implement an NLP model (using spaCy or similar) to extract rules from text or match project descriptions to requirements. Create an Angular frontend for users to enter project info and get results. Integrate ElasticSearch to efficiently query a database of regulations and past project permit data. Test with a few sample projects and compare the AI\u2019s recommended permit list with what experts would identify, refining accuracy. Prepare a case for how this tool could reduce research time and ensure compliance completeness on complex projects.",
+    "ninetyDay": "Expand to a broader set of regulations. Implement an NLP model (using spaCy or similar) to extract rules from text or match project descriptions to requirements. Create an Angular frontend for users to enter project info and get results. Integrate ElasticSearch to efficiently query a database of regulations and past project permit data. Test with a few sample projects and compare the AI’s recommended permit list with what experts would identify, refining accuracy. Prepare a case for how this tool could reduce research time and ensure compliance completeness on complex projects.",
     "risks": [
       "Keeping regulatory data up-to-date",
       "False confidence in AI suggestions if regulations interpreted incorrectly",
       "Customization needed for different regions or sectors"
     ],
-    "buyVsBuild": "Consider: legal database services or environmental compliance management software that include permit tracking, but they often lack intelligent suggestion features. Build if aiming to encapsulate HDR\u2019s deep regulatory knowledge into a tool, giving us an internal advantage and potential client-facing product. This could also reduce reliance on individual heroics for complex permitting processes.",
+    "buyVsBuild": "Consider: legal database services or environmental compliance management software that include permit tracking, but they often lack intelligent suggestion features. Build if aiming to encapsulate HDR’s deep regulatory knowledge into a tool, giving us an internal advantage and potential client-facing product. This could also reduce reliance on individual heroics for complex permitting processes.",
     "emb": [
-      0.169553,
-      0.312205,
-      0.913708,
-      0.387883,
-      0.567963,
-      0.887979,
-      0.814275,
-      0.877145
+      0.7,
+      0,
+      0.1,
+      0.3,
+      0.9,
+      0.7,
+      0.1,
+      0.1
     ],
     "competitors": [],
     "overallPick": 6,
     "buildVsBuy": "Buy",
-    "buyUrl": "https://www.cbrain.com/post/cbrain-takes-lead-within-ai-for-government?utm_source=chatgpt.com",
+    "buyUrl": "https://opengov.com/products/permits-licensing/",
     "painPoints": [
-      {
-        "name": "From 2010\u20132018, CEQ found average EIS completion time of 4.5 years (median 3.5), illustrating lengthy reviews.",
-        "url": "https://ceq.doe.gov/docs/nepa-practice/CEQ_EIS_Timeline_Report_2020-6-12.pdf"
-      },
-      {
-        "name": "Final EIS documents average ~661 pages, contributing to research and compliance burden.",
-        "url": "https://ceq.doe.gov/docs/nepa-practice/CEQ_EIS_Length_Fact_Sheet_2020-6-12.pdf"
-      }
+      {"name": "NEPA Environmental Impact Statements often take years; CEQ found median timelines around 4–5 years in recent decades.", "url": "https://ceq.doe.gov/docs/nepa-practice/CEQ-2000-2018_EIS_Timelines_Report_2020-6-12.pdf"},
+      {"name": "EIS documents are lengthy, averaging ~661 pages, contributing to research and compliance burden.", "url": "https://ceq.doe.gov/docs/nepa-practice/CEQ-2011-2018-EIS_Length_Report_2020-6-12.pdf"}
     ],
     "sources": [
       "https://opengov.com/products/permits-licensing/",
@@ -961,12 +889,14 @@
       "style-guide",
       "non-generative"
     ],
-    "oneLiner": "LLM-assisted checker that flags RFP compliance gaps, inconsistent data, risky claims, and style issues in proposals\u2014no generative text in final deliverables",
+    "oneLiner": "LLM-assisted checker that flags RFP compliance gaps, inconsistent data, risky claims, and style issues in proposals—no generative text in final deliverables",
     "stack": [
-      "Bid Document QA",
-      "Machine Learning Risk Scoring",
-      "Retrieval-Augmented Responses",
-      "Compliance Evidence Packaging"
+      "Next.js",
+      "Python",
+      "spaCy",
+      "OpenAI API",
+      "Elasticsearch",
+      "PostgreSQL"
     ],
     "kpis": [
       "30% faster internal review cycle",
@@ -975,37 +905,31 @@
     ],
     "problem": "Proposal teams spend significant time manually checking RFP/RFQ compliance, cross-referencing requirements, and hunting for inconsistencies (names, dates, project numbers, resumes, certifications). Manual review is error-prone, and HDR leadership has stated that generative AI should not produce final deliverables, limiting typical 'AI writing' tools.",
     "approach": "Build a verification-first pipeline: (1) ingest DOCX/PDF and segment by sections; (2) rule engine runs must-have checks derived from RFP (e.g., required forms, page limits, key personnel, insurance limits); (3) LLM classifiers (analysis-only) rate compliance, detect risky claims/unsupported metrics, and spot contradictions; (4) consistency checks for names/dates/figures across the document set; (5) style/branding linting against a configurable guide; (6) PII scan and redaction suggestions. Output a prioritized issue list with severity, page/section citations, and suggested fixes (templated, not generative).",
-    "oneWeek": "Scope Sprint: Select 2\u20133 redacted past proposals + one target RFP. Define 10\u201315 high-value checks (compliance, page limits, key staff, insurance, forms). Build a CLI prototype that parses one DOCX/PDF, runs rules + basic LLM classification, and outputs a JSON issue list. Create a simple web mock of the issue dashboard.",
-    "ninetyDay": "Deliver a web tool where staff upload proposal files, run the verification pipeline, and review a dashboard of issues with filters (severity, category). Include export to PDF/CSV, audit log of fixes, and a 'Ready to Submit' checklist. Integrate read-only access to a SharePoint sample library (if available) to reuse references; no generative text in outputs. Validate on 5\u201310 proposals and report time saved + zero critical misses.",
+    "oneWeek": "Scope Sprint: Select 2–3 redacted past proposals + one target RFP. Define 10–15 high-value checks (compliance, page limits, key staff, insurance, forms). Build a CLI prototype that parses one DOCX/PDF, runs rules + basic LLM classification, and outputs a JSON issue list. Create a simple web mock of the issue dashboard.",
+    "ninetyDay": "Deliver a web tool where staff upload proposal files, run the verification pipeline, and review a dashboard of issues with filters (severity, category). Include export to PDF/CSV, audit log of fixes, and a 'Ready to Submit' checklist. Integrate read-only access to a SharePoint sample library (if available) to reuse references; no generative text in outputs. Validate on 5–10 proposals and report time saved + zero critical misses.",
     "risks": [
-      "False positives/negatives may erode trust\u2014mitigate with human-in-the-loop review",
-      "Handling sensitive client data\u2014enforce access controls and PII redaction",
-      "Parsing variability across complex PDFs\u2014fallback to DOCX where possible"
+      "False positives/negatives may erode trust—mitigate with human-in-the-loop review",
+      "Handling sensitive client data—enforce access controls and PII redaction",
+      "Parsing variability across complex PDFs—fallback to DOCX where possible"
     ],
     "buyVsBuild": "Consider: RFPIO/Loopio/QorusDocs offer authoring and basic checks; some legal AI (e.g., Document Crunch) flags clauses but not A/E proposal specifics. Build to add deep RFP rule packs, cross-document consistency validation, and strict 'no-gen' compliance aligned to HDR policy.",
     "emb": [
-      0.848371,
-      0.824544,
-      0.963559,
-      0.734399,
-      0.574245,
-      0.431795,
-      0.372247,
-      0.18063
+      0.4,
+      0.9,
+      0.2,
+      0.7,
+      0.5,
+      0.3,
+      0.8,
+      0.6
     ],
     "competitors": [],
     "overallPick": 10,
     "buildVsBuy": "Build",
     "buyUrl": "",
     "painPoints": [
-      {
-        "name": "Knowledge workers spend roughly 20% of their time searching for information, slowing proposal QA and cross\u2011checks.",
-        "url": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy"
-      },
-      {
-        "name": "Compliance management is a top RFP challenge across teams, increasing risk of non\u2011responsive submissions.",
-        "url": "https://link.loopio.com/hubfs/Content%20Pieces/Reports/2024%20RFP%20Trends%20%26%20Benchmarks%20Report%20%7C%20Loopio%20%28Digital%20Copy%29.pdf"
-      }
+      {"name": "Knowledge workers spend roughly 20% of their time searching for information, slowing proposal QA and cross‑checks.", "url": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy"},
+      {"name": "Compliance management is a top RFP challenge across teams, increasing risk of non‑responsive submissions.", "url": "https://link.loopio.com/hubfs/Content%20Pieces/Reports/2024%20RFP%20Trends%20%26%20Benchmarks%20Report%20%7C%20Loopio%20%28Digital%20Copy%29.pdf"}
     ],
     "sources": [
       "https://www.rfpio.com/",

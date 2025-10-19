@@ -4,6 +4,7 @@ import { Montserrat, Inter, Fira_Code } from 'next/font/google';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Topbar } from '@/components/layout/Topbar';
 import { ThemeProvider } from '@/components/theme-provider';
+import { ThemePersistence } from '@/components/theme-persistence';
 import { ChatProvider } from '@/components/chat/ChatProvider';
 import { ChatWidget } from '@/components/ChatWidget';
 import { Analytics } from '@vercel/analytics/react';
@@ -47,6 +48,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <ThemePersistence />
           <ChatProvider>
             <div className="flex h-screen overflow-hidden">
               <Sidebar />

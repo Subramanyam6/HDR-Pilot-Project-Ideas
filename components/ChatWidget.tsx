@@ -29,6 +29,8 @@ import { useChat } from '@/components/chat/ChatProvider';
 import type { ChatMessage } from '@/lib/chat-types';
 import { getSectorIcon } from '@/lib/sector-icons';
 import type { SectorType } from '@/lib/sector-icons';
+import { BuildVsBuy } from '@/components/pilots/BuildVsBuy';
+import { Sources } from '@/components/pilots/Sources';
 
 const ChatDialogContent = React.forwardRef<
   React.ElementRef<typeof DialogPrimitive.Content>,
@@ -123,7 +125,7 @@ export function ChatWidget() {
             </DialogTrigger>
           </TooltipTrigger>
           <TooltipContent side="left" className="bg-foreground text-background font-medium">
-            <p>Chat with me</p>
+            <p>Chat with me for Pilot Recommendations</p>
           </TooltipContent>
         </Tooltip>
       <ChatDialogContent
@@ -322,6 +324,12 @@ export function ChatWidget() {
                                 </span>
                               </div>
                             </div>
+
+                            {/* Build vs Buy and Sources */}
+    <div className="space-y-2">
+      <BuildVsBuy recommendation={scored.pilot.buildVsBuy} buyUrl={scored.pilot.buyUrl} />
+      <Sources sources={scored.pilot.sources} />
+    </div>
 
                             {/* CTA */}
                             <Link href={`/pilots/${scored.pilot.id}`} onClick={() => setOpen(false)}>

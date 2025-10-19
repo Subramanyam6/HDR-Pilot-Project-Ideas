@@ -10,8 +10,13 @@ interface Pilot {
   tags: string[];
   problem: string;
   approach: string;
-  competitors: string;
+  painPoints: Array<{name: string; url: string}>;
+  kpis: string[];
+  competitors: Array<{name: string; url: string}>;
   overallPick: number;
+  buildVsBuy: 'Build' | 'Buy';
+  buyUrl: string;
+  sources: string[];
 }
 
 interface AnswerRequest {
@@ -51,7 +56,7 @@ export async function POST(request: NextRequest) {
     
     // Get pilots data
     const pilots = pilotsData as Pilot[];
-    const selectedPilots = pilots.filter(p => pilotIds.includes(p.id));
+    const selectedPilots = pilotIds.map(id => pilots.find(p => p.id === id)).filter(Boolean) as Pilot[];
     
     if (selectedPilots.length === 0) {
       return NextResponse.json(
@@ -68,8 +73,12 @@ Sector: ${pilot.sector}
 Description: ${pilot.oneLiner}
 Problem: ${pilot.problem}
 Approach: ${pilot.approach}
-Competitors: ${pilot.competitors || 'None'}
+Pain Points: ${pilot.painPoints.length > 0 ? pilot.painPoints.map(p => p.name).join(', ') : 'None'}
+Competitors: ${pilot.competitors.length > 0 ? pilot.competitors.map(c => c.name).join(', ') : 'None'}
 Overall Pick: ${pilot.overallPick}/10
+Build vs Buy: ${pilot.buildVsBuy}
+Buy URL: ${pilot.buyUrl || 'None'}
+Sources: ${pilot.sources.length > 0 ? pilot.sources.join(', ') : 'None'}
 Tags: ${pilot.tags.join(', ')}
 `).join('\n---\n');
     

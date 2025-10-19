@@ -8,8 +8,13 @@ interface Pilot {
   title: string;
   sector: string;
   tags: string[];
-  competitors: string;
+  painPoints: Array<{name: string; url: string}>;
+  kpis: string[];
+  competitors: Array<{name: string; url: string}>;
   overallPick: number;
+  buildVsBuy: 'Build' | 'Buy';
+  buyUrl: string;
+  sources: string[];
 }
 
 interface PilotEmbedding {

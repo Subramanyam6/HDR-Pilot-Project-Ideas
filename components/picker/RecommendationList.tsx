@@ -6,6 +6,8 @@ import { Button } from '@/components/ui/button';
 import type { ScoredPilot } from '@/lib/pilots';
 import { getSectorIcon } from '@/lib/sector-icons';
 import type { SectorType } from '@/lib/sector-icons';
+import { BuildVsBuy } from '@/components/pilots/BuildVsBuy';
+import { Sources } from '@/components/pilots/Sources';
 
 interface RecommendationListProps {
   recommendations: ScoredPilot[];
@@ -92,6 +94,12 @@ export function RecommendationList({ recommendations }: RecommendationListProps)
                     </span>
                   </div>
                 </div>
+
+                {/* Build vs Buy and Sources */}
+    <div className="space-y-2">
+      <BuildVsBuy recommendation={scored.pilot.buildVsBuy} buyUrl={scored.pilot.buyUrl} />
+      <Sources sources={scored.pilot.sources} />
+    </div>
 
                 {/* CTA */}
                 <Link href={`/pilots/${scored.pilot.id}`}>

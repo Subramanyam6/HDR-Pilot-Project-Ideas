@@ -136,6 +136,40 @@
 }
 
 @layer utilities {
+  @keyframes wiggle-soft {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(-2deg); }
+    50% { transform: rotate(1.5deg); }
+    75% { transform: rotate(-1deg); }
+    100% { transform: rotate(0deg); }
+  }
+
+  .animate-wiggle-soft {
+    animation: wiggle-soft 0.5s ease-in-out;
+  }
+
+  .btn-github-gradient {
+    @apply text-white shadow-md border-transparent;
+    background-image: linear-gradient(120deg, #1d4ed8, #2563eb, #3b82f6, #60a5fa);
+    background-size: 220% 220%;
+    animation: gradient 12s ease infinite;
+  }
+
+  .btn-github-gradient:hover {
+    @apply shadow-lg;
+  }
+
+  .btn-picker-gradient {
+    @apply text-white shadow-md border-transparent;
+    background-image: linear-gradient(120deg, #047857, #059669, #10b981, #34d399);
+    background-size: 220% 220%;
+    animation: gradient 12s ease infinite;
+  }
+
+  .btn-picker-gradient:hover {
+    @apply shadow-lg;
+  }
+
   @keyframes gradient {
     0%, 100% {
       background-size: 200% 200%;

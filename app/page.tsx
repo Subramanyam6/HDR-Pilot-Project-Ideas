@@ -1,117 +1,24 @@
-'use client';
-
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { PilotCard } from '@/components/pilots/PilotCard';
 import { getTopPilots } from '@/lib/pilots';
-import { useState, useEffect } from 'react';
-
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1
-    }
-  }
-};
 
 export default function HomePage() {
-  const [mounted, setMounted] = useState(false);
   const topPilots = getTopPilots();
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Return static version during SSR to prevent hydration mismatch
-    return (
-      <div className="relative">
-        <div className="container mx-auto px-4 py-16 space-y-16">
-          {/* Hero */}
-          <section className="relative overflow-hidden rounded-2xl border border-border bg-card px-6 py-20 text-center shadow-lg md:px-16">
-            <div className="space-y-8">
-              <h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl">
-                HDR Pilot Ideas
-              </h1>
-              <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
-                Discover <span className="text-primary font-bold">15 actionable pilot projects</span> across Transportation, Water, Energy, Buildings, Environmental, and Internal sectors—each scoped for rapid execution.
-              </p>
-            </div>
-          </section>
-
-          {/* Top 3 Pilots */}
-          <section>
-            <div className="flex flex-col gap-4 pb-4 sm:flex-row sm:items-center sm:justify-between">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">Top 3 Pilots</h2>
-                <p className="text-muted-foreground mt-2 text-base">Bala&apos;s Recommendations</p>
-              </div>
-              <Link href="/pilots">
-                <Button className="bg-primary px-6 py-2 text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl">
-                  Browse All Pilots
-                </Button>
-              </Link>
-            </div>
-            <div className="grid gap-6 md:grid-cols-3">
-              {topPilots.map((pilot) => (
-                <PilotCard key={pilot.id} pilot={pilot} isTopPilot={true} />
-              ))}
-            </div>
-          </section>
-
-          {/* CTA */}
-          <section className="space-y-6 rounded-2xl border border-border bg-card py-16 text-center shadow-lg">
-            <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">
-              Not sure where to start?
-            </h2>
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
-              Let the <span className="text-primary font-bold">Pilot Picker</span> surface initiatives that match your timelines, teams, and risk appetite—no guesswork required.
-            </p>
-            <div className="mt-4">
-              <Link href="/picker">
-                <Button size="lg" className="bg-primary px-8 py-6 text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary/90 hover:shadow-2xl text-base font-semibold">
-                  Try Pilot Picker →
-                </Button>
-              </Link>
-            </div>
-          </section>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="relative">
       <div className="container mx-auto px-4 py-16 space-y-16">
         {/* Hero */}
-        <motion.section
-          className="relative overflow-hidden rounded-2xl border border-border bg-card px-6 py-20 text-center shadow-lg md:px-16"
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-        >
+        <section className="relative overflow-hidden rounded-2xl border border-border bg-card px-6 py-20 text-center shadow-lg md:px-16">
           <div className="space-y-8">
-            <motion.h1 
-              className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl"
-              variants={fadeInUp}
-            >
+            <h1 className="text-4xl font-bold leading-tight tracking-tight text-foreground md:text-6xl">
               HDR Pilot Ideas
-            </motion.h1>
-            <motion.p
-              className="mx-auto max-w-3xl text-lg text-muted-foreground md:text-2xl md:leading-relaxed"
-              variants={fadeInUp}
-            >
-15 launch-ready pilots to align stakeholders, de-risk delivery, and deliver fast.
-            </motion.p>
-            <motion.div className="mt-10 flex flex-col items-center justify-center gap-4 md:flex-row" variants={fadeInUp}>
+            </h1>
+            <p className="mx-auto max-w-3xl text-lg text-muted-foreground md:text-2xl md:leading-relaxed">
+              15 launch-ready pilots to align stakeholders, de-risk delivery, and deliver fast.
+            </p>
+            <div className="mt-10 flex flex-col items-center justify-center gap-4 md:flex-row">
               <Link href="/pilots">
                 <Button className="bg-primary px-8 py-6 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary/90 hover:shadow-2xl">
                   Explore the Pilot Library
@@ -119,24 +26,18 @@ export default function HomePage() {
               </Link>
               <Link href="/picker">
                 <Button
-                  variant="outline"
-                  className="border-primary/40 px-8 py-6 text-base font-semibold text-primary shadow-lg shadow-primary/5 transition-all duration-300 hover:-translate-y-1 hover:border-primary hover:bg-primary/10"
+                  className="px-8 py-6 text-base font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl btn-picker-gradient focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
                 >
                   Start with Pilot Picker
                 </Button>
               </Link>
-            </motion.div>
+            </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Top 3 Pilots */}
-        <motion.section
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={staggerContainer}
-        >
-          <motion.div className="flex flex-col gap-4 pb-4 sm:flex-row sm:items-center sm:justify-between" variants={fadeInUp}>
+        <section>
+          <div className="flex flex-col gap-4 pb-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">Top 3 Pilots</h2>
               <p className="text-muted-foreground mt-2 text-base">Bala&apos;s Recommendations</p>
@@ -146,31 +47,23 @@ export default function HomePage() {
                 Browse All Pilots
               </Button>
             </Link>
-          </motion.div>
-          <motion.div className="grid gap-6 md:grid-cols-3" variants={staggerContainer}>
+          </div>
+          <div className="grid gap-6 md:grid-cols-3">
             {topPilots.map((pilot, index) => (
-              <motion.div key={pilot.id} variants={fadeInUp} transition={{ delay: index * 0.1 }}>
-                <PilotCard pilot={pilot} isTopPilot={true} />
-              </motion.div>
+              <PilotCard key={pilot.id} pilot={pilot} isTopPilot={true} />
             ))}
-          </motion.div>
-        </motion.section>
+          </div>
+        </section>
 
         {/* CTA */}
-        <motion.section
-          className="space-y-6 rounded-2xl border border-border bg-card py-16 text-center shadow-lg"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-          variants={staggerContainer}
-        >
-          <motion.h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight" variants={fadeInUp}>
+        <section className="space-y-6 rounded-2xl border border-border bg-card py-16 text-center shadow-lg">
+          <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">
             Not sure where to start?
-          </motion.h2>
-          <motion.p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed" variants={fadeInUp}>
+          </h2>
+          <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed">
             Let the <span className="text-primary font-bold">Pilot Picker</span> surface initiatives that match your timelines, teams, and risk appetite—no guesswork required.
-          </motion.p>
-          <motion.div className="mt-4" variants={fadeInUp}>
+          </p>
+          <div className="mt-4">
             <Link href="/picker">
               <Button
                 size="lg"
@@ -179,8 +72,8 @@ export default function HomePage() {
                 Launch Pilot Picker →
               </Button>
             </Link>
-          </motion.div>
-        </motion.section>
+          </div>
+        </section>
       </div>
     </div>
   );

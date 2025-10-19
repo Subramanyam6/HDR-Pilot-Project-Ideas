@@ -1,9 +1,11 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Metadata } from '@/components/pilots/Metadata';
 import { getAllPilots, getPilotById } from '@/lib/pilots';
+import { ExternalLink } from 'lucide-react';
 
 interface PilotDetailPageProps {
   params: {
@@ -58,8 +60,10 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
           {/* Problem */}
           <Card className="border border-border/50 shadow-md bg-card">
             <CardHeader className="bg-destructive/5 border-b border-border/30">
-              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
-                The Problem
+              <CardTitle className="text-xl font-bold tracking-tight text-destructive">
+                <span className="inline-flex items-center rounded-md bg-destructive/10 px-3 py-1">
+                  The Problem
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -67,11 +71,44 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
             </CardContent>
           </Card>
 
+          {/* Pain Points */}
+          {pilot.painPoints && pilot.painPoints.length > 0 && (
+            <Card className="border border-border/50 shadow-md bg-card">
+              <CardHeader className="bg-destructive/5 border-b border-border/30">
+                <CardTitle className="text-xl font-bold tracking-tight text-destructive">
+                  <span className="inline-flex items-center rounded-md bg-destructive/10 px-3 py-1">
+                    Pain Points
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <ul className="space-y-3">
+                  {pilot.painPoints.map((painPoint, idx) => (
+                    <li key={idx} className="flex items-start gap-3">
+                      <span className="text-red-500 text-lg mt-0.5 font-bold">•</span>
+                      <a
+                        href={painPoint.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-primary hover:text-primary/80 underline inline-flex items-center gap-1"
+                      >
+                        {painPoint.name}
+                        <ExternalLink className="h-4 w-4" />
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </CardContent>
+            </Card>
+          )}
+
           {/* Approach */}
           <Card className="border border-border/50 shadow-md bg-card">
             <CardHeader className="bg-primary/5 border-b border-border/30">
-              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
-                Our Approach
+              <CardTitle className="text-xl font-bold tracking-tight text-primary">
+                <span className="inline-flex items-center rounded-md bg-primary/10 px-3 py-1">
+                  Our Approach
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -80,10 +117,12 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
           </Card>
 
           {/* 1-Week Scope Sprint */}
-          <Card className="border border-border/50 shadow-md bg-accent/5">
-            <CardHeader className="bg-accent/10 border-b border-border/30">
-              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
-                1-Week Scope Sprint
+          <Card className="border border-border/50 shadow-md bg-card">
+            <CardHeader className="bg-amber-500/10 border-b border-border/30">
+              <CardTitle className="text-xl font-bold tracking-tight text-amber-600">
+                <span className="inline-flex items-center rounded-md bg-amber-500/15 px-3 py-1">
+                  1-Week Scope Sprint
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -92,10 +131,12 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
           </Card>
 
           {/* 90-Day Pilot */}
-          <Card className="border border-border/50 shadow-md bg-primary/5">
-            <CardHeader className="bg-primary/10 border-b border-border/30">
-              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
-                90-Day Pilot Deliverables
+          <Card className="border border-border/50 shadow-md bg-card">
+            <CardHeader className="bg-emerald-500/10 border-b border-border/30">
+              <CardTitle className="text-xl font-bold tracking-tight text-emerald-600">
+                <span className="inline-flex items-center rounded-md bg-emerald-500/15 px-3 py-1">
+                  90-Day Pilot Deliverables
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -103,11 +144,35 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
             </CardContent>
           </Card>
 
+          {/* Key Capabilities */}
+          {pilot.stack && pilot.stack.length > 0 && (
+            <Card className="border border-border/50 shadow-md bg-card">
+              <CardHeader className="bg-muted/10 border-b border-border/30">
+                <CardTitle className="text-xl font-bold tracking-tight text-foreground">
+                  <span className="inline-flex items-center rounded-md bg-muted/40 px-3 py-1">
+                    Key Capabilities
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="pt-4">
+                <div className="flex flex-wrap gap-2">
+                  {pilot.stack.map((tech) => (
+                    <Badge key={tech} variant="outline" className="text-xs px-3 py-1">
+                      {tech}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
+
           {/* KPIs */}
           <Card className="border border-border/50 shadow-md bg-card">
-            <CardHeader className="bg-muted/10 border-b border-border/30">
-              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
-                Key Performance Indicators
+            <CardHeader className="bg-sky-500/10 border-b border-border/30">
+              <CardTitle className="text-xl font-bold tracking-tight text-sky-600">
+                <span className="inline-flex items-center rounded-md bg-sky-500/15 px-3 py-1">
+                  Key Performance Indicators
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -124,9 +189,11 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
 
           {/* Risks & Guardrails */}
           <Card className="border border-border/50 shadow-md bg-card">
-            <CardHeader className="bg-destructive/5 border-b border-border/30">
-              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
-                Risks & Guardrails
+            <CardHeader className="bg-rose-500/10 border-b border-border/30">
+              <CardTitle className="text-xl font-bold tracking-tight text-rose-600">
+                <span className="inline-flex items-center rounded-md bg-rose-500/15 px-3 py-1">
+                  Risks & Guardrails
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -143,9 +210,11 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
 
           {/* Buy vs Build */}
           <Card className="border border-border/50 shadow-md bg-card">
-            <CardHeader className="bg-muted/10 border-b border-border/30">
-              <CardTitle className="text-foreground font-bold text-xl tracking-tight">
-                Buy vs. Build
+            <CardHeader className="bg-indigo-500/10 border-b border-border/30">
+              <CardTitle className="text-xl font-bold tracking-tight text-indigo-600">
+                <span className="inline-flex items-center rounded-md bg-indigo-500/15 px-3 py-1">
+                  Buy vs. Build
+                </span>
               </CardTitle>
             </CardHeader>
             <CardContent className="pt-4">
@@ -153,18 +222,6 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
             </CardContent>
           </Card>
 
-          {/* TODO: PDF export placeholder */}
-          <div className="border-2 border-dashed rounded-lg p-6 text-center">
-            <p className="text-sm text-muted-foreground mb-3">
-              📄 PDF export feature coming soon
-            </p>
-            <Button variant="outline" disabled>
-              Export Pilot Brief (PDF)
-            </Button>
-            <p className="text-xs text-muted-foreground mt-2">
-              TODO: Integrate PDF generation library (e.g., jsPDF, Puppeteer)
-            </p>
-          </div>
         </div>
 
         {/* Sidebar metadata */}

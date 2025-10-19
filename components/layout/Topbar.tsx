@@ -68,6 +68,11 @@ export function Topbar() {
                   Pilot Picker
                 </Button>
               </Link>
+              <Link href="/about">
+                <Button variant="ghost" className="w-full justify-start">
+                  About
+                </Button>
+              </Link>
             </nav>
           </div>
         </SheetContent>

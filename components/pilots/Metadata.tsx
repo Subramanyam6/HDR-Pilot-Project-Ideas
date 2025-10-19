@@ -1,7 +1,13 @@
+'use client';
+
 import { Badge } from '@/components/ui/badge';
+import { ExternalLink } from 'lucide-react';
 import type { Pilot } from '@/lib/pilots';
 import { getSectorIcon } from '@/lib/sector-icons';
 import type { SectorType } from '@/lib/sector-icons';
+import { BuildVsBuy } from './BuildVsBuy';
+import { Sources } from './Sources';
+import { Competitors } from './Competitors';
 
 interface MetadataProps {
   pilot: Pilot;
@@ -36,17 +42,11 @@ export function Metadata({ pilot }: MetadataProps) {
         </div>
       </div>
 
-      {/* Competitors */}
-      <div>
-        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Competitors</h3>
-        <div className="text-sm">
-          {pilot.competitors ? (
-            <span>{pilot.competitors}</span>
-          ) : (
-            <span className="text-muted-foreground">-</span>
-          )}
-        </div>
-      </div>
+    {/* Competitors */}
+    <div>
+      <h3 className="text-sm font-semibold text-muted-foreground mb-2">Competitors</h3>
+      <Competitors competitors={pilot.competitors} />
+    </div>
 
       {/* Overall Pick */}
       <div>
@@ -83,9 +83,43 @@ export function Metadata({ pilot }: MetadataProps) {
         </div>
       </div>
 
-      {/* Technology */}
+      {/* Pain Points */}
       <div>
-        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Technology</h3>
+        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Pain Points</h3>
+        <div className="text-sm space-y-1">
+          {pilot.painPoints.map((painPoint, idx) => (
+            <div key={idx} className="flex items-start">
+              <span className="text-red-500 mr-2">•</span>
+              <a
+                href={painPoint.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 underline inline-flex items-center gap-1"
+              >
+                {painPoint.name}
+                <ExternalLink className="h-3 w-3" />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Target KPIs */}
+      <div>
+        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Target KPIs</h3>
+        <ul className="text-sm space-y-1">
+          {pilot.kpis.map((kpi, idx) => (
+            <li key={idx} className="flex items-start">
+              <span className="text-primary mr-2">•</span>
+              <span>{kpi}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Key Capabilities */}
+      <div>
+        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Key Capabilities</h3>
         <div className="flex flex-wrap gap-1.5">
           {pilot.stack.map((tech) => (
             <Badge key={tech} variant="outline" className="text-xs">
@@ -94,6 +128,18 @@ export function Metadata({ pilot }: MetadataProps) {
           ))}
         </div>
       </div>
+
+    {/* Build vs Buy */}
+    <div>
+      <h3 className="text-sm font-semibold text-muted-foreground mb-2">Build vs Buy</h3>
+      <BuildVsBuy recommendation={pilot.buildVsBuy} buyUrl={pilot.buyUrl} />
+    </div>
+
+    {/* Sources */}
+    <div>
+      <h3 className="text-sm font-semibold text-muted-foreground mb-2">Sources</h3>
+      <Sources sources={pilot.sources} />
+    </div>
     </div>
   );
 }

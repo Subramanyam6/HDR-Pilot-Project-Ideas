@@ -1,31 +1,41 @@
 'use client';
 
 import * as React from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { PilotCard } from '@/components/pilots/PilotCard';
 import { Filters, type FilterState } from '@/components/pilots/Filters';
 import { getAllPilots, getTopPilots } from '@/lib/pilots';
 
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 }
-};
+// Animated Pilot Card Component
+interface AnimatedPilotCardProps {
+  pilot: any;
+  isTopPilot: boolean;
+  index: number;
+}
 
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05
-    }
-  }
+const AnimatedPilotCard: React.FC<AnimatedPilotCardProps> = ({ pilot, isTopPilot, index }) => {
+  const ref = React.useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { amount: 0.3, once: false });
+
+  return (
+    <motion.div
+      ref={ref}
+      data-index={index}
+      initial={{ scale: 0.8, opacity: 0 }}
+      animate={inView ? { scale: 1, opacity: 1 } : { scale: 0.8, opacity: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.05 }}
+      className="cursor-pointer"
+    >
+      <PilotCard pilot={pilot} isTopPilot={isTopPilot} />
+    </motion.div>
+  );
 };
 
 export default function PilotsPage() {
   const allPilots = getAllPilots();
   const topPilots = getTopPilots();
   const topPilotIds = React.useMemo(() => topPilots.map(p => p.id), [topPilots]);
-  
+
   const [filters, setFilters] = React.useState<FilterState>({
     sectors: [],
     overallPickMin: 1,
@@ -33,6 +43,13 @@ export default function PilotsPage() {
     search: '',
     sortBy: 'relevance',
   });
+
+  const [isMounted, setIsMounted] = React.useState(false);
+
+  // Ensure component is mounted before applying client-side filters
+  React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Apply filters
   const filteredPilots = React.useMemo(() => {
@@ -72,6 +89,33 @@ export default function PilotsPage() {
     return result;
   }, [allPilots, filters]);
 
+  const availableTags = React.useMemo(() => {
+    const tagOrder: string[] = [];
+    const seen = new Set<string>();
+
+    filteredPilots.forEach((pilot) => {
+      pilot.tags.forEach((tag) => {
+        if (!seen.has(tag)) {
+          seen.add(tag);
+          tagOrder.push(tag);
+        }
+      });
+    });
+
+    filters.tags.forEach((tag) => {
+      if (!seen.has(tag)) {
+        seen.add(tag);
+        tagOrder.push(tag);
+      }
+    });
+
+    return tagOrder;
+  }, [filteredPilots, filters.tags]);
+
+  // Show total count initially, filtered count after component mounts and filters are applied
+  const displayCount = isMounted ? filteredPilots.length : allPilots.length;
+  const hasActiveFilters = filters.sectors.length > 0 || filters.tags.length > 0 || filters.search.trim() || filters.overallPickMin > 1;
+
   return (
     <div className="container mx-auto px-4 py-8">
       <motion.div 
@@ -88,7 +132,7 @@ export default function PilotsPage() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            <span className="text-primary font-bold text-lg">{filteredPilots.length}</span> <span className="font-medium">pilot{filteredPilots.length !== 1 ? 's' : ''} found</span>
+            <span className="text-primary font-bold text-lg">{displayCount}</span> <span className="font-medium">pilot{displayCount !== 1 ? 's' : ''} {hasActiveFilters ? 'found' : 'available'}</span>
           </motion.p>
         </div>
       </motion.div>
@@ -102,30 +146,29 @@ export default function PilotsPage() {
           transition={{ duration: 0.4, delay: 0.1 }}
         >
           <div className="sticky top-4">
-            <Filters filters={filters} onChange={setFilters} />
+            <Filters filters={filters} onChange={setFilters} availableTags={availableTags} />
           </div>
         </motion.aside>
 
         {/* Pilots grid */}
         <div className="flex-1">
-          <motion.div 
+          <motion.div
             className="grid md:grid-cols-2 xl:grid-cols-3 gap-6"
-            variants={staggerContainer}
-            initial="hidden"
-            animate="visible"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
           >
             {filteredPilots.map((pilot, index) => (
-              <motion.div
+              <AnimatedPilotCard
                 key={pilot.id}
-                variants={fadeInUp}
-                transition={{ delay: index * 0.03 }}
-              >
-                <PilotCard pilot={pilot} isTopPilot={topPilotIds.includes(pilot.id)} />
-              </motion.div>
+                pilot={pilot}
+                isTopPilot={topPilotIds.includes(pilot.id)}
+                index={index}
+              />
             ))}
           </motion.div>
           {filteredPilots.length === 0 && (
-            <motion.div 
+            <motion.div
               className="text-center py-12"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}

@@ -27,10 +27,35 @@ export interface FilterState {
 interface FiltersProps {
   filters: FilterState;
   onChange: (filters: FilterState) => void;
+  availableTags?: string[];
 }
 
-export function Filters({ filters, onChange }: FiltersProps) {
-  const allTags = React.useMemo(() => getAllTags(), []);
+function mergeTags(base: string[], selected: string[]): string[] {
+  const seen = new Set<string>();
+  const result: string[] = [];
+
+  for (const tag of base) {
+    if (!seen.has(tag)) {
+      seen.add(tag);
+      result.push(tag);
+    }
+  }
+
+  for (const tag of selected) {
+    if (!seen.has(tag)) {
+      seen.add(tag);
+      result.push(tag);
+    }
+  }
+
+  return result;
+}
+
+export function Filters({ filters, onChange, availableTags }: FiltersProps) {
+  const allTags = React.useMemo(() => {
+    const base = availableTags && availableTags.length > 0 ? availableTags : getAllTags();
+    return mergeTags(base, filters.tags);
+  }, [availableTags, filters.tags]);
 
   const handleSectorToggle = (sector: Sector) => {
     const newSectors = filters.sectors.includes(sector)
@@ -102,7 +127,7 @@ export function Filters({ filters, onChange }: FiltersProps) {
               <SelectValue placeholder="Select sort order" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="relevance">Relevance</SelectItem>
+              <SelectItem value="relevance">Relevance (Default)</SelectItem>
               <SelectItem value="overallPick">Overall Pick (High to Low)</SelectItem>
             </SelectContent>
           </Select>
