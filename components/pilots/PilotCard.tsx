@@ -150,11 +150,11 @@ export function PilotCard({ pilot, showCTA = true, isTopPilot = false }: PilotCa
 
       {showCTA && (
         <CardFooter className="pt-4">
-          <Link href={`/pilots/${pilot.id}`} className="w-full">
-            <Button variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 border-border shadow-sm hover:shadow-md font-medium">
+          <Button variant="outline" asChild className="w-full hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 border-border shadow-sm hover:shadow-md font-medium">
+            <Link href={`/pilots/${pilot.id}`}>
               View Details →
-            </Button>
-          </Link>
+            </Link>
+          </Button>
         </CardFooter>
       )}
     </Card>

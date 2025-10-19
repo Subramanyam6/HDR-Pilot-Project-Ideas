@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -9,30 +8,8 @@ import { Menu, Search } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 
 export function Topbar() {
-  const pathname = usePathname();
-  const [mounted, setMounted] = React.useState(false);
-  const showSearch = !pathname.startsWith('/pilots') && pathname !== '/';
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Return static version during SSR
-    return (
-      <header className="flex h-16 items-center justify-between border-b border-primary/20 px-6">
-        <div className="flex items-center gap-4">
-          <h1 className="md:hidden text-lg font-bold text-foreground">
-            HDR Pilot Ideas
-          </h1>
-        </div>
-        <div className="flex-1" />
-        <div className="flex items-center gap-2">
-          <div className="h-10 w-10" /> {/* Placeholder for theme switcher */}
-        </div>
-      </header>
-    );
-  }
+  const pathname = usePathname() ?? '/';
+  const showSearch = !(pathname.startsWith('/pilots') || pathname === '/');
 
   return (
     <header className="flex h-16 items-center justify-between border-b border-primary/20 px-6">
@@ -45,39 +22,39 @@ export function Topbar() {
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>
-        <SheetContent side="left" className="w-64">
-          <div className="flex flex-col h-full">
-            <div className="flex h-16 items-center border-b border-primary/20 mb-6">
-              <h1 className="text-xl font-bold text-foreground">
-                HDR Pilot Ideas
-              </h1>
-            </div>
+          <SheetContent side="left" className="w-64">
+            <div className="flex flex-col h-full">
+              <div className="flex h-16 items-center border-b border-primary/20 mb-6">
+                <h1 className="text-xl font-bold text-foreground">
+                  HDR Pilot Ideas
+                </h1>
+              </div>
             <nav className="flex-1 space-y-2">
-              <Link href="/">
-                <Button variant="ghost" className="w-full justify-start">
+              <Button variant="ghost" asChild className="w-full justify-start">
+                <Link href="/">
                   Home
-                </Button>
-              </Link>
-              <Link href="/pilots">
-                <Button variant="ghost" className="w-full justify-start">
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild className="w-full justify-start">
+                <Link href="/pilots">
                   Pilots
-                </Button>
-              </Link>
-              <Link href="/picker">
-                <Button variant="ghost" className="w-full justify-start">
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild className="w-full justify-start">
+                <Link href="/picker">
                   Pilot Picker
-                </Button>
-              </Link>
-              <Link href="/about">
-                <Button variant="ghost" className="w-full justify-start">
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild className="w-full justify-start">
+                <Link href="/about">
                   About
-                </Button>
-              </Link>
-            </nav>
-          </div>
-        </SheetContent>
+                </Link>
+              </Button>
+              </nav>
+            </div>
+          </SheetContent>
         </Sheet>
-        
+
         {/* Title - visible on mobile */}
         <h1 className="md:hidden text-lg font-bold text-foreground">
           HDR Pilot Ideas

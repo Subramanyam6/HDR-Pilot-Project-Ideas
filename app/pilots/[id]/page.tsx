@@ -237,16 +237,16 @@ export default function PilotDetailPage({ params }: PilotDetailPageProps) {
             </Card>
 
             <div className="mt-4 space-y-2">
-              <Link href="/picker" className="block">
-                <Button variant="outline" className="w-full hover:bg-primary hover:text-primary-foreground transition-all duration-200">
+              <Button variant="outline" asChild className="w-full hover:bg-primary hover:text-primary-foreground transition-all duration-200">
+                <Link href="/picker" className="block">
                   Ask AI for Recommendations →
-                </Button>
-              </Link>
-              <Link href="/pilots" className="block">
-                <Button variant="ghost" className="w-full">
+                </Link>
+              </Button>
+              <Button variant="ghost" asChild className="w-full">
+                <Link href="/pilots" className="block">
                   ← Back to All Pilots
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </aside>

@@ -19,18 +19,18 @@ export default function HomePage() {
               15 launch-ready pilots to align stakeholders, de-risk delivery, and deliver fast.
             </p>
             <div className="mt-10 flex flex-col items-center justify-center gap-4 md:flex-row">
-              <Link href="/pilots">
-                <Button className="bg-primary px-8 py-6 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary/90 hover:shadow-2xl">
+              <Button asChild className="bg-primary px-8 py-6 text-base font-semibold text-primary-foreground shadow-lg transition-all duration-300 hover:-translate-y-1 hover:bg-primary/90 hover:shadow-2xl">
+                <Link href="/pilots">
                   Explore the Pilot Library
-                </Button>
-              </Link>
-              <Link href="/picker">
-                <Button
-                  className="px-8 py-6 text-base font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl btn-picker-gradient focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
-                >
+                </Link>
+              </Button>
+              <Button asChild
+                className="px-8 py-6 text-base font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl btn-picker-gradient focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
+              >
+                <Link href="/picker">
                   Start with Pilot Picker
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -42,11 +42,11 @@ export default function HomePage() {
               <h2 className="text-3xl md:text-4xl font-extrabold text-foreground tracking-tight">Top 3 Pilots</h2>
               <p className="text-muted-foreground mt-2 text-base">Bala&apos;s Recommendations</p>
             </div>
-            <Link href="/pilots">
-              <Button className="bg-primary px-6 py-2 text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl">
+            <Button asChild className="bg-primary px-6 py-2 text-primary-foreground shadow-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-primary/90 hover:shadow-xl">
+              <Link href="/pilots">
                 Browse All Pilots
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
             {topPilots.map((pilot, index) => (
@@ -64,14 +64,14 @@ export default function HomePage() {
             Let the <span className="text-primary font-bold">Pilot Picker</span> surface initiatives that match your timelines, teams, and risk appetite—no guesswork required.
           </p>
           <div className="mt-4">
-            <Link href="/picker">
-              <Button
-                size="lg"
-                className="bg-primary px-10 py-6 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-1 hover:bg-primary/90 hover:shadow-2xl"
-              >
+            <Button asChild
+              size="lg"
+              className="bg-primary px-10 py-6 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-1 hover:bg-primary/90 hover:shadow-2xl"
+            >
+              <Link href="/picker">
                 Launch Pilot Picker →
-              </Button>
-            </Link>
+              </Link>
+            </Button>
           </div>
         </section>
       </div>

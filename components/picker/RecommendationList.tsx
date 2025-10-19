@@ -102,11 +102,11 @@ export function RecommendationList({ recommendations }: RecommendationListProps)
     </div>
 
                 {/* CTA */}
-                <Link href={`/pilots/${scored.pilot.id}`}>
-                  <Button variant="outline" size="sm" className="w-full mt-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 border-border shadow-sm hover:shadow-md font-medium">
+                <Button variant="outline" asChild size="sm" className="w-full mt-2 hover:bg-primary hover:text-primary-foreground hover:border-primary transition-all duration-200 border-border shadow-sm hover:shadow-md font-medium">
+                  <Link href={`/pilots/${scored.pilot.id}`}>
                     View Full Details →
-                  </Button>
-                </Link>
+                  </Link>
+                </Button>
               </CardContent>
             </Card>
           );

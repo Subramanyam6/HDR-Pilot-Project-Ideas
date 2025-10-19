@@ -1,37 +1,13 @@
 'use client';
 
 import * as React from 'react';
-import { ThemeProvider as NextThemesProvider, useTheme } from 'next-themes';
+import { ThemeProvider as NextThemesProvider } from 'next-themes';
 
 export function ThemeProvider({ children, ...props }: React.ComponentProps<typeof NextThemesProvider>) {
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  return (
-    <NextThemesProvider {...props}>
-      {mounted ? children : <span className="hidden">{children}</span>}
-    </NextThemesProvider>
-  );
+  return <NextThemesProvider {...props}>{children}</NextThemesProvider>;
 }
 
-// Theme persistence helper
+// Legacy hook retained for compatibility; next-themes handles persistence internally.
 export function useThemePersistence() {
-  const { theme, setTheme } = useTheme();
-  const [hydrated, setHydrated] = React.useState(false);
-
-  React.useEffect(() => {
-    setHydrated(true);
-  }, []);
-
-  React.useEffect(() => {
-    if (!hydrated) return;
-
-    const savedTheme = typeof window !== 'undefined' ? localStorage.getItem('theme') : null;
-    if (savedTheme && savedTheme !== theme) {
-      setTheme(savedTheme);
-    }
-  }, [hydrated, theme, setTheme]);
+  return undefined;
 }

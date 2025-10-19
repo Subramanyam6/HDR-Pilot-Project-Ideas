@@ -1,6 +1,5 @@
 'use client';
 
-import * as React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
@@ -19,29 +18,7 @@ const navItems: NavItem[] = [
 ];
 
 export function Sidebar() {
-  const pathname = usePathname();
-  const [mounted, setMounted] = React.useState(false);
-
-  React.useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    // Return static version during SSR
-    return (
-      <aside className="hidden lg:flex lg:w-64 lg:flex-col lg:border-r lg:border-primary/20 lg:bg-background">
-        <div className="flex h-16 items-center border-b border-primary/20 px-6">
-          <h1 className="text-xl font-bold text-foreground">
-            HDR Pilot Ideas
-          </h1>
-        </div>
-        <nav className="flex-1 space-y-2 p-4">
-          <div className="h-10 w-full bg-muted/20 rounded-md" />
-          <div className="h-10 w-full bg-muted/20 rounded-md" />
-        </nav>
-      </aside>
-    );
-  }
+  const pathname = usePathname() ?? '/';
 
   return (
     <aside className="hidden md:flex md:w-64 md:flex-col md:border-r md:border-primary/20">
