@@ -9,7 +9,7 @@ import { ThemeSwitcher } from '@/components/theme-switcher';
 
 export function Topbar() {
   const pathname = usePathname() ?? '/';
-  const showSearch = !(pathname.startsWith('/pilots') || pathname === '/');
+  const showSearch = !(pathname.startsWith('/pilots') || pathname === '/' || pathname === '/about');
 
   return (
     <header className="flex h-16 items-center justify-between border-b border-primary/20 px-6">
