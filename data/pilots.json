@@ -1,5 +1,73 @@
 [
   {
+    "id": "ai-proposal-verification",
+    "title": "AI Proposal Verification Assistant",
+    "sector": "Internal",
+    "tags": [
+      "proposal-QA",
+      "compliance",
+      "RFP/RFQ",
+      "consistency",
+      "risk-flags",
+      "style-guide",
+      "non-generative"
+    ],
+    "oneLiner": "Machine-learning compliance assistant for HDR proposals: DistilBERT, TF-IDF/logreg, and Naive Bayes classifiers flag crosswalk errors, banned phrases, and PM name inconsistencies from uploaded PDFs or pasted text; a separate rule check catches date slips; GPT-4o converts failed checks into precise fix suggestions.",
+    "stack": [
+      "Bid Document QA",
+      "Machine Learning Risk Scoring",
+      "Retrieval-Augmented Responses",
+      "Compliance Evidence Packaging"
+    ],
+    "kpis": [
+      "30% faster internal review cycle",
+      "Zero critical compliance misses in pilot proposals",
+      "50% reduction in consistency/formatting errors"
+    ],
+    "problem": "Proposal teams spend significant time manually checking RFP/RFQ compliance, cross-referencing requirements, and hunting for inconsistencies (names, dates, project numbers, resumes, certifications). Manual review is error-prone, and HDR leadership has stated that generative AI should not produce final deliverables, limiting typical 'AI writing' tools.",
+    "approach": "Build a verification-first pipeline: (1) ingest DOCX/PDF and segment by sections; (2) rule engine runs must-have checks derived from RFP (e.g., required forms, page limits, key personnel, insurance limits); (3) LLM classifiers (analysis-only) rate compliance, detect risky claims/unsupported metrics, and spot contradictions; (4) consistency checks for names/dates/figures across the document set; (5) style/branding linting against a configurable guide; (6) PII scan and redaction suggestions. Output a prioritized issue list with severity, page/section citations, and suggested fixes (templated, not generative).",
+    "oneWeek": "Scope Sprint: Select 2\u20133 redacted past proposals + one target RFP. Define 10\u201315 high-value checks (compliance, page limits, key staff, insurance, forms). Build a CLI prototype that parses one DOCX/PDF, runs rules + basic LLM classification, and outputs a JSON issue list. Create a simple web mock of the issue dashboard.",
+    "ninetyDay": "Deliver a web tool where staff upload proposal files, run the verification pipeline, and review a dashboard of issues with filters (severity, category). Include export to PDF/CSV, audit log of fixes, and a 'Ready to Submit' checklist. Integrate read-only access to a SharePoint sample library (if available) to reuse references; no generative text in outputs. Validate on 5\u201310 proposals and report time saved + zero critical misses.",
+    "risks": [
+      "False positives/negatives may erode trust\u2014mitigate with human-in-the-loop review",
+      "Handling sensitive client data\u2014enforce access controls and PII redaction",
+      "Parsing variability across complex PDFs\u2014fallback to DOCX where possible"
+    ],
+    "buyVsBuild": "Consider: RFPIO/Loopio/QorusDocs offer authoring and basic checks; some legal AI (e.g., Document Crunch) flags clauses but not A/E proposal specifics. Build to add deep RFP rule packs, cross-document consistency validation, and strict 'no-gen' compliance aligned to HDR policy.",
+    "emb": [
+      0.848371,
+      0.824544,
+      0.963559,
+      0.734399,
+      0.574245,
+      0.431795,
+      0.372247,
+      0.18063
+    ],
+    "competitors": [],
+    "overallPick": 10,
+    "buildVsBuy": "Build",
+    "buyUrl": "",
+    "painPoints": [
+      {
+        "name": "Knowledge workers spend roughly 20% of their time searching for information, slowing proposal QA and cross\u2011checks.",
+        "url": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy"
+      },
+      {
+        "name": "Compliance management is a top RFP challenge across teams, increasing risk of non\u2011responsive submissions.",
+        "url": "https://link.loopio.com/hubfs/Content%20Pieces/Reports/2024%20RFP%20Trends%20%26%20Benchmarks%20Report%20%7C%20Loopio%20%28Digital%20Copy%29.pdf"
+      }
+    ],
+    "sources": [
+      "https://www.rfpio.com/",
+      "https://www.loopio.com/",
+      "https://www.qorusdocs.com/",
+      "https://www.documentcrunch.com/",
+      "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy",
+      "https://link.loopio.com/hubfs/Content%20Pieces/Reports/2024%20RFP%20Trends%20%26%20Benchmarks%20Report%20%7C%20Loopio%20%28Digital%20Copy%29.pdf"
+    ]
+  },
+  {
     "id": "greenlight-traffic-optimizer",
     "title": "GreenLight Traffic Signal Optimizer",
     "sector": "Transportation",
@@ -946,74 +1014,6 @@
       "https://www.epa.gov/nepa",
       "https://ceq.doe.gov/docs/nepa-practice/CEQ-2000-2018_EIS_Timelines_Report_2020-6-12.pdf",
       "https://ceq.doe.gov/docs/nepa-practice/CEQ-2011-2018-EIS_Length_Report_2020-6-12.pdf"
-    ]
-  },
-  {
-    "id": "ai-proposal-verification",
-    "title": "AI Proposal Verification Assistant",
-    "sector": "Internal",
-    "tags": [
-      "proposal-QA",
-      "compliance",
-      "RFP/RFQ",
-      "consistency",
-      "risk-flags",
-      "style-guide",
-      "non-generative"
-    ],
-    "oneLiner": "LLM-assisted checker that flags RFP compliance gaps, inconsistent data, risky claims, and style issues in proposals\u2014no generative text in final deliverables",
-    "stack": [
-      "Bid Document QA",
-      "Machine Learning Risk Scoring",
-      "Retrieval-Augmented Responses",
-      "Compliance Evidence Packaging"
-    ],
-    "kpis": [
-      "30% faster internal review cycle",
-      "Zero critical compliance misses in pilot proposals",
-      "50% reduction in consistency/formatting errors"
-    ],
-    "problem": "Proposal teams spend significant time manually checking RFP/RFQ compliance, cross-referencing requirements, and hunting for inconsistencies (names, dates, project numbers, resumes, certifications). Manual review is error-prone, and HDR leadership has stated that generative AI should not produce final deliverables, limiting typical 'AI writing' tools.",
-    "approach": "Build a verification-first pipeline: (1) ingest DOCX/PDF and segment by sections; (2) rule engine runs must-have checks derived from RFP (e.g., required forms, page limits, key personnel, insurance limits); (3) LLM classifiers (analysis-only) rate compliance, detect risky claims/unsupported metrics, and spot contradictions; (4) consistency checks for names/dates/figures across the document set; (5) style/branding linting against a configurable guide; (6) PII scan and redaction suggestions. Output a prioritized issue list with severity, page/section citations, and suggested fixes (templated, not generative).",
-    "oneWeek": "Scope Sprint: Select 2\u20133 redacted past proposals + one target RFP. Define 10\u201315 high-value checks (compliance, page limits, key staff, insurance, forms). Build a CLI prototype that parses one DOCX/PDF, runs rules + basic LLM classification, and outputs a JSON issue list. Create a simple web mock of the issue dashboard.",
-    "ninetyDay": "Deliver a web tool where staff upload proposal files, run the verification pipeline, and review a dashboard of issues with filters (severity, category). Include export to PDF/CSV, audit log of fixes, and a 'Ready to Submit' checklist. Integrate read-only access to a SharePoint sample library (if available) to reuse references; no generative text in outputs. Validate on 5\u201310 proposals and report time saved + zero critical misses.",
-    "risks": [
-      "False positives/negatives may erode trust\u2014mitigate with human-in-the-loop review",
-      "Handling sensitive client data\u2014enforce access controls and PII redaction",
-      "Parsing variability across complex PDFs\u2014fallback to DOCX where possible"
-    ],
-    "buyVsBuild": "Consider: RFPIO/Loopio/QorusDocs offer authoring and basic checks; some legal AI (e.g., Document Crunch) flags clauses but not A/E proposal specifics. Build to add deep RFP rule packs, cross-document consistency validation, and strict 'no-gen' compliance aligned to HDR policy.",
-    "emb": [
-      0.848371,
-      0.824544,
-      0.963559,
-      0.734399,
-      0.574245,
-      0.431795,
-      0.372247,
-      0.18063
-    ],
-    "competitors": [],
-    "overallPick": 10,
-    "buildVsBuy": "Build",
-    "buyUrl": "",
-    "painPoints": [
-      {
-        "name": "Knowledge workers spend roughly 20% of their time searching for information, slowing proposal QA and cross\u2011checks.",
-        "url": "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy"
-      },
-      {
-        "name": "Compliance management is a top RFP challenge across teams, increasing risk of non\u2011responsive submissions.",
-        "url": "https://link.loopio.com/hubfs/Content%20Pieces/Reports/2024%20RFP%20Trends%20%26%20Benchmarks%20Report%20%7C%20Loopio%20%28Digital%20Copy%29.pdf"
-      }
-    ],
-    "sources": [
-      "https://www.rfpio.com/",
-      "https://www.loopio.com/",
-      "https://www.qorusdocs.com/",
-      "https://www.documentcrunch.com/",
-      "https://www.mckinsey.com/industries/technology-media-and-telecommunications/our-insights/the-social-economy",
-      "https://link.loopio.com/hubfs/Content%20Pieces/Reports/2024%20RFP%20Trends%20%26%20Benchmarks%20Report%20%7C%20Loopio%20%28Digital%20Copy%29.pdf"
     ]
   }
 ]

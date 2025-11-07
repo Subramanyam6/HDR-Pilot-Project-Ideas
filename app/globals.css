@@ -199,4 +199,31 @@
     background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%);
     background-size: 1000px 100%;
   }
+
+  @keyframes badge-flash {
+    0% {
+      background-color: #d62828;
+    }
+    14% {
+      background-color: #ffb703;
+    }
+    28% {
+      background-color: #ffd166;
+    }
+    42% {
+      background-color: #06d6a0;
+    }
+    56% {
+      background-color: #118ab2;
+    }
+    70% {
+      background-color: #4b3f72;
+    }
+    84% {
+      background-color: #f72585;
+    }
+    100% {
+      background-color: #d62828;
+    }
+  }
 }

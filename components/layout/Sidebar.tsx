@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
-import { Github } from 'lucide-react';
+import { ExternalLink, Github } from 'lucide-react';
 
 interface NavItem {
   label: string;
@@ -53,6 +53,35 @@ export function Sidebar() {
               );
             })}
           </ul>
+
+          <div className="mt-6 border-t border-primary/15 pt-4">
+            <div className="mb-3 flex items-center gap-2 text-sm font-bold tracking-tight text-foreground">
+              <span className="text-lg md:text-xl">Demos</span>
+              <span
+                className="flex h-8 w-8 items-center justify-center text-[0.525rem] font-black uppercase tracking-[0.16em] text-white text-center drop-shadow-[0_0_6px_rgba(255,255,255,0.6)]"
+                style={{
+                  clipPath:
+                    'polygon(98.00% 50.00%, 92.47% 56.73%, 95.65% 64.83%, 88.31% 69.52%, 88.83% 78.21%, 80.41% 80.41%, 78.21% 88.83%, 69.52% 88.31%, 64.83% 95.65%, 56.73% 92.47%, 50.00% 98.00%, 43.27% 92.47%, 35.17% 95.65%, 30.48% 88.31%, 21.79% 88.83%, 19.59% 80.41%, 11.17% 78.21%, 11.69% 69.52%, 4.35% 64.83%, 7.53% 56.73%, 2.00% 50.00%, 7.53% 43.27%, 4.35% 35.17%, 11.69% 30.48%, 11.17% 21.79%, 19.59% 19.59%, 21.79% 11.17%, 30.48% 11.69%, 35.17% 4.35%, 43.27% 7.53%, 50.00% 2.00%, 56.73% 7.53%, 64.83% 4.35%, 69.52% 11.69%, 78.21% 11.17%, 80.41% 19.59%, 88.83% 21.79%, 88.31% 30.48%, 95.65% 35.17%, 92.47% 43.27%)',
+                  lineHeight: 1,
+                  animation: 'badge-flash 1.08s steps(7) infinite',
+                }}
+              >
+                NEW
+              </span>
+            </div>
+            <Link
+              href="https://huggingface.co/spaces/Subramanyam6/HDR_AI_Proposal_Vefification_Assistant"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between rounded-md border border-transparent px-3 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/20 hover:bg-primary/5"
+            >
+              <div>
+                <span className="block">1. AI Proposal</span>
+                <span className="block text-muted-foreground">Verification Assistant</span>
+              </div>
+              <ExternalLink className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
+            </Link>
+          </div>
         </nav>
         <div className="px-4 pb-6">
           <a

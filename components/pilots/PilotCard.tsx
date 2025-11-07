@@ -25,6 +25,10 @@ export function PilotCard({ pilot, showCTA = true, isTopPilot = false }: PilotCa
   const [showAllStack, setShowAllStack] = useState(false);
   const pickScore = typeof pilot.overallPick === "number" ? pilot.overallPick : parseFloat(String(pilot.overallPick));
   const overallPick = Number.isFinite(pickScore) ? pickScore : 5;
+  const isDemoPilot = pilot.id === "ai-proposal-verification";
+  const demoBadgeClipPath =
+    "polygon(98.00% 50.00%, 92.47% 56.73%, 95.65% 64.83%, 88.31% 69.52%, 88.83% 78.21%, 80.41% 80.41%, 78.21% 88.83%, 69.52% 88.31%, 64.83% 95.65%, 56.73% 92.47%, 50.00% 98.00%, 43.27% 92.47%, 35.17% 95.65%, 30.48% 88.31%, 21.79% 88.83%, 19.59% 80.41%, 11.17% 78.21%, 11.69% 69.52%, 4.35% 64.83%, 7.53% 56.73%, 2.00% 50.00%, 7.53% 43.27%, 4.35% 35.17%, 11.69% 30.48%, 11.17% 21.79%, 19.59% 19.59%, 21.79% 11.17%, 30.48% 11.69%, 35.17% 4.35%, 43.27% 7.53%, 50.00% 2.00%, 56.73% 7.53%, 64.83% 4.35%, 69.52% 11.69%, 78.21% 11.17%, 80.41% 19.59%, 88.83% 21.79%, 88.31% 30.48%, 95.65% 35.17%, 92.47% 43.27%)";
+  const demoUrl = "https://huggingface.co/spaces/Subramanyam6/HDR_AI_Proposal_Vefification_Assistant";
   
   const SectorIcon = getSectorIcon(pilot.sector as SectorType);
 
@@ -53,6 +57,29 @@ export function PilotCard({ pilot, showCTA = true, isTopPilot = false }: PilotCa
             {pilot.sector}
           </Badge>
         </div>
+        {isDemoPilot && (
+          <a
+            href={demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mb-2 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors duration-200"
+          >
+            <span className="inline-flex items-center gap-1">
+              Demo
+              <ExternalLink className="h-4 w-4" />
+            </span>
+            <span
+              className="inline-flex h-7 w-7 items-center justify-center text-[0.4725rem] font-black uppercase tracking-[0.16em] text-white drop-shadow-[0_0_4px_rgba(255,255,255,0.6)]"
+              style={{
+                clipPath: demoBadgeClipPath,
+                lineHeight: 1,
+                animation: "badge-flash 1.08s steps(7) infinite",
+              }}
+            >
+              NEW
+            </span>
+          </a>
+        )}
         <CardDescription>{pilot.oneLiner}</CardDescription>
       </CardHeader>
 

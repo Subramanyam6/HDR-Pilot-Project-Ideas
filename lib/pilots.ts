@@ -59,7 +59,14 @@ export function getPilotById(id: string): Pilot | undefined {
 // Get top 3 pinned pilots (manually selected for landing page)
 export function getTopPilots(): Pilot[] {
   const allPilots = getAllPilots();
-  return [...allPilots].sort((a, b) => b.overallPick - a.overallPick).slice(0, 3);
+  const featuredId = 'ai-proposal-verification';
+  const featuredPilot = allPilots.find((pilot) => pilot.id === featuredId);
+  const remaining = allPilots
+    .filter((pilot) => pilot.id !== featuredId)
+    .sort((a, b) => b.overallPick - a.overallPick);
+
+  const ordered = featuredPilot ? [featuredPilot, ...remaining] : remaining;
+  return ordered.slice(0, 3);
 }
 
 // Filter options
