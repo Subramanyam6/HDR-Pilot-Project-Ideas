@@ -64,9 +64,9 @@ export default function HomePage() {
             Let the <span className="text-primary font-bold">Pilot Picker</span> surface initiatives that match your timelines, teams, and risk appetite—no guesswork required.
           </p>
           <div className="mt-4">
-            <Button asChild
-              size="lg"
-              className="bg-primary px-10 py-6 text-base font-semibold text-primary-foreground shadow-lg shadow-primary/25 transition-all duration-300 hover:-translate-y-1 hover:bg-primary/90 hover:shadow-2xl"
+            <Button
+              asChild
+              className="px-8 py-6 text-base font-semibold shadow-lg transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl btn-picker-gradient focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
             >
               <Link href="/picker">
                 Launch Pilot Picker →

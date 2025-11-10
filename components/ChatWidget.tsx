@@ -117,10 +117,10 @@ export function ChatWidget() {
                 variant="default"
                 size="lg"
                 data-chat-trigger
-                className="fixed bottom-6 right-6 h-14 w-14 rounded-full bg-primary hover:bg-primary/90 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 z-50 focus-visible:ring-2 focus-visible:ring-ring"
+                className="btn-picker-gradient fixed bottom-6 right-6 h-14 w-14 rounded-full text-white shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 z-50 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-green-500"
                 aria-label="Chat with AI Assistant"
               >
-                <MessageCircle className="h-6 w-6 text-primary-foreground" />
+                <MessageCircle className="h-6 w-6 text-white" />
               </Button>
             </DialogTrigger>
           </TooltipTrigger>

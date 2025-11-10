@@ -70,7 +70,7 @@ export function Sidebar() {
               </span>
             </div>
             <Link
-              href="https://huggingface.co/spaces/Subramanyam6/HDR_AI_Proposal_Vefification_Assistant"
+              href="https://huggingface.co/spaces/Subramanyam6/HDR_AI_Proposal_Verification_Assistant_V2"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center justify-between rounded-md border border-transparent px-3 py-2 text-sm font-medium text-foreground transition-colors hover:border-primary/20 hover:bg-primary/5"
